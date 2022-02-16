@@ -22,3 +22,50 @@ h1 {
     color: white;
     font-style: normal;
 }
+
+.pagina-quizz{
+    background: #E5E5E5;
+}
+
+.pagina-quizz .topo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagina-quizz .topo img{
+    width: 100vw;
+    height: 142px;
+    left: 0px;
+    margin-top: 69px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.pagina-quizz .topo .titulo-quizz{
+    position: absolute;
+    width: 100vw;
+    height: 54px;
+    margin-top: 113px;
+    
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 22px;
+    text-align: center;
+    
+    color: #FFFFFF;    
+}
+
+.pagina-quizz .perguntas{
+    width: 100vw;
+    height: 436px;
+    left: 0px;
+    margin: 24px auto 4px auto;
+    
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);    
+}
+
+
+
