@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/styleMobile.css" />
+    <link rel="stylesheet" href="css/styleDesktop.css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,39 +30,30 @@
             <h2>Todos os Quizzes</h2>
             <div class="quizzes">
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
                 <article>
-                    <img src="/imagens/pandavermelho.jpg" />
                     <h3>Que panda fofinho você é?</h3>
                 </article>
             </div>
@@ -71,12 +63,94 @@
 
     <!--------------------pagina-quizz---------------------->
     <main class="pagina-quizz" style="display: none;">
-        <section class="topo">
-            <img src="img/pandavermelho.jpg" alt="Capa do Quizz">
-            <p class="titulo-quizz">O quão Potterhead você é?</p>
+        <section class="titulo-quizz">
+            <h2> <span>O quão Potterhead você é?</span></h2>
         </section>
         <section class="perguntas">
-
+            <article data-identifier="question" class="pergunta">
+                <div class="titulo-pergunta">
+                    <h3>Sua pergunta?</h3>
+                </div>
+                <div class="bloco-respostas">
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 1</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 2</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 3</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 4</span>
+                    </div>
+                </div>
+            </article>
+            <article data-identifier="question" class="pergunta">
+                <div class="titulo-pergunta">
+                    <h3>Sua pergunta 2?</h3>
+                </div>
+                <div class="bloco-respostas">
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 1</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 2</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 3</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 4</span>
+                    </div>
+                </div>
+            </article>
+            <article data-identifier="question" class="pergunta">
+                <div class="titulo-pergunta">
+                    <h3>Sua pergunta 3?</h3>
+                </div>
+                <div class="bloco-respostas">
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 1</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 2</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 3</span>
+                    </div>
+                    <div data-identifier="answer" class="resposta">
+                        <img src="img/pandavermelho.jpg" alt="">
+                        <span>resposta 4</span>
+                    </div>
+                </div>
+            </article>
+            <article data-identifier="quizz-result" class="resultado">
+                <div class="titulo-resultado">
+                    <h3>XX% de acerto você é da T5, Grupo 2(Lessa) - grupo 5</h3>
+                </div>
+                <div class="conteudo-reultado">
+                    <img src="img/pandavermelho.jpg" alt="Imagem do resultado">
+                    <span>Parabéns você terminou o quizz se quiser refazer clique no botão abaixo.</span>
+                </div>
+            </article>
+            <button class="reiniciar-quizz">
+                <p>Reiniciar Quizz</p>
+            </button>
+            <button class="voltar-inicio">
+                <p>Voltar pra home</p>
+            </button>
         </section>
     </main>
 
