@@ -31,15 +31,15 @@ h1 {
 .paginaum {
     max-width: 100%;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
+    justify-items: center;
     flex-direction: column;
     padding-top: calc(69px + 31px);
     
 }
 
 .paginaum .criarprimeiroquizz {
-    width: 80%;
+    width: 340px;
     height: 181px;
     border-radius: 5px;
     border: 1px dashed #D5D5D5;
@@ -83,7 +83,7 @@ h1 {
 
 
 .paginaum .todososquizzes {
-    width: 90%;
+    width: 340px;
     height: auto;
     padding-top: 35px;
     padding-bottom: 40px;
@@ -143,9 +143,6 @@ h1 {
     font-style: normal;
     font-weight: normal;
 }
-
-/* Fim referência HTML: lista-quizz */
-
 
 /* Início referência HTML: pagina-quizz */
 .pagina-quizz{

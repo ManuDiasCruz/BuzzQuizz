@@ -1,7 +1,7 @@
 @media (min-width: 600px) {
 
 
-/* Início referência HTML: lista-quizz */
+/* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
 
 .paginaum {
     width: auto;
@@ -119,7 +119,121 @@
     font-style: normal;
     font-weight: normal;
     text-align: left;
+}
 
+/*--------------SEGUNDO ACESSO-------------------*/
+
+.pagina-um-segundo-acesso {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: calc(69px + 69px);
+}
+
+.pagina-um-segundo-acesso .meus-quizzes {
+    width: 55%;
+    height: auto;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.pagina-um-segundo-acesso .quizzes-criados {
+    height: auto;
+    max-width: 1200px;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    display: inline-flex;
+}
+
+.pagina-um-segundo-acesso .um-quizz-criado {
+    min-width: 340px;
+    height: auto;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+    background-size: 100%;
+    object-fit: cover;
+    position: relative;
+    margin-right: 12px;
+}
+
+.pagina-um-segundo-acesso .todososquizzes {
+    width: 55%;
+    padding-top: 48px;
+    height: auto;
+    padding-bottom: 211px;
+}
+
+.pagina-um-segundo-acesso .novo-quizz {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pagina-um-segundo-acesso h2 {
+    height: auto;
+    width: auto;
+    padding-bottom: 12px;
+    padding-right: 17px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    font-style: normal;
+    text-align: center;
+    text-align: left;
+}
+
+.pagina-um-segundo-acesso ion-icon {
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 31px;
+    margin-bottom: 8px;
+}
+
+.pagina-um-segundo-acesso .quizzes {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.pagina-um-segundo-acesso article {
+    min-height: 181px;
+    min-width: 340px;
+    border-radius: 5px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+    background-size: 100%;
+    object-fit: cover;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.pagina-um-segundo-acesso h3 {
+    width: 80%;
+    font-size: 19px;
+    line-height: 22px;
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    padding-bottom: 7px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: normal;
+    text-align: left;
 }
 
 /* Fim referência HTML: lista-quizz */
