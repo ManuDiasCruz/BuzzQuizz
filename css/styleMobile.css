@@ -28,6 +28,122 @@ h1 {
 
 /* Início referência HTML: lista-quizz */
 
+.paginaum {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: calc(69px + 31px);
+    
+}
+
+.paginaum .criarprimeiroquizz {
+    width: 80%;
+    height: 181px;
+    border-radius: 5px;
+    border: 1px dashed #D5D5D5;
+    background: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.paginaum p {
+    width: 70%;
+    height: 75px;
+    font-size: 20px;
+    line-height: 23px;
+    font-style: normal;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #B9B9B9;
+}
+
+.paginaum .criarquizz {
+    width: 151px;
+    height: 40px;
+    border-radius: 50px;
+    font-size: 21px;
+    line-height: 25px;
+    font-style: normal;
+    font-weight: normal;
+    background: #FAFAFA;
+    border: 1px dashed #EC362D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    color: #EC362D;
+}
+
+
+.paginaum .todososquizzes {
+    width: 90%;
+    height: auto;
+    padding-top: 35px;
+    padding-bottom: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.paginaum h2 {
+    height: 23px;
+    width: auto;
+    padding-bottom: 12px;
+    padding-left: 5.5px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    font-style: normal;
+    text-align: center;
+}
+
+.paginaum .quizzes {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginaum article {
+    height: 181px;
+    width: 340px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+    background-size: 100%;
+    object-fit: cover;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.paginaum h3 {
+    width: 80%;
+    height: auto;
+    font-size: 19px;
+    line-height: 22px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: normal;
+}
+
 /* Fim referência HTML: lista-quizz */
 
 
