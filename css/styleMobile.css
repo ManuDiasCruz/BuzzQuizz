@@ -150,6 +150,7 @@ h1 {
     background: #FAFAFA;
     margin-top: 69px;
     height: 100vh;
+    width: 100vw;
 }
 
 .pagina-quizz .titulo-quizz{
@@ -159,8 +160,9 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), yellow;
-    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/img/pandavermelho.jpg); */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/pandavermelho.jpg);
+    background-size: 100%;
+    object-fit: cover;
 }
 
 .pagina-quizz .titulo-quizz h2{    
@@ -271,13 +273,18 @@ h1 {
     color: #FFFFFF;    
 }
 
-.pagina-quizz .resultado img{
+.pagina-quizz .resultado .conteudo-reultado{
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-quizz .resultado .conteudo-reultado img{
     margin-bottom: 9px;
     width: 340px;
     height: 255px;
 }
 
-.pagina-quizz .resultado span{
+.pagina-quizz .resultado .conteudo-reultado span{
     width: 340px;
     height: 96px;
     margin: 0px auto 14px;
@@ -302,7 +309,7 @@ h1 {
 
 .pagina-quizz .button p{
     font-style: normal;
-    font-weight: normal;
+    font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     display: flex;
