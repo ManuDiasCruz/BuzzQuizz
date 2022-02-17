@@ -1,4 +1,5 @@
 /* Tags gerais para todas as páginas */
+
 body {
     font-family: 'Roboto', sans-serif;
 }
@@ -13,6 +14,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 h1 {
@@ -25,22 +27,24 @@ h1 {
     font-style: normal;
 }
 
+
 /* Início referência HTML: lista-quizz */
+
 .paginaum {
+    max-width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-items: center;
     flex-direction: column;
-    padding-top: calc(69px + 77px);
+    padding-top: calc(69px + 31px);
 }
 
 .paginaum .criarprimeiroquizz {
-    width: 1051px;
+    width: 340px;
     height: 181px;
     border-radius: 5px;
     border: 1px dashed #D5D5D5;
     background: #FAFAFA;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,13 +52,15 @@ h1 {
 }
 
 .paginaum p {
-    width: 250px;
+    width: 70%;
     height: 75px;
     font-size: 20px;
     line-height: 23px;
     font-style: normal;
     font-weight: normal;
     display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     color: #B9B9B9;
 }
@@ -62,8 +68,6 @@ h1 {
 .paginaum .criarquizz {
     width: 151px;
     height: 40px;
-    left: 645px;
-    top: 254px;
     border-radius: 50px;
     font-size: 21px;
     line-height: 25px;
@@ -71,32 +75,34 @@ h1 {
     font-weight: normal;
     background: #FAFAFA;
     border: 1px dashed #EC362D;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center; 
+    text-align: center;
     color: #EC362D;
 }
 
-
 .paginaum .todososquizzes {
-    width: 1051px;
-    padding-top: 77px;
+    width: 340px;
     height: auto;
+    padding-top: 35px;
+    padding-bottom: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .paginaum h2 {
     height: 23px;
-    width: 158px;
+    width: auto;
     padding-bottom: 12px;
+    padding-left: 5.5px;
     font-size: 20px;
     font-weight: 700;
     line-height: 23px;
     letter-spacing: 0em;
     font-style: normal;
     text-align: center;
-
 }
 
 .paginaum .quizzes {
@@ -105,55 +111,50 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 .paginaum article {
-    padding-bottom: 12px;
-    height: auto;
+    height: 181px;
+    width: 340px;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
-    position: relative;    
-}
-
-.paginaum img {
-    width: 340px;
-    height: 181px;
-    border-radius: 5px; 
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+    background-size: 100%;
+    object-fit: cover;
+    position: relative;
+    margin-bottom: 12px;
 }
 
 .paginaum h3 {
     width: 80%;
+    height: auto;
     font-size: 19px;
     line-height: 22px;
-    bottom: 12px;
-    left: 6px;
-    padding-bottom: 7px;
-    height: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     color: #FFFFFF;
-    position: absolute;
     font-style: normal;
     font-weight: normal;
-    text-align: left;
-
 }
-/* Fim referência HTML: lista-quizz */
 
 
 /* Início referência HTML: pagina-quizz */
-.pagina-quizz{
+
+.pagina-quizz {
     background: #FAFAFA;
     margin-top: 69px;
     height: 100%;
     width: 100%;
 }
 
-.pagina-quizz .titulo-quizz{
+.pagina-quizz .titulo-quizz {
     width: 100%;
     height: 142px;
     display: flex;
@@ -165,34 +166,33 @@ h1 {
     object-fit: cover;
 }
 
-.pagina-quizz .titulo-quizz h2{    
+.pagina-quizz .titulo-quizz h2 {
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
     text-align: center;
-    color: #FFFFFF;    
+    color: #FFFFFF;
 }
 
-.pagina-quizz .perguntas{
+.pagina-quizz .perguntas {
     display: flex;
     flex-direction: column;
     background-color: #FAFAFA;
 }
 
-.pagina-quizz .perguntas .pergunta{
+.pagina-quizz .perguntas .pergunta {
     width: 100vw;
     height: 436px;
     left: 0px;
     margin: 24px auto 4px auto;
-    
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
 }
 
-.pagina-quizz .perguntas .titulo-pergunta{
+.pagina-quizz .perguntas .titulo-pergunta {
     width: 340px;
     height: 89px;
     margin: 18px auto 12px;
@@ -203,15 +203,15 @@ h1 {
     justify-content: center;
 }
 
-.pagina-quizz .perguntas .titulo-pergunta h3{
+.pagina-quizz .perguntas .titulo-pergunta h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
-    line-height: 22px;    
-    color: #FFFFFF;      
+    line-height: 22px;
+    color: #FFFFFF;
 }
 
-.pagina-quizz .perguntas .bloco-respostas{
+.pagina-quizz .perguntas .bloco-respostas {
     margin: 0px 18px;
     display: flex;
     flex-direction: row;
@@ -220,121 +220,119 @@ h1 {
     justify-content: space-between;
 }
 
-.pagina-quizz .perguntas .bloco-respostas .resposta{
+.pagina-quizz .perguntas .bloco-respostas .resposta {
     display: flex;
     flex-direction: column;
 }
 
-.pagina-quizz .perguntas .bloco-respostas .resposta img{
+.pagina-quizz .perguntas .bloco-respostas .resposta img {
     width: 163px;
     height: 113px;
 }
 
-.pagina-quizz .perguntas .bloco-respostas .resposta span{
+.pagina-quizz .perguntas .bloco-respostas .resposta span {
     font-style: normal;
     font-weight: 700;
     font-size: 13px;
     line-height: 15px;
     margin-top: 5px;
-    margin-bottom: 12px;    
-    color: #000000;    
+    margin-bottom: 12px;
+    color: #000000;
 }
 
-.pagina-quizz .resultado{
+.pagina-quizz .resultado {
     width: 375px;
     height: 500px;
     margin: 24px auto 34px;
-    
     background: #FFFFFF;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);  
-    display: flex;  
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.pagina-quizz .resultado .titulo-resultado{
+.pagina-quizz .resultado .titulo-resultado {
     width: 340px;
     height: 99px;
     margin: 18px auto 9px;
     background: #EC362D;
-    
     display: flex;
     align-items: center;
     text-align: center;
 }
 
-.pagina-quizz .resultado .titulo-resultado h3{
+.pagina-quizz .resultado .titulo-resultado h3 {
     width: 308px;
     margin: 22px 16px;
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
-    line-height: 22px;    
-    color: #FFFFFF;    
+    line-height: 22px;
+    color: #FFFFFF;
 }
 
-.pagina-quizz .resultado .conteudo-reultado{
+.pagina-quizz .resultado .conteudo-reultado {
     display: flex;
     flex-direction: column;
 }
 
-.pagina-quizz .resultado .conteudo-reultado img{
+.pagina-quizz .resultado .conteudo-reultado img {
     margin-bottom: 9px;
     width: 340px;
     height: 255px;
 }
 
-.pagina-quizz .resultado .conteudo-reultado span{
+.pagina-quizz .resultado .conteudo-reultado span {
     width: 340px;
     height: 96px;
     margin: 0px auto 14px;
-    
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 17px;
     line-height: 20px;
     display: flex;
-    align-items;
-    
-    color: #484848;    
+    color: #484848;
 }
 
-.pagina-quizz button{
+.pagina-quizz button {
     width: 220.32px;
     height: 44px;
-    border-radius: 15px ;
-    border-color: transparent;    
+    border-radius: 15px;
+    border-color: transparent;
 }
 
-.pagina-quizz .button p{
+.pagina-quizz .button p {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     display: flex;
     align-items: center;
-    text-align: center;    
+    text-align: center;
 }
 
-.pagina-quizz .reiniciar-quizz{
+.pagina-quizz .reiniciar-quizz {
     margin: 34px auto 0px;
     background: #EC362D;
-    color: #FFF5F4;  
+    color: #FFF5F4;
 }
 
-.pagina-quizz .voltar-inicio{
+.pagina-quizz .voltar-inicio {
     margin: 8px auto 66px;
     background: #FAFAFA;
-    color: #818181;;  
+    color: #818181;
+    ;
 }
+
 
 /* Fim referência HTML: pagina-quizz */
 
 
-
 /* Início referência HTML: cria-quizz */
+
+
 /***** Aqui dentro ia vai tudo de cria-quizz *****/
+
+
 /* Fim referência HTML: cria-quizz */
-
-

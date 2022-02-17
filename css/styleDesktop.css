@@ -1,100 +1,296 @@
 @media (min-width: 600px) {
-    header{
+    header {
         width: 100%;
     }
-    .pagina-quizz .titulo-quizz{
+    /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
+    .paginaum {
+        width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: calc(69px + 77px);
+    }
+    .paginaum .criarprimeiroquizz {
+        width: 55%;
+        height: 181px;
+        border-radius: 5px;
+        border: 1px dashed #D5D5D5;
+        background: #FAFAFA;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .paginaum p {
+        width: 250px;
+        height: 75px;
+        font-size: 20px;
+        line-height: 23px;
+        font-style: normal;
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #B9B9B9;
+    }
+    .paginaum .criarquizz {
+        width: 151px;
+        height: 40px;
+        left: 645px;
+        top: 254px;
+        border-radius: 50px;
+        font-size: 21px;
+        line-height: 25px;
+        font-style: normal;
+        font-weight: normal;
+        background: #FAFAFA;
+        border: 1px dashed #EC362D;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #EC362D;
+    }
+    .paginaum .todososquizzes {
+        width: 55%;
+        padding-top: 77px;
+        height: auto;
+        padding-bottom: 211px;
+    }
+    .paginaum h2 {
+        height: 23px;
+        width: 158px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 23px;
+        letter-spacing: 0em;
+        font-style: normal;
+        text-align: center;
+    }
+    .paginaum .quizzes {
+        height: auto;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .paginaum article {
+        min-height: 181px;
+        min-width: 340px;
+        border-radius: 5px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+        background-size: 100%;
+        object-fit: cover;
+        position: relative;
+        margin-bottom: 12px;
+    }
+    .paginaum h3 {
+        width: 80%;
+        font-size: 19px;
+        line-height: 22px;
+        position: absolute;
+        bottom: 5px;
+        left: 10px;
+        padding-bottom: 7px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        color: #FFFFFF;
+        font-style: normal;
+        font-weight: normal;
+        text-align: left;
+    }
+    /*--------------SEGUNDO ACESSO-------------------*/
+    .pagina-um-segundo-acesso {
+        width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: calc(69px + 69px);
+    }
+    .pagina-um-segundo-acesso .meus-quizzes {
+        width: 55%;
+        height: auto;
+        display: flex;
+        justify-content: left;
+        flex-direction: column;
+    }
+    .pagina-um-segundo-acesso .quizzes-criados {
+        height: auto;
+        max-width: 1200px;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        display: inline-flex;
+    }
+    .pagina-um-segundo-acesso .um-quizz-criado {
+        min-width: 340px;
+        height: auto;
+        border-radius: 5px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+        background-size: 100%;
+        object-fit: cover;
+        position: relative;
+        margin-right: 12px;
+    }
+    .pagina-um-segundo-acesso .todososquizzes {
+        width: 55%;
+        padding-top: 48px;
+        height: auto;
+        padding-bottom: 211px;
+    }
+    .pagina-um-segundo-acesso .novo-quizz {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .pagina-um-segundo-acesso h2 {
+        height: auto;
+        width: auto;
+        padding-bottom: 12px;
+        padding-right: 17px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 23px;
+        letter-spacing: 0em;
+        font-style: normal;
+        text-align: center;
+        text-align: left;
+    }
+    .pagina-um-segundo-acesso ion-icon {
+        color: white;
+        background-color: red;
+        border-radius: 50%;
+        font-size: 31px;
+        margin-bottom: 8px;
+    }
+    .pagina-um-segundo-acesso .quizzes {
+        height: auto;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .pagina-um-segundo-acesso article {
+        min-height: 181px;
+        min-width: 340px;
+        border-radius: 5px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+        background-size: 100%;
+        object-fit: cover;
+        position: relative;
+        margin-bottom: 12px;
+    }
+    .pagina-um-segundo-acesso h3 {
+        width: 80%;
+        font-size: 19px;
+        line-height: 22px;
+        position: absolute;
+        bottom: 5px;
+        left: 10px;
+        padding-bottom: 7px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        color: #FFFFFF;
+        font-style: normal;
+        font-weight: normal;
+        text-align: left;
+    }
+    /* Fim referência HTML: lista-quizz */
+    /* Início referência HTML: pagina-quizz */
+    .pagina-quizz .titulo-quizz {
         height: 227px;
     }
-
-    .pagina-quizz .titulo-quizz h2{
+    .pagina-quizz .titulo-quizz h2 {
         font-size: 39px;
         line-height: 46px;
     }
-
-    .pagina-quizz .perguntas .pergunta{
+    .pagina-quizz .perguntas .pergunta {
         width: 759px;
         height: 676px;
         margin: 42px auto 0px;
     }
-
-    .pagina-quizz .perguntas .titulo-pergunta{
+    .pagina-quizz .perguntas .titulo-pergunta {
         width: 688.16px;
         height: 138px;
         margin: 27.91px auto 20.16px;
     }
-
-    .pagina-quizz .perguntas .titulo-pergunta h3{
+    .pagina-quizz .perguntas .titulo-pergunta h3 {
         font-size: 23px;
-        line-height: 27px;        
+        line-height: 27px;
     }
-
-    .pagina-quizz .perguntas .bloco-respostas{
+    .pagina-quizz .perguntas .bloco-respostas {
         margin: 0px 5%;
     }
-
-    .pagina-quizz .perguntas .bloco-respostas .resposta img{
+    .pagina-quizz .perguntas .bloco-respostas .resposta img {
         width: 329.91px;
         height: 175.2px;
     }
-
-    .pagina-quizz .perguntas .bloco-respostas .resposta span{
+    .pagina-quizz .perguntas .bloco-respostas .resposta span {
         font-size: 20px;
         line-height: 23px;
         margin-top: 7.75px;
         margin-bottom: 18.61px;
     }
-
-    .pagina-quizz .resultado{
+    .pagina-quizz .resultado {
         width: 759px;
         height: 430px;
         margin: 44px auto 57px;
     }
-
-    .pagina-quizz .resultado .titulo-resultado{
+    .pagina-quizz .resultado .titulo-resultado {
         width: 727px;
         height: 99px;
         margin: 18px auto 18px;
     }
-
-    .pagina-quizz .resultado .titulo-resultado h3{
+    .pagina-quizz .resultado .titulo-resultado h3 {
         width: 691px;
         height: 54px;
         margin: 22px 16px;
         font-size: 23px;
         line-height: 27px;
     }
-
-    .pagina-quizz .resultado .conteudo-reultado{
+    .pagina-quizz .resultado .conteudo-reultado {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
     }
-
-    .pagina-quizz .resultado .conteudo-reultado img{
+    .pagina-quizz .resultado .conteudo-reultado img {
         width: 364px;
         height: 273px;
     }
-
-    .pagina-quizz .resultado .conteudo-reultado span{
+    .pagina-quizz .resultado .conteudo-reultado span {
         width: 328px;
         height: 250px;
         font-size: 19px;
         line-height: 25px;
-
         width: 340px;
         height: 96px;
-        margin-left: 21px; 
+        margin-left: 21px;
     }
-
-    .pagina-quizz button{
+    .pagina-quizz button {
         width: 260.38px;
-        height: 52px;    
+        height: 52px;
     }
-    
-    .pagina-quizz .button p{
+    .pagina-quizz .button p {
         font-size: 21px;
         line-height: 25px;
     }
-
-    
 }
