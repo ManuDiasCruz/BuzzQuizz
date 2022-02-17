@@ -444,7 +444,7 @@
     
     .cria-quizz main {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -482,7 +482,6 @@
     .cria-quizz button {
         height: auto;
         width: 87%;
-        border-radius: 15px;
         background: #EC362D;
         border-radius: 15px;
         display: flex;

@@ -1,7 +1,5 @@
 @media (min-width: 600px) {
-
     /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
-
     .paginaum {
         width: auto;
         display: flex;
@@ -10,7 +8,6 @@
         flex-direction: column;
         padding-top: calc(69px + 77px);
     }
-
     .paginaum .criarprimeiroquizz {
         width: 49.5%;
         height: 181px;
@@ -23,7 +20,6 @@
         align-items: center;
         flex-direction: column;
     }
-    
     .paginaum p {
         width: 250px;
         height: 75px;
@@ -53,11 +49,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        text-align: center; 
+        text-align: center;
         color: #EC362D;
     }
-
-
     .paginaum .todososquizzes {
         width: 49.5%;
         padding-top: 77px;
@@ -97,10 +91,7 @@
         position: relative;
         margin-bottom: 12px;
     }
-
-
     /*--------------SEGUNDO ACESSO-------------------*/
-
     .pagina-um-segundo-acesso {
         width: auto;
         display: flex;
@@ -109,7 +100,6 @@
         flex-direction: column;
         padding-top: calc(69px + 77px);
     }
-
     .pagina-um-segundo-acesso .meus-quizzes {
         width: 100%;
         height: auto;
@@ -118,7 +108,6 @@
         justify-content: center;
         align-items: center;
     }
-
     .pagina-um-segundo-acesso .quizzes-criados {
         max-width: 49.5%;
         height: auto;
@@ -136,14 +125,12 @@
         position: relative;
         margin-right: 12px;
     }
-
     .pagina-um-segundo-acesso .todososquizzes {
         width: 49.5%;
         padding-top: 77px;
         height: auto;
         padding-bottom: 211px;
     }
-
     .pagina-um-segundo-acesso .novo-quizz {
         display: flex;
         width: 49.5%;
@@ -151,7 +138,6 @@
         justify-content: flex-start;
         align-items: center;
     }
-
     .pagina-um-segundo-acesso h2 {
         height: 100%;
         width: 100%;
@@ -163,7 +149,6 @@
         font-style: normal;
         text-align: left;
     }
-
     .pagina-um-segundo-acesso h4 {
         height: auto;
         width: auto;
@@ -176,7 +161,6 @@
         font-style: normal;
         text-align: left;
     }
-
     .pagina-um-segundo-acesso ion-icon {
         color: white;
         background-color: red;
@@ -223,13 +207,9 @@
         font-weight: normal;
         text-align: left;
     }
-
     /* Fim referência HTML: lista-quizz */
-
-
     /* Início referência HTML: pagina-quizz */
-
-    .pagina-quizz .titulo-quizz{
+    .pagina-quizz .titulo-quizz {
         height: 227px;
     }
     .pagina-quizz .titulo-quizz h2 {
@@ -306,80 +286,28 @@
         font-size: 21px;
         line-height: 25px;
     }
-
     /* Início referência HTML: cria-quizz */
-
-    .vamos-comecar {
+    .vamos-comecar .primeiro-forms {
+        width: 35%;
+    }
+    .vamos-comecar .quantidade-niveis {
+        margin-bottom: 0px;
+    }
+    .vamos-comecar .prosseguir {
+        width: 30%;
+    }
+    .cria-quizz {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         background-color: #FAFAFA;
     }
-
-    .vamos-comecar .primeiro-forms {
+    .cria-quizz .cria-pergunta {
         width: 35%;
-        height: 256px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background-color: white;
-        margin-bottom: 29px;
     }
-
-    .vamos-comecar h1 {
-        color: black;
-        padding-top: calc(69px + 39px);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 23px;
-        letter-spacing: 0em;
-        text-align: left;
-        margin-bottom: 29px;
+    .cria-quizz .cria-pergunta button {
+        width: 50%;
     }
-
-    .vamos-comecar input {
-        height: 46px;
-        width: 90%;
-        margin-bottom: 7px;
-        border: 1px solid #D1D1D1;
-        box-sizing: border-box;
-        border-radius: 5px;
-        font-size: 16px;
-        font-style: italic;
-        font-weight: 400;
-        line-height: 22px;
-        letter-spacing: 0em;
-        text-align: left;
-        padding-left: 14px;
-    }
-
-    .vamos-comecar .quantidade-niveis {
-        margin-bottom: 0px;
-    } 
-
-    .vamos-comecar .prosseguir {
-        height: auto;
-        width: 30%;
-        border-radius: 15px;
-        background: #EC362D;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 21px;
-        letter-spacing: 0em;
-        text-align: center;
-        border: none;
-        padding-bottom: 17px;
-        padding-top: 17px;
-    }
-
 }
