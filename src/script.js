@@ -168,8 +168,6 @@ let listaPerguntas = [{
 // getQuizz("2333");
 // getAllQuizz();
 
-sendQuizz();
-
 /*
 quizzTeste = {
     title: "Qual seu nível de conhecimento de gastronomia mundial você tem?",

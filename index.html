@@ -211,22 +211,71 @@
     </main>
 
     <!---------------------cria-quizz----------------------->
-    <main class="vamos-comecar">
-        <h1>Comece pelo começo</h1>
-        <div class="primeiro-forms">
-            <input type="text" class="titulo" name="mensagem" id="mensagem" placeholder="Título do seu quizz"/>
-            <input type="text" class="url" name="mensagem" id="mensagem" placeholder="URL da imagem do seu quizz"/>
-            <input type="text" class="numero-perguntas" name="mensagem" id="mensagem" placeholder="Quantidade de perguntas do quizz"/>
-            <input type="text" class="quantidade-niveis" name="mensagem" id="mensagem" placeholder="Quantidade de níveis do quizz"/>
-        </div>
-        <button class="prosseguir">
-            <p>Prosseguir pra criar perguntas</p>
-        </button>
-    </main>
+    <!--                     Pág. 1                       -->
+    <div class="cria-quizz">
+        <main class="vamos-comecar" style="display: none;">
+            <h1>Comece pelo começo</h1>
+            <div class="primeiro-forms">
+                <input type="text" class="titulo" name="mensagem" id="mensagem" placeholder="Título do seu quizz" />
+                <input type="text" class="url" name="mensagem" id="mensagem" placeholder="URL da imagem do seu quizz" />
+                <input type="text" class="numero-perguntas" name="mensagem" id="mensagem" placeholder="Quantidade de perguntas do quizz" />
+                <input type="text" class="quantidade-niveis" name="mensagem" id="mensagem" placeholder="Quantidade de níveis do quizz" />
+            </div>
+            <button class="prosseguir">
+                <p>Prosseguir pra criar perguntas</p>
+            </button>
+        </main>
 
-    <!-- Arquivos de JavaScript usados no código -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="src/script.js"></script>
+        <!--                     Pág. 2                       -->
+        <main class="cria-pergunta">
+            <h1>Crie suas perguntas</h1>
+            <div class="edicao">
+                <h2>Pergunta 1</h2>
+                <input type="text" name="mensagem" id="mensagem" placeholder="Texto da pergunta" />
+                <input type="text" name="mensagem" id="mensagem" placeholder="Cor de fundo da pergunta" />
+                <h2>Resposta correta</h2>
+                <div class="resposta">
+                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta correta" />
+                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem" />
+                </div>
+                <h2>Respostas incorretas</h2>
+                <div class="resposta">
+                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 1" />
+                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 1" />
+                </div>
+                <div class="resposta">
+                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 2" />
+                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 2" />
+                </div>
+                <div class="resposta">
+                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 3" />
+                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 3" />
+                </div>
+            </div>
+            <div class="nova-edicao">
+                <h2>Pergunta 2</h2>
+                <img src="img/editar.png" alt="Botão editar">
+            </div>
+            <div class="nova-edicao">
+                <h2>Pergunta 3</h2>
+                <img src="img/editar.png" alt="Botão editar">
+            </div>
+            <div class="nova-edicao">
+                <h2>Pergunta 4</h2>
+                <img src="img/editar.png" alt="Botão editar">
+            </div>
+            <button class="prosseguir">
+                <p>Prosseguir pra criar níveis</p>
+            </button>
+        </main>
+</body>
+
+</html>
+</div>
+
+<!-- Arquivos de JavaScript usados no código -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="src/script.js"></script>
 </body>
 
 </html>
