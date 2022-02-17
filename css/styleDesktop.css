@@ -1,8 +1,14 @@
 @media (min-width: 600px) {
+<<<<<<< HEAD
+
+    /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
+
+=======
     header {
         width: 100%;
     }
     /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum {
         width: auto;
         display: flex;
@@ -11,8 +17,14 @@
         flex-direction: column;
         padding-top: calc(69px + 77px);
     }
+<<<<<<< HEAD
+
+    .paginaum .criarprimeiroquizz {
+        width: 49.5%;
+=======
     .paginaum .criarprimeiroquizz {
         width: 55%;
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
         height: 181px;
         border-radius: 5px;
         border: 1px dashed #D5D5D5;
@@ -23,6 +35,10 @@
         align-items: center;
         flex-direction: column;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum p {
         width: 250px;
         height: 75px;
@@ -36,6 +52,10 @@
         text-align: center;
         color: #B9B9B9;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum .criarquizz {
         width: 151px;
         height: 40px;
@@ -52,15 +72,29 @@
         display: flex;
         align-items: center;
         justify-content: center;
+<<<<<<< HEAD
+        text-align: center; 
+        color: #EC362D;
+    }
+
+
+    .paginaum .todososquizzes {
+        width: 49.5%;
+=======
         text-align: center;
         color: #EC362D;
     }
     .paginaum .todososquizzes {
         width: 55%;
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
         padding-top: 77px;
         height: auto;
         padding-bottom: 211px;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum h2 {
         height: 23px;
         width: 158px;
@@ -72,6 +106,10 @@
         font-style: normal;
         text-align: center;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum .quizzes {
         height: auto;
         width: auto;
@@ -81,6 +119,10 @@
         justify-content: space-between;
         align-items: flex-end;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .paginaum article {
         min-height: 181px;
         min-width: 340px;
@@ -94,6 +136,13 @@
         position: relative;
         margin-bottom: 12px;
     }
+<<<<<<< HEAD
+
+
+
+    /*--------------SEGUNDO ACESSO-------------------*/
+
+=======
     .paginaum h3 {
         width: 80%;
         font-size: 19px;
@@ -112,12 +161,30 @@
         text-align: left;
     }
     /*--------------SEGUNDO ACESSO-------------------*/
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso {
         width: auto;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+<<<<<<< HEAD
+        padding-top: calc(69px + 77px);
+    }
+
+    .pagina-um-segundo-acesso .meus-quizzes {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagina-um-segundo-acesso .quizzes-criados {
+        max-width: 49.5%;
+        height: auto;
+=======
         padding-top: calc(69px + 69px);
     }
     .pagina-um-segundo-acesso .meus-quizzes {
@@ -130,10 +197,15 @@
     .pagina-um-segundo-acesso .quizzes-criados {
         height: auto;
         max-width: 1200px;
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
         justify-content: flex-start;
         overflow-x: scroll;
         display: inline-flex;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso .um-quizz-criado {
         min-width: 340px;
         height: auto;
@@ -144,6 +216,37 @@
         position: relative;
         margin-right: 12px;
     }
+<<<<<<< HEAD
+
+    .pagina-um-segundo-acesso .todososquizzes {
+        width: 49.5%;
+        padding-top: 77px;
+        height: auto;
+        padding-bottom: 211px;
+    }
+
+    .pagina-um-segundo-acesso .novo-quizz {
+        display: flex;
+        width: 49.5%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .pagina-um-segundo-acesso h2 {
+        height: 100%;
+        width: 100%;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 23px;
+        letter-spacing: 0em;
+        font-style: normal;
+        text-align: left;
+    }
+
+    .pagina-um-segundo-acesso h4 {
+=======
     .pagina-um-segundo-acesso .todososquizzes {
         width: 55%;
         padding-top: 48px;
@@ -156,6 +259,7 @@
         align-items: center;
     }
     .pagina-um-segundo-acesso h2 {
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
         height: auto;
         width: auto;
         padding-bottom: 12px;
@@ -165,9 +269,15 @@
         line-height: 23px;
         letter-spacing: 0em;
         font-style: normal;
+<<<<<<< HEAD
+        text-align: left;
+    }
+
+=======
         text-align: center;
         text-align: left;
     }
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso ion-icon {
         color: white;
         background-color: red;
@@ -175,6 +285,10 @@
         font-size: 31px;
         margin-bottom: 8px;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso .quizzes {
         height: auto;
         width: auto;
@@ -184,6 +298,10 @@
         justify-content: space-between;
         align-items: flex-end;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso article {
         min-height: 181px;
         min-width: 340px;
@@ -197,6 +315,10 @@
         position: relative;
         margin-bottom: 12px;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
     .pagina-um-segundo-acesso h3 {
         width: 80%;
         font-size: 19px;
@@ -214,9 +336,19 @@
         font-weight: normal;
         text-align: left;
     }
+<<<<<<< HEAD
+
+    /* Fim referência HTML: lista-quizz */
+
+
+    /* Início referência HTML: pagina-quizz */
+
+    .pagina-quizz .titulo-quizz{
+=======
     /* Fim referência HTML: lista-quizz */
     /* Início referência HTML: pagina-quizz */
     .pagina-quizz .titulo-quizz {
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
         height: 227px;
     }
     .pagina-quizz .titulo-quizz h2 {
@@ -293,4 +425,8 @@
         font-size: 21px;
         line-height: 25px;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7c02e23d587aab255b50d11997eaf1309dbced56
 }
