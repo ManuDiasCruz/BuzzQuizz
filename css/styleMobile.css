@@ -523,7 +523,7 @@
         color: #000000;
     }
     
-    .cria-quizz .cria-perguntas .margem-resposta,
+    .cria-quizz .cria-perguntas .resposta-correta,
     .resposta {
         width: 100%;
         margin-bottom: 24px;
@@ -604,7 +604,6 @@
     
     .cria-quizz .cria-niveis .nivel .descricao-nivel {
         height: 177px;
-        text-align: start;
     }
     
     .cria-quizz .cria-niveis .novo-nivel {

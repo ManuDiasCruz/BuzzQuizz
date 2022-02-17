@@ -220,9 +220,9 @@
                 <input class="titulo-quizz" type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" />
                 <input class="url-quizz" type="url" placeholder="URL da imagem do seu quizz" />
                 <input class="numero-perguntas" type="number" placeholder="Quantidade de perguntas do quizz" min="3" />
-                <input class="quantidade-niveis" type="text" placeholder="Quantidade de níveis do quizz" min="2" />
+                <input class="quantidade-niveis" type="number" placeholder="Quantidade de níveis do quizz" min="2" />
             </div>
-            <button class="prosseguir">
+            <button class="prosseguir" onclick="validarDadosBasicos()">
                 <p>Prosseguir pra criar perguntas</p>
             </button>
         </main>
@@ -232,7 +232,7 @@
             <h1>Crie suas perguntas</h1>
             <div class="pergunta" data-identifier="question">
                 <h2>Pergunta 1</h2>
-                <div class="margem-resposta">
+                <div class="resposta-correta">
                     <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
                     <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
                 </div>
@@ -267,7 +267,7 @@
                 <h2>Pergunta 4</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
-            <button class="prosseguir">
+            <button class="prosseguir" onclick="validarDadosPergunta()">
                 <p>Prosseguir pra criar níveis</p>
             </button>
         </main>
@@ -290,7 +290,7 @@
                 <h2>Nível 3</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
-            <button class="prosseguir">
+            <button class="finaliza-quizz" onclick="validarDados()">
                 <p>Finalizar Quizz</p>
             </button>
         </main>
@@ -299,10 +299,10 @@
         <main class="sucesso-quizz">
             <h1>Seu quizz está pronto!</h1>
             <figure class="fim-criacao-quizz"></figure>
-            <button class="acessar-quizz">
+            <button class="acessar-quizz" onclick="entrarQuizz()">
                 <p>Acessar Quizz</p>
             </button>
-            <button class="voltar-inicio">
+            <button class="voltar-inicio" onclick="voltarInicio()">
                 <p>Voltar pra home</p>
             </button>
         </main>

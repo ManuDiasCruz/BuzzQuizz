@@ -405,3 +405,41 @@ function pegouQuizz(resposta) {
 function erroPegouQuizz(error) {
     alert(error);
 }
+
+function validarDadosBasicos() {
+    console.log("Entrei em  validarDadosBásicos");
+    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
+    if (tituloQuizz.length < 20) {
+        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
+    }
+    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
+    if (!validarURL(imagemQuizz)) {
+        alert("A imagem deve ser uma URL válida.");
+    }
+    let numeroPerguntas = document.querySelector(".vamos-comecar .numero-perguntas").value;
+    if (numeroPerguntas.length < 3) {
+        alert("A quantidade de perguntas deve ser no mínimo 3.");
+    }
+    let quantidadeNiveis = document.querySelector(".vamos-comecar .quantidade-niveis").value;
+    if (quantidadeNiveis.length < 2) {
+        alert("A quantidade de níveis deve ser no mínimo 2.");
+    }
+}
+
+function validarDadosPergunta() {
+    console.log("Entrei em  validarDadosPergunta");
+
+}
+
+// Código de retirado de:
+// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+function validarURL(texto) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    console.log(pattern.test(texto));
+    return !!pattern.test(texto);
+}
