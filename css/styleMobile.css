@@ -523,16 +523,17 @@
         color: #000000;
     }
     
-    .cria-quizz .cria-pergunta .resposta {
+    .cria-quizz .cria-perguntas .margem-resposta,
+    .resposta {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
     
-    .cria-quizz .cria-pergunta .edicao {
+    .cria-quizz .cria-perguntas .pergunta {
         width: 100%;
         height: 825px;
         margin: 0px auto 24px;
@@ -544,24 +545,24 @@
         flex-direction: column;
     }
     
-    .cria-quizz .cria-pergunta .edicao h2 {
+    .cria-quizz .cria-perguntas .pergunta h2 {
         margin: 14px auto 12px 17px;
         text-align: left;
     }
     
-    .cria-quizz .cria-pergunta .edicao h2:first-child {
+    .cria-quizz .cria-perguntas .pergunta h2:first-child {
         margin-top: 27px;
     }
     
-    .cria-quizz .cria-pergunta .edicao input {
+    .cria-quizz .cria-perguntas .pergunta input {
         margin-bottom: 14px;
     }
     
-    .cria-quizz .cria-pergunta .edicao input:last-child {
+    .cria-quizz .cria-perguntas .pergunta input:last-child {
         margin-bottom: 0px;
     }
     
-    .cria-quizz .cria-pergunta .nova-edicao {
+    .cria-quizz .cria-perguntas .nova-pergunta {
         width: 100%;
         height: 74px;
         margin-bottom: 22px;
@@ -573,16 +574,83 @@
         justify-content: space-between;
     }
     
-    .cria-quizz .cria-pergunta .nova-edicao h2 {
+    .cria-quizz .cria-perguntas .nova-pergunta h2 {
         margin: 27px auto 24px 17px;
     }
     
-    .cria-quizz .cria-pergunta .nova-edicao img {
+    .cria-quizz .cria-perguntas .nova-pergunta img {
         margin: 26px 17px 25px auto;
     }
     
-    .cria-quizz .cria-pergunta button {
+    .cria-quizz .cria-perguntas button {
         margin: 24px auto 61px;
+    }
+    
+    .cria-quizz .cria-niveis .nivel {
+        width: 100%;
+        height: 439px;
+        margin: 0px auto 27px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .cria-quizz .cria-niveis .nivel h2 {
+        margin: 27px auto 24px 17px;
+    }
+    
+    .cria-quizz .cria-niveis .nivel .descricao-nivel {
+        height: 177px;
+        text-align: start;
+    }
+    
+    .cria-quizz .cria-niveis .novo-nivel {
+        width: 100%;
+        height: 74px;
+        margin-bottom: 22px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .cria-quizz .cria-niveis .novo-nivel h2 {
+        margin: 27px auto 24px 17px;
+    }
+    
+    .cria-quizz .cria-niveis .novo-nivel img {
+        margin: 26px 17px 25px auto;
+    }
+    
+    .cria-quizz .cria-niveis button {
+        margin: 28px auto 136px;
+    }
+    
+    .sucesso-quizz figure {
+        width: 90%;
+        height: 181px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(../img/pandavermelho.jpg);
+        background-size: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    
+    .sucesso-quizz .acessar-quizz {
+        margin: 24px auto 0px;
+        background: #EC362D;
+        color: #FFF5F4;
+    }
+    
+    .sucesso-quizz .voltar-inicio {
+        margin: 9px auto 356px;
+        background: #FAFAFA;
+        color: #818181;
+        ;
     }
     /***** Aqui dentro ia vai tudo de cria-quizz *****/
     /* Fim referência HTML: cria-quizz */

@@ -192,7 +192,7 @@
                     </div>
                 </div>
             </article>
-            <article data-identifier="quizz-result" class="resultado">
+            <article class="resultado" data-identifier="quizz-result">
                 <div class="titulo-resultado">
                     <h3>XX% de acerto você é da T5, Grupo 2(Lessa) - grupo 5</h3>
                 </div>
@@ -211,15 +211,16 @@
     </main>
 
     <!---------------------cria-quizz----------------------->
-    <!--                     Pág. 1                       -->
+
     <div class="cria-quizz">
-        <main class="vamos-comecar" style="display: none;">
+        <!--                     Pág. 1                       -->
+        <main class="vamos-comecar">
             <h1>Comece pelo começo</h1>
             <div class="primeiro-forms">
-                <input type="text" class="titulo" name="mensagem" id="mensagem" placeholder="Título do seu quizz" />
-                <input type="text" class="url" name="mensagem" id="mensagem" placeholder="URL da imagem do seu quizz" />
-                <input type="text" class="numero-perguntas" name="mensagem" id="mensagem" placeholder="Quantidade de perguntas do quizz" />
-                <input type="text" class="quantidade-niveis" name="mensagem" id="mensagem" placeholder="Quantidade de níveis do quizz" />
+                <input class="titulo-quizz" type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" />
+                <input class="url-quizz" type="url" placeholder="URL da imagem do seu quizz" />
+                <input class="numero-perguntas" type="number" placeholder="Quantidade de perguntas do quizz" min="3" />
+                <input class="quantidade-niveis" type="text" placeholder="Quantidade de níveis do quizz" min="2" />
             </div>
             <button class="prosseguir">
                 <p>Prosseguir pra criar perguntas</p>
@@ -227,45 +228,82 @@
         </main>
 
         <!--                     Pág. 2                       -->
-        <main class="cria-pergunta">
+        <main class="cria-perguntas">
             <h1>Crie suas perguntas</h1>
-            <div class="edicao">
+            <div class="pergunta" data-identifier="question">
                 <h2>Pergunta 1</h2>
-                <input type="text" name="mensagem" id="mensagem" placeholder="Texto da pergunta" />
-                <input type="text" name="mensagem" id="mensagem" placeholder="Cor de fundo da pergunta" />
+                <div class="margem-resposta">
+                    <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
+                    <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
+                </div>
                 <h2>Resposta correta</h2>
                 <div class="resposta">
-                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta correta" />
-                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem" />
+                    <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
+                    <input class="url-resposta" type="url" placeholder="URl da imagem" />
                 </div>
                 <h2>Respostas incorretas</h2>
                 <div class="resposta">
-                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 1" />
-                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 1" />
+                    <input class="texto-resposta" type="text" placeholder="Resposta incorreta 1" required="required" />
+                    <input class="url-resposta" type="url" placeholder="URl da imagem 1" />
                 </div>
                 <div class="resposta">
-                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 2" />
-                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 2" />
+                    <input class="texto-resposta" type="text" placeholder="Resposta incorreta 2" required="required" />
+                    <input class="url-resposta" type="url" placeholder="URl da imagem 2" />
                 </div>
                 <div class="resposta">
-                    <input type="text" name="mensagem" id="mensagem" placeholder="Resposta incorreta 3" />
-                    <input type="text" name="mensagem" id="mensagem" placeholder="URl da imagem 3" />
+                    <input class="texto-resposta" type="text" placeholder="Resposta incorreta 3" required="required" />
+                    <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
                 </div>
             </div>
-            <div class="nova-edicao">
+            <div class="nova-pergunta" data-identifier="expand">
                 <h2>Pergunta 2</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
-            <div class="nova-edicao">
+            <div class="nova-pergunta" data-identifier="expand">
                 <h2>Pergunta 3</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
-            <div class="nova-edicao">
+            <div class="nova-pergunta" data-identifier="expand">
                 <h2>Pergunta 4</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
             <button class="prosseguir">
                 <p>Prosseguir pra criar níveis</p>
+            </button>
+        </main>
+
+        <!--                     Pág. 3                       -->
+        <main class="cria-niveis">
+            <h1>Agora, decida os níveis!</h1>
+            <div class="nivel" data-identifier="level">
+                <h2>Nível 1</h2>
+                <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+                <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
+                <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
+                <input class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30" />
+            </div>
+            <div class="novo-nivel" data-identifier="expand">
+                <h2>Nível 2</h2>
+                <img src="img/editar.png" alt="Botão editar">
+            </div>
+            <div class="novo-nivel" data-identifier="expand">
+                <h2>Nível 3</h2>
+                <img src="img/editar.png" alt="Botão editar">
+            </div>
+            <button class="prosseguir">
+                <p>Finalizar Quizz</p>
+            </button>
+        </main>
+
+        <!--                     Pág. 4                       -->
+        <main class="sucesso-quizz">
+            <h1>Seu quizz está pronto!</h1>
+            <figure class="fim-criacao-quizz"></figure>
+            <button class="acessar-quizz">
+                <p>Acessar Quizz</p>
+            </button>
+            <button class="voltar-inicio">
+                <p>Voltar pra home</p>
             </button>
         </main>
 </body>

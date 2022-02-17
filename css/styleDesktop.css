@@ -304,10 +304,22 @@
         align-items: center;
         background-color: #FAFAFA;
     }
-    .cria-quizz .cria-pergunta {
+    .cria-quizz .cria-perguntas {
         width: 35%;
     }
-    .cria-quizz .cria-pergunta button {
+    .cria-quizz .cria-perguntas button {
         width: 50%;
+    }
+    .cria-quizz .cria-niveis {
+        width: 35%;
+    }
+    .cria-quizz .cria-niveis button {
+        width: 30%;
+    }
+    .sucesso-quizz .acessar-quizz {
+        width: 13%;
+    }
+    .sucesso-quizz .voltar-inicio {
+        width: 13%;
     }
 }
