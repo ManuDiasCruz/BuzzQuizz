@@ -1,7 +1,9 @@
 @media (min-width: 600px) {
+    header{
+        width: 100%;
+    }
     .pagina-quizz .titulo-quizz{
         height: 227px;
-        width: 100vw;
     }
 
     .pagina-quizz .titulo-quizz h2{
