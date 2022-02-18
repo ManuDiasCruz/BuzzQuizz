@@ -23,12 +23,13 @@
     </header>
 
     <!--------------------lista-quizz-PRIMEIRA VEZ NA PÁGINA ------------------------>
-    <main class="paginaum">
+
+    <main class="paginaum" style="display: none;">
         <section class="criarprimeiroquizz">
             <p>Você não criou nenhum quizz ainda :(</p>
             <button class="criarquizz" onclick="chamarTelaCriarQuizz()">Criar Quizz</button>
         </section>
-        <section class="meus-quizzes" style="display: none;"> <!--SEGUNDO ACESSO-->
+        <section class="meus-quizzes"> <!--SEGUNDO ACESSO-->
             <div class="novo-quizz">
                 <h2>Seus Quizzes</h2>
                     <ion-icon name="add-outline"></ion-icon>
@@ -81,7 +82,7 @@
 
     <!--------------------pagina-quizz---------------------->
 
-    <main class="pagina-quizz" style="display: none;">
+    <main class="pagina-quizz">
         <section class="titulo-quizz">
             <h2> <span>O quão Potterhead você é?</span></h2>
         </section>
@@ -175,7 +176,7 @@
 
     <!---------------------cria-quizz----------------------->
 
-    <div class="cria-quizz" style="display: none;">
+    <div class="cria-quizz">
         <!--                     Pág. 1                       -->
         <main class="vamos-comecar">
             <h1>Comece pelo começo</h1>
@@ -191,7 +192,7 @@
         </main>
 
         <!--                     Pág. 2                       -->
-        <main class="cria-perguntas" style="display: none;">
+        <main class="cria-perguntas">
             <h1>Crie suas perguntas</h1>
             <div class="pergunta" data-identifier="question">
                 <h2>Pergunta 1</h2>
@@ -236,7 +237,7 @@
         </main>
 
         <!--                     Pág. 3                       -->
-        <main class="cria-niveis" style="display: none;">
+        <main class="cria-niveis">
             <h1>Agora, decida os níveis!</h1>
             <div class="nivel" data-identifier="level">
                 <h2>Nível 1</h2>
@@ -259,7 +260,7 @@
         </main>
 
         <!--                     Pág. 4                       -->
-        <main class="sucesso-quizz" style="display: none;">
+        <main class="sucesso-quizz">
             <h1>Seu quizz está pronto!</h1>
             <figure class="fim-criacao-quizz"></figure>
             <button class="acessar-quizz" onclick="entrarQuizz()">
