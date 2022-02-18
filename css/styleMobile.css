@@ -1,4 +1,3 @@
-    /* Tags gerais para todas as páginas */
     
     body {
         font-family: 'Roboto', sans-serif;
@@ -30,8 +29,7 @@
     
     .paginaum {
         max-width: 100%;
-        display: none;
-        /* display: flex; */
+        display: flex;
         align-items: center;
         justify-items: center;
         flex-direction: column;
@@ -95,7 +93,6 @@
         height: 23px;
         width: auto;
         padding-bottom: 12px;
-        padding-left: 5.5px;
         font-size: 20px;
         font-weight: 700;
         line-height: 23px;
@@ -142,18 +139,10 @@
         font-style: normal;
         font-weight: normal;
     }
+
     /*--------------SEGUNDO ACESSO-------------------*/
     
-    .pagina-um-segundo-acesso {
-        width: 100%;
-        height: auto;
-        display: none;
-        /*  display: flex; */
-        flex-direction: column;
-        padding-top: calc(69px + 69px);
-    }
-    
-    .pagina-um-segundo-acesso .meus-quizzes {
+    .paginaum .meus-quizzes {
         width: 100%;
         height: auto;
         display: flex;
@@ -161,18 +150,16 @@
         justify-content: center;
         align-items: center;
     }
-    
-    .pagina-um-segundo-acesso .quizzes-criados {
+    .paginaum .quizzes-criados {
         max-width: 340px;
         height: auto;
         justify-content: flex-start;
         overflow-x: scroll;
         display: inline-flex;
     }
-    
-    .pagina-um-segundo-acesso .um-quizz-criado {
+    .paginaum .um-quizz-criado {
         min-width: 340px;
-        height: auto;
+        height: 181px;
         border-radius: 5px;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
         background-size: 100%;
@@ -180,29 +167,17 @@
         position: relative;
         margin-right: 12px;
     }
-    
-    .pagina-um-segundo-acesso .todososquizzes {
-        width: 100%;
-        height: auto;
-        padding-top: 48px;
-        padding-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .pagina-um-segundo-acesso .novo-quizz {
+
+    .paginaum .novo-quizz {
         display: flex;
         width: 340px;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
-    
-    .pagina-um-segundo-acesso h2 {
-        height: auto;
-        width: 340px;
+    .paginaum h2 {
+        height: 100%;
+        width: auto;
         padding-bottom: 12px;
         font-size: 20px;
         font-weight: 700;
@@ -211,8 +186,8 @@
         font-style: normal;
         text-align: left;
     }
-    
-    .pagina-um-segundo-acesso ion-icon {
+
+    .paginaum ion-icon {
         color: white;
         background-color: red;
         border-radius: 50%;
@@ -220,47 +195,6 @@
         margin-bottom: 8px;
     }
     
-    .pagina-um-segundo-acesso .quizzes {
-        height: auto;
-        width: auto;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-end;
-    }
-    
-    .pagina-um-segundo-acesso article {
-        min-height: 181px;
-        min-width: 340px;
-        border-radius: 5px;
-        height: auto;
-        display: flex;
-        flex-direction: row;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
-        background-size: 100%;
-        object-fit: cover;
-        position: relative;
-        margin-bottom: 12px;
-    }
-    
-    .pagina-um-segundo-acesso h3 {
-        width: 80%;
-        font-size: 19px;
-        line-height: 22px;
-        position: absolute;
-        bottom: 5px;
-        left: 10px;
-        padding-bottom: 7px;
-        height: auto;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        color: #FFFFFF;
-        font-style: normal;
-        font-weight: normal;
-        text-align: left;
-    }
     /* Fim referência HTML: lista-quizz */
     /* Início referência HTML: pagina-quizz */
     
