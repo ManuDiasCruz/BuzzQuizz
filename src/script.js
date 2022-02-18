@@ -172,6 +172,11 @@ let listaPerguntas = [{
     }
 ]
 
+let qtdadePerguntas = 0;
+const MIN_PERGUNTAS = 3;
+let qtdadeNiveis = 0;
+const MIN_NIVEIS = 2;
+
 // getQuizz("2333");
 // getAllQuizz();
 
@@ -280,11 +285,24 @@ function erroPegouQuizz(error) {
     alert(error);
 }
 
+function chamarTelaCriarQuizz() {
+    console.log("Entrei na função: chamarTelaCriarQuizz()");
+    document.querySelector(".paginaum").style.display = "none";
+    document.querySelector(".cria-quizz .vamos-comecar").style.display = "flex";
+    console.log("  Troquei da Tela 1.1 para a 3.1!");
+}
+
 function chamarTelaCriarPerguntas() {
     console.log("Entrei na função: chamaTelaCriarPerguntas()");
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
-    document.querySelector(".cria-quizz .cria-perguntas").style.display = "flex";
+    const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas");
+    montarTelaCriarPerguntas(telaCriarPerguntas);
     console.log("  Troquei da Tela 3.1 para a 3.2!");
+}
+
+function montarTelaCriarPerguntas(telaCriarPerguntas) {
+    const elemento = document.querySelector("cria-perguntas");
+    console.log(elemento);
 }
 
 function chamarTelaCriarNiveis() {
@@ -318,15 +336,15 @@ function validarDadosBasicos() {
     if (!validarURL(imagemQuizz)) {
         alert("A imagem deve ser uma URL válida.");
     }
-    let numeroPerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (numeroPerguntas < 3) {
+    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
+    if (qtdadePerguntas < 3) {
         alert("A quantidade de perguntas deve ser no mínimo 3.");
     }
-    let quantidadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (quantidadeNiveis < 2) {
+    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
+    if (qtdadeNiveis < 2) {
         alert("A quantidade de níveis deve ser no mínimo 2.");
     }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (numeroPerguntas >= 3) && (quantidadeNiveis >= 2)) {
+    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
         newQuizz.title = tituloQuizz;
         newQuizz.image = imagemQuizz;
         console.log("==> Quizz ao final da função validarDadosBasicos() :\\/==>" + newQuizz);
