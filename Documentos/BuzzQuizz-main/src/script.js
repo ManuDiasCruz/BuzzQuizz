@@ -32,11 +32,11 @@ let newQuizz = {
 
 let qtdadePerguntas = 0;
 const MIN_PERGUNTAS = 3;
+let listaPerguntas = [];
+
 let qtdadeNiveis = 0;
 const MIN_NIVEIS = 2;
-
-// getQuizz("2333");
-// getAllQuizz();
+let listaNiveis = [];
 
 // NÃO MEXER NA FUNCAO CARLA VAI USAR!
 function createQuizz() {
@@ -137,6 +137,16 @@ function getQuizz(identificador) {
 
 function pegouQuizz(resposta) {
     quizzTeste = resposta.data;
+    let todos_quizzes = document.querySelector(".quizzes");
+    for(let i = 0 ; i < quizzTeste.length ; i++){
+        todos_quizzes.innerHTML += `               
+        <article class="quizz${i}">
+            <h3>${quizzTeste[i].title}</h3>
+        </article>`
+        umquizz = document.querySelector(`.quizz${i}`);
+        umquizz.style.backgroundImage=`url('${quizzTeste[i].image}')`
+    }
+
     console.log(quizzTeste);
 }
 
@@ -154,14 +164,108 @@ function chamarTelaCriarQuizz() {
 function chamarTelaCriarPerguntas() {
     console.log("Entrei na função: chamaTelaCriarPerguntas()");
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
-    const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas");
+
+    // Limpando a página para criar perguntas antes de entrar com as perguntas de um novo Quizz
+    const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas").innerHTML = "";
+
     montarTelaCriarPerguntas(telaCriarPerguntas);
     console.log("  Troquei da Tela 3.1 para a 3.2!");
 }
 
 function montarTelaCriarPerguntas(telaCriarPerguntas) {
-    const elemento = document.querySelector("cria-perguntas");
+    const elemento = document.querySelector(".cria-perguntas");
+    elemento.innerHTML = `
+        <h1>Crie suas perguntas</h1>
+        <div class="pergunta" data-identifier="question">
+            <h2>Pergunta 1</h2>
+            <div class="cabecalho-pergunta">
+                <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
+                <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
+            </div>
+            <h2>Resposta correta</h2>
+            <div class="resposta-correta">
+                <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
+                <input class="url-resposta" type="url" placeholder="URl da imagem" />
+            </div>
+            <h2>Respostas incorretas</h2>
+            <div class="resposta">
+                <input class="texto-resposta" type="text" placeholder="Resposta incorreta 1" required="required" />
+                <input class="url-resposta" type="url" placeholder="URl da imagem 1" />
+            </div>
+            <div class="resposta">
+                <input class="texto-resposta" type="text" placeholder="Resposta incorreta 2" required="required" />
+                <input class="url-resposta" type="url" placeholder="URl da imagem 2" />
+            </div>
+            <div class="resposta">
+                <input class="texto-resposta" type="text" placeholder="Resposta incorreta 3" required="required" />
+                <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
+            </div>
+        </div>
+        <div class="nova-pergunta" data-identifier="expand">
+            <h2>Pergunta 2</h2>
+            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+        </div>
+        <div class="nova-pergunta" data-identifier="expand">
+            <h2>Pergunta 3</h2>
+            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+        </div>
+    `;
+
+    for (let i = 0; i < (qtdadePerguntas - MIN_PERGUNTAS); i++) {
+        elemento.innerHTML += `
+            <div class="nova-pergunta" data-identifier="expand">
+                <h2>Pergunta ${MIN_PERGUNTAS+i+1}</h2>
+                <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+            </div>
+        `;
+    }
+
+    elemento.innerHTML += `
+        <button class="prosseguir" onclick="validarDadosPergunta()">
+            <p>Prosseguir pra criar níveis</p>
+        </button>
+    `;
+    elemento.style.display = "flex";
     console.log(elemento);
+}
+
+function abrirNovaPergunta(elemento) {
+    const novapergunta = elemento.parentNode;
+    novapergunta.classList.add("pergunta");
+    novapergunta.dataset.identifier = "question";
+    novapergunta.classList.remove("nova-pergunta");
+    novapergunta.removeChild(elemento);
+    novapergunta.innerHTML += `
+        <div class="cabecalho-pergunta">
+            <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
+            <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
+        </div>
+        <h2>Resposta correta</h2>
+        <div class="resposta-correta">
+            <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
+            <input class="url-resposta" type="url" placeholder="URl da imagem" />
+        </div>
+        <h2>Respostas incorretas</h2>
+        <div class="resposta">
+            <input class="texto-resposta" type="text" placeholder="Resposta incorreta 1" required="required" />
+            <input class="url-resposta" type="url" placeholder="URl da imagem 1" />
+        </div>
+        <div class="resposta">
+            <input class="texto-resposta" type="text" placeholder="Resposta incorreta 2" required="required" />
+            <input class="url-resposta" type="url" placeholder="URl da imagem 2" />
+        </div>
+        <div class="resposta">
+            <input class="texto-resposta" type="text" placeholder="Resposta incorreta 3" required="required" />
+            <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
+        </div>
+    `;
+    // Vou deixar só para resgistrar que fiz minha 1ª arrow function 
+    // sem precisar olhar nas aulas de Diego (O.O') kkkkkkkk
+    setTimeout(() => console.log(elemento.parentNode), 2000);
+
+    novapergunta.style.display = "flex";
+    novapergunta.style.flexDirection = "column";
+    novapergunta.style.justifyContent = "center";
 }
 
 function chamarTelaCriarNiveis() {
@@ -206,7 +310,10 @@ function validarDadosBasicos() {
     if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
         newQuizz.title = tituloQuizz;
         newQuizz.image = imagemQuizz;
-        console.log("==> Quizz ao final da função validarDadosBasicos() :\\/==>" + newQuizz);
+        console.log("==> Quizz ao final da função validarDadosBasicos() :\\/      " + newQuizz);
+        console.log("      qtdadePerguntas :" + qtdadePerguntas);
+        console.log("      listaPerguntas.l:" + listaPerguntas.length);
+        console.log("      listaNiveis.l   :" + listaNiveis.length);
         chamarTelaCriarPerguntas();
     }
 }
@@ -292,3 +399,5 @@ function validarURL(texto) {
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(texto);
 }
+
+getAllQuizz()
