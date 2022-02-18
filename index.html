@@ -23,7 +23,7 @@
     </header>
 
     <!--------------------lista-quizz-PRIMEIRA VEZ NA PÁGINA ------------------------>
-    <main class="paginaum" style="display: none;">
+    <main class="paginaum">
         <section class="criarprimeiroquizz">
             <p>Você não criou nenhum quizz ainda :(</p>
             <button class="criarquizz">Criar Quizz</button>
@@ -55,7 +55,7 @@
 
     <!--------------------lista-quizz-SEGUNDA VEZ NA PÁGINA ------------------------>
 
-    <main class="pagina-um-segundo-acesso" style="display: none;">
+    <main class="pagina-um-segundo-acesso">
         <section class="meus-quizzes">
             <div class="novo-quizz">
                 <h4>Seus Quizzes</h2>
@@ -118,7 +118,7 @@
 
     <!--------------------pagina-quizz---------------------->
 
-    <main class="pagina-quizz" style="display: none;">
+    <main class="pagina-quizz">
         <section class="titulo-quizz">
             <h2> <span>O quão Potterhead você é?</span></h2>
         </section>
@@ -232,12 +232,12 @@
             <h1>Crie suas perguntas</h1>
             <div class="pergunta" data-identifier="question">
                 <h2>Pergunta 1</h2>
-                <div class="resposta-correta">
+                <div class="cabecalho-pergunta">
                     <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
                     <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
                 </div>
                 <h2>Resposta correta</h2>
-                <div class="resposta">
+                <div class="resposta-correta">
                     <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
                     <input class="url-resposta" type="url" placeholder="URl da imagem" />
                 </div>
@@ -280,7 +280,7 @@
                 <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
                 <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
                 <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
-                <input class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30" />
+                <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
             </div>
             <div class="novo-nivel" data-identifier="expand">
                 <h2>Nível 2</h2>
@@ -290,7 +290,7 @@
                 <h2>Nível 3</h2>
                 <img src="img/editar.png" alt="Botão editar">
             </div>
-            <button class="finaliza-quizz" onclick="validarDados()">
+            <button class="finaliza-quizz" onclick="validarDadosNivel()">
                 <p>Finalizar Quizz</p>
             </button>
         </main>
