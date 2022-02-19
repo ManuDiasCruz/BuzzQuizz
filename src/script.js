@@ -1,63 +1,78 @@
 let quizzTeste = {
-    title: "Título do quizz",
-    image: "https://http.cat/411.jpg",
+    title: "Qual panda fofinho você é?",
+    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
     questions: [{
-            title: "Título da pergunta 1",
-            color: "#123456",
+            title: "Outro urso fofinho também é um tipo de panda... qual?",
+            color: "#F05C5C",
             answers: [{
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
+                    text: "O pandinha vermelho",
+                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
+                    text: "Panda indiano da floresta",
+                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Panda puma das montanhas",
+                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Panda albino chinês",
+                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
                     isCorrectAnswer: false
                 }
             ]
         },
         {
-            title: "Título da pergunta 2",
-            color: "#123456",
+            title: "Você é um Panda agora! Qual sua comida favorita?",
+            color: "#55DD65",
             answers: [{
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
+                    text: "Um gostoso e nutritivo bambu",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
+                    text: "Folhinhas fininhas e verdinhas",
+                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Musguinho cheio de bichinhos",
+                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
                     isCorrectAnswer: false
                 }
             ]
         },
         {
-            title: "Título da pergunta 3",
-            color: "#123456",
+            title: "Qual sua cor favorita?",
+            color: "#6ACAE2",
             answers: [{
-                    text: "Texto da resposta 1",
-                    image: "https://http.cat/411.jpg",
+                    text: "Preto ou vermelho, depende do dia",
+                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Texto da resposta 2",
-                    image: "https://http.cat/412.jpg",
+                    text: "Branco e preto, um clássico que nunca sai de moda...",
+                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
                     isCorrectAnswer: false
                 }
             ]
         }
     ],
     levels: [{
-            title: "Título do nível 1",
-            image: "https://http.cat/411.jpg",
-            text: "Descrição do nível 1",
-            minValue: 0
+            title: "Panda Master",
+            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
+            text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
+            minValue: 60
         },
         {
-            title: "Título do nível 2",
-            image: "https://http.cat/412.jpg",
-            text: "Descrição do nível 2",
-            minValue: 50
+            title: "Iniciante no mundo panda",
+            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
+            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
+            minValue: 0
         }
     ]
 };
@@ -111,6 +126,8 @@ let listaNiveis = [{
         minValue: 50
     }
 ];
+
+let listaIDQuizzesSerializados = [];
 
 // NÃO MEXER NA FUNCAO CARLA VAI USAR!
 function createQuizz() {
@@ -178,21 +195,43 @@ function createQuizz() {
         ]
     };
     console.log(quizzTeste);
-    return quizz;
+    return quizzTeste;
 }
 
-sendQuizz();
-
 function sendQuizz() {
-    quizzTeste = createQuizz();
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzTeste);
     promise.then(mandouQuizz);
     promise.catch(falhouEnvio);
 }
 
-function mandouQuizz() {
+function mandouQuizz(response) {
     console.log("O post do quizz deu certo!");
-    console.log(quizzTeste);
+    let quizz = response.data;
+    console.log(quizz);
+    guardaMeusQuizzesLocalmente(quizz);
+}
+
+function guardaMeusQuizzesLocalmente(quizz) {
+    const quizzSerializado = JSON.stringify(quizz); // Array convertida pra uma string
+    localStorage.setItem(quizz.id, quizzSerializado); // Armazenando a string na chave "lista" do Local Storage    
+
+    let quizzSer = getMeusQuizzesLocais(quizz);
+    console.log(quizzSer.id);
+}
+
+function getMeusQuizzesLocais(quizz) {
+    const quizzSerializado = localStorage.getItem(quizz.id); // Pegando de volta a string armazenada na chave "lista"
+    const meuQuizz = JSON.parse(quizzSerializado); // Transformando a string de volta na array original    
+
+    return meuQuizz;
+}
+
+function getAllQuizzesLocais() {
+    for (var i = 0; i < localStorage.length; i++) {
+        listaIDQuizzesSerializados.push(localStorage.getItem(localStorage.key(i)));
+    }
+    console.log("Meus quizzes locais:");
+    console.log(listaIDQuizzesSerializados);
 }
 
 function falhouEnvio(error) {
@@ -214,7 +253,7 @@ function getQuizz(here) {
 }
 
 function pegouQuizz(resposta) {
-    document.querySelector(".cria-quizz").style.display = "none";
+    // document.querySelector(".cria-quizz").style.display = "none";
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
     for (let i = 0; i < quizzTeste.length; i++) {
@@ -241,6 +280,10 @@ function erroPegouQuizz(error) {
 function zeraVariaveisQuizz() {
     // Fazer todas variáveis zerarem
 }
+
+chamarTelaCriarQuizz();
+chamarTelaCriarPerguntas();
+chamarTelaCriarNiveis();
 
 function chamarTelaCriarQuizz() {
     console.log("Entrei na função: chamarTelaCriarQuizz()");
@@ -399,10 +442,10 @@ function validarTodasPerguntas() {
 
     newQuizz.questions = listaPerguntas;
     newQuizz.levels = listaNiveis;
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzTeste);
-    promise.then(mandouQuizz);
-    promise.catch(falhouEnvio);
-    chamarTelaCriarQuizz();
+    // const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuizz);
+    // promise.then(mandouQuizz);
+    // promise.catch(falhouEnvio);
+
     console.log("Ao final de validarTodasPerguntas:");
     console.log(newQuizz);
 }
@@ -470,6 +513,9 @@ function validarDadosPergunta(elemento) {
 
     let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
     console.log("textoPergunta: " + textoPergunta);
+
+    let corPergunta = elemento.querySelector(".cabecalho-pergunta .cor-pergunta").value;
+    console.log("corPergunta: " + corPergunta);
 
     let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
     console.log("textoPergunta: " + textoPergunta);
