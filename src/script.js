@@ -262,13 +262,13 @@ function pegouQuizz(resposta) {
             <h3>${quizzTeste[i].title}</h3>
         </article>`
         umquizz = document.querySelector(`.quizz${i}`);
-        umquizz.style.backgroundImage = `url('${quizzTeste[i].image}')`;
+        umquizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
     }
 
 }
 
-function embaralha() { 
-	return Math.random() - 0.5; 
+function embaralha() {
+    return Math.random() - 0.5;
 }
 
 function abrirQuizz(respostaquizz) {
@@ -276,16 +276,16 @@ function abrirQuizz(respostaquizz) {
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
     titulo = document.querySelector(".pagina-quizz")
-    titulo.innerHTML=`      
+    titulo.innerHTML = `      
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
-    umquizz.style.backgroundImage = `url('${quizzescolhido.image}')`;
+    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
     quizzescolhido.questions.sort(embaralha)
-    for(let x=0; x<quizzescolhido.questions.length; x++){
-        if(quizzescolhido.questions[x].answers.length == 2){
-        titulo.innerHTML += `
+    for (let x = 0; x < quizzescolhido.questions.length; x++) {
+        if (quizzescolhido.questions[x].answers.length == 2) {
+            titulo.innerHTML += `
             <section class="perguntas">
                 <article data-identifier="question" class="pergunta">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
@@ -303,7 +303,8 @@ function abrirQuizz(respostaquizz) {
                     </div>
                 </article>
             </section>`
-        }if(quizzescolhido.questions[x].answers.length == 3){
+        }
+        if (quizzescolhido.questions[x].answers.length == 3) {
             titulo.innerHTML += `
             <section class="perguntas">
                 <article data-identifier="question" class="pergunta">
@@ -326,7 +327,8 @@ function abrirQuizz(respostaquizz) {
                     </div>
                 </article>
             </section>`
-        }if(quizzescolhido.questions[x].answers.length == 4){
+        }
+        if (quizzescolhido.questions[x].answers.length == 4) {
             titulo.innerHTML += `
             <section class="perguntas">
                 <article data-identifier="question" class="pergunta">
@@ -366,10 +368,6 @@ function erroPegouQuizz(error) {
 function zeraVariaveisQuizz() {
     // Fazer todas variáveis zerarem
 }
-
-chamarTelaCriarQuizz();
-chamarTelaCriarPerguntas();
-chamarTelaCriarNiveis();
 
 function chamarTelaCriarQuizz() {
     console.log("Entrei na função: chamarTelaCriarQuizz()");
