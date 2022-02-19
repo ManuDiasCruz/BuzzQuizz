@@ -205,29 +205,32 @@ function getAllQuizz() {
     promise.catch(erroPegouQuizz);
 }
 
-function getQuizz(identificador) {
+function getQuizz(here) {
+    identificador = here
+    console.log(identificador)
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
-    promise.then(pegouQuizzid);
+    promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
 }
 
 function pegouQuizz(resposta) {
+    document.querySelector(".cria-quizz").style.display = "none";
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
     for (let i = 0; i < quizzTeste.length; i++) {
         todos_quizzes.innerHTML += `               
-        <article class="quizz${i}" id="${quizzTeste[i].id}">
+        <article class="quizz${i}" onclick="getQuizz(${quizzTeste[i].id})">
             <h3>${quizzTeste[i].title}</h3>
         </article>`
         umquizz = document.querySelector(`.quizz${i}`);
-        umquizz.style.backgroundImage = `url('${quizzTeste[i].image}')`
+        umquizz.style.backgroundImage = `url('${quizzTeste[i].image}')`;
     }
 
-    console.log(quizzTeste);
 }
 
 function abrirQuizz() {
-
+    document.querySelector(".paginaum").style.display = "none";
+    document.querySelector(".pagina-quizz").style.display = "block";
 }
 
 
