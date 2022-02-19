@@ -1,4 +1,66 @@
-let quizzTeste = [];
+let quizzTeste = {
+    title: "Título do quizz",
+    image: "https://http.cat/411.jpg",
+    questions: [{
+            title: "Título da pergunta 1",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Título da pergunta 2",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Título da pergunta 3",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Título do nível 1",
+            image: "https://http.cat/411.jpg",
+            text: "Descrição do nível 1",
+            minValue: 0
+        },
+        {
+            title: "Título do nível 2",
+            image: "https://http.cat/412.jpg",
+            text: "Descrição do nível 2",
+            minValue: 50
+        }
+    ]
+};
 let listaQuizz = [];
 
 // Estrutura objeto respota
@@ -36,7 +98,19 @@ let listaPerguntas = [];
 
 let qtdadeNiveis = 0;
 const MIN_NIVEIS = 2;
-let listaNiveis = [];
+let listaNiveis = [{
+        title: "Título do nível 1",
+        image: "https://http.cat/411.jpg",
+        text: "Descrição do nível 1",
+        minValue: 0
+    },
+    {
+        title: "Título do nível 2",
+        image: "https://http.cat/412.jpg",
+        text: "Descrição do nível 2",
+        minValue: 50
+    }
+];
 
 // NÃO MEXER NA FUNCAO CARLA VAI USAR!
 function createQuizz() {
@@ -107,6 +181,8 @@ function createQuizz() {
     return quizz;
 }
 
+sendQuizz();
+
 function sendQuizz() {
     quizzTeste = createQuizz();
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzTeste);
@@ -138,20 +214,20 @@ function getQuizz(identificador) {
 function pegouQuizz(resposta) {
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
-    for(let i = 0 ; i < quizzTeste.length ; i++){
+    for (let i = 0; i < quizzTeste.length; i++) {
         todos_quizzes.innerHTML += `               
         <article class="quizz${i}" id="${quizzTeste[i].id}">
             <h3>${quizzTeste[i].title}</h3>
         </article>`
         umquizz = document.querySelector(`.quizz${i}`);
-        umquizz.style.backgroundImage=`url('${quizzTeste[i].image}')`
+        umquizz.style.backgroundImage = `url('${quizzTeste[i].image}')`
     }
 
     console.log(quizzTeste);
 }
 
 function abrirQuizz() {
-    
+
 }
 
 
@@ -294,6 +370,7 @@ function montarNovaResposta(elementoResposta) {
 function validarTodasPerguntas() {
     listaPerguntas = [];
     let listaRespostas = [];
+    let answers = [];
 
     const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
 
@@ -318,13 +395,21 @@ function validarTodasPerguntas() {
     }
 
     newQuizz.questions = listaPerguntas;
+    newQuizz.levels = listaNiveis;
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzTeste);
+    promise.then(mandouQuizz);
+    promise.catch(falhouEnvio);
     chamarTelaCriarQuizz();
     console.log("Ao final de validarTodasPerguntas:");
     console.log(newQuizz);
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    return [titulo, cor, listaRespostas];
+    let pergunta = [];
+    pergunta.title = titulo;
+    pergunta.color = cor;
+    pergunta.answers = listaRespostas;
+    return pergunta;
 }
 
 function chamarTelaCriarNiveis() {
