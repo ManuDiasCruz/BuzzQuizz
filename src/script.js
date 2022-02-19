@@ -131,14 +131,29 @@ function getAllQuizz() {
 
 function getQuizz(identificador) {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
-    promise.then(pegouQuizz);
+    promise.then(pegouQuizzid);
     promise.catch(erroPegouQuizz);
 }
 
 function pegouQuizz(resposta) {
     quizzTeste = resposta.data;
+    let todos_quizzes = document.querySelector(".quizzes");
+    for(let i = 0 ; i < quizzTeste.length ; i++){
+        todos_quizzes.innerHTML += `               
+        <article class="quizz${i}" id="${quizzTeste[i].id}">
+            <h3>${quizzTeste[i].title}</h3>
+        </article>`
+        umquizz = document.querySelector(`.quizz${i}`);
+        umquizz.style.backgroundImage=`url('${quizzTeste[i].image}')`
+    }
+
     console.log(quizzTeste);
 }
+
+function abrirQuizz() {
+    
+}
+
 
 function erroPegouQuizz(error) {
     alert(error);
@@ -446,3 +461,5 @@ function validarURL(texto) {
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(texto);
 }
+
+getAllQuizz()

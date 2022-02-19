@@ -83,7 +83,7 @@
         margin: 44px auto 57px;
     }
     .pagina-quizz .resultado .titulo-resultado {
-        width: 727px;
+        width: 90%;
         height: 99px;
         margin: 18px auto 18px;
     }
@@ -96,6 +96,7 @@
     }
     .pagina-quizz .resultado .conteudo-reultado {
         display: flex;
+        width: 90%;
         flex-direction: row;
         justify-content: flex-start;
     }

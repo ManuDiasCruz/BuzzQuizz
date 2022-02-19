@@ -204,8 +204,7 @@
         margin-top: 69px;
         height: 100%;
         width: 100%;
-        display: none;
-        /* display: block; */
+        display: block; 
     }
     
     .pagina-quizz .titulo-quizz {
@@ -236,18 +235,19 @@
     }
     
     .pagina-quizz .perguntas .pergunta {
-        width: 100vw;
-        height: 436px;
+        width: 100%;
+        height: auto;
         left: 0px;
         margin: 24px auto 4px auto;
         background: #FFFFFF;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
     
     .pagina-quizz .perguntas .titulo-pergunta {
-        width: 340px;
+        width: 90%;
         height: 89px;
         margin: 18px auto 12px;
         background: #434CA0;
@@ -266,7 +266,7 @@
     }
     
     .pagina-quizz .perguntas .bloco-respostas {
-        margin: 0px 18px;
+        width: 90%;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -275,12 +275,14 @@
     }
     
     .pagina-quizz .perguntas .bloco-respostas .resposta {
+        width: auto;
+        height: auto;
         display: flex;
         flex-direction: column;
     }
     
     .pagina-quizz .perguntas .bloco-respostas .resposta img {
-        width: 163px;
+        width: auto;
         height: 113px;
     }
     
@@ -295,20 +297,23 @@
     }
     
     .pagina-quizz .resultado {
-        width: 375px;
-        height: 500px;
-        margin: 24px auto 34px;
+        width: 100%;
+        height: auto;
+        margin-top: 18px;
         background: #FFFFFF;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        padding-top: 25px;
+        padding-bottom: 25px;
     }
     
     .pagina-quizz .resultado .titulo-resultado {
-        width: 340px;
+        width: 90%;
         height: 99px;
-        margin: 18px auto 9px;
+        margin: 0px auto 9px;
         background: #EC362D;
         display: flex;
         align-items: center;
@@ -328,18 +333,19 @@
     .pagina-quizz .resultado .conteudo-reultado {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
     .pagina-quizz .resultado .conteudo-reultado img {
         margin-bottom: 9px;
-        width: 340px;
-        height: 255px;
+        width: 90%;
+        height: auto;
     }
     
     .pagina-quizz .resultado .conteudo-reultado span {
         width: 340px;
-        height: 96px;
-        margin: 0px auto 14px;
+        height: auto;
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
