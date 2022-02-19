@@ -6,13 +6,13 @@
     }
 
     .paginaum .criarprimeiroquizz {
-        width: 49.5%;
+        width: 55%;
     }
 
         /* Início referência HTML: lista-quizz */
 
     .paginaum .todososquizzes {
-        width: 49.5%;
+        width: 55%;
         padding-top: 77px;
         padding-bottom: 211px;
     }
@@ -45,18 +45,19 @@
     /* Início referência HTML: pagina-quizz */
     .pagina-quizz .titulo-quizz {
         height: 227px;
+        width: 100%;
     }
     .pagina-quizz .titulo-quizz h2 {
         font-size: 39px;
         line-height: 46px;
     }
     .pagina-quizz .perguntas .pergunta {
-        width: 759px;
-        height: 676px;
+        width: 60%;
+        height: auto;
         margin: 42px auto 0px;
     }
     .pagina-quizz .perguntas .titulo-pergunta {
-        width: 688.16px;
+        width: 95%;
         height: 138px;
         margin: 27.91px auto 20.16px;
     }
@@ -66,9 +67,10 @@
     }
     .pagina-quizz .perguntas .bloco-respostas {
         margin: 0px 5%;
+        width: 95%;
     }
     .pagina-quizz .perguntas .bloco-respostas .resposta img {
-        width: 329.91px;
+        width: 100%;
         height: 175.2px;
     }
     .pagina-quizz .perguntas .bloco-respostas .resposta span {

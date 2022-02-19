@@ -228,9 +228,93 @@ function pegouQuizz(resposta) {
 
 }
 
-function abrirQuizz() {
+function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
+    quizzescolhido = respostaquizz.data;
+    titulo = document.querySelector(".pagina-quizz")
+
+    titulo.innerHTML=`      
+        <section class="titulo-quizz">
+            <h2> <span>${quizzescolhido.title}</span></h2>
+        </section>`
+    umquizz = document.querySelector(".titulo-quizz");
+    umquizz.style.backgroundImage = `url('${quizzescolhido.image}')`;
+    let y =quizzescolhido.questions[0].title;
+    console.log(y)
+    for(let x=0; x<quizzescolhido.questions.length; x++){
+        if(quizzescolhido.questions[x].answers.length == 2){
+        titulo.innerHTML += `
+            <section class="perguntas">
+                <article data-identifier="question" class="pergunta">
+                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
+                        <h3>${quizzescolhido.questions[x].title}</h3>
+                    </div>
+                    <div class="bloco-respostas">
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
+                        </div>
+                    </div>
+                </article>
+            </section>`
+        }if(quizzescolhido.questions[x].answers.length == 3){
+            titulo.innerHTML += `
+            <section class="perguntas">
+                <article data-identifier="question" class="pergunta">
+                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
+                        <h3>${quizzescolhido.questions[x].title}</h3>
+                    </div>
+                    <div class="bloco-respostas">
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[2].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[2].text}</span>
+                        </div>
+                    </div>
+                </article>
+            </section>`
+        }if(quizzescolhido.questions[x].answers.length == 4){
+            titulo.innerHTML += `
+            <section class="perguntas">
+                <article data-identifier="question" class="pergunta">
+                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
+                        <h3>${quizzescolhido.questions[x].title}</h3>
+                    </div>
+                    <div class="bloco-respostas">
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[2].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[2].text}</span>
+                        </div>
+                        <div data-identifier="answer" class="resposta">
+                            <img src="${quizzescolhido.questions[x].answers[3].image}" alt="">
+                            <span>${quizzescolhido.questions[x].answers[3].text}</span>
+                        </div>
+                    </div>
+                </article>
+            </section>`
+        }
+        
+    }
 }
 
 
