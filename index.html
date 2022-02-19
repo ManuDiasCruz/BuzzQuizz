@@ -23,8 +23,8 @@
     </header>
 
     <!--------------------lista-quizz-PRIMEIRA VEZ NA PÁGINA ------------------------>
-   
-    <main class="paginaum" >
+
+    <main class="paginaum">
         <section class="criarprimeiroquizz">
             <p>Você não criou nenhum quizz ainda :(</p>
             <button class="criarquizz" onclick="chamarTelaCriarQuizz()">Criar Quizz</button>
@@ -180,37 +180,12 @@
 
         <!--                     Pág. 3                       -->
         <main class="cria-niveis">
-            <h1>Agora, decida os níveis!</h1>
-            <div class="nivel" data-identifier="level">
-                <h2>Nível 1</h2>
-                <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
-                <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
-                <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
-                <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
-            </div>
-            <div class="novo-nivel" data-identifier="expand">
-                <h2>Nível 2</h2>
-                <img src="img/editar.png" alt="Botão editar">
-            </div>
-            <div class="novo-nivel" data-identifier="expand">
-                <h2>Nível 3</h2>
-                <img src="img/editar.png" alt="Botão editar">
-            </div>
-            <button class="finaliza-quizz" onclick="validarDadosNivel()">
-                <p>Finalizar Quizz</p>
-            </button>
+
         </main>
 
         <!--                     Pág. 4                       -->
         <main class="sucesso-quizz">
-            <h1>Seu quizz está pronto!</h1>
-            <figure class="fim-criacao-quizz"></figure>
-            <button class="acessar-quizz" onclick="entrarQuizz()">
-                <p>Acessar Quizz</p>
-            </button>
-            <button class="voltar-inicio" onclick="voltarInicio()">
-                <p>Voltar pra home</p>
-            </button>
+
         </main>
     </div>
 </body>

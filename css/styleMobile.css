@@ -620,7 +620,6 @@
     .cria-quizz .sucesso-quizz figure {
         width: 90%;
         height: 181px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(../img/pandavermelho.jpg);
         background-size: 100%;
         object-fit: cover;
         border-radius: 5px;
