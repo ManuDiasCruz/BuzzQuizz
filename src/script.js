@@ -140,7 +140,7 @@ function pegouQuizz(resposta) {
     let todos_quizzes = document.querySelector(".quizzes");
     for(let i = 0 ; i < quizzTeste.length ; i++){
         todos_quizzes.innerHTML += `               
-        <article class="quizz${i}">
+        <article class="quizz${i}" id="${quizzTeste[i].id}">
             <h3>${quizzTeste[i].title}</h3>
         </article>`
         umquizz = document.querySelector(`.quizz${i}`);
@@ -149,6 +149,11 @@ function pegouQuizz(resposta) {
 
     console.log(quizzTeste);
 }
+
+function abrirQuizz() {
+    
+}
+
 
 function erroPegouQuizz(error) {
     alert(error);
