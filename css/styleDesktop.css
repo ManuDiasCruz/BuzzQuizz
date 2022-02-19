@@ -47,48 +47,64 @@
         height: 227px;
         width: 100%;
     }
+
     .pagina-quizz .titulo-quizz h2 {
         font-size: 39px;
         line-height: 46px;
     }
+
     .pagina-quizz .perguntas .pergunta {
-        width: 60%;
+        width: 40%;
         height: auto;
         margin: 42px auto 0px;
     }
+
     .pagina-quizz .perguntas .titulo-pergunta {
         width: 95%;
         height: 138px;
         margin: 27.91px auto 20.16px;
     }
+
     .pagina-quizz .perguntas .titulo-pergunta h3 {
         font-size: 23px;
         line-height: 27px;
     }
+
     .pagina-quizz .perguntas .bloco-respostas {
         margin: 0px 5%;
         width: 95%;
+    
     }
+
+    .pagina-quizz .perguntas .bloco-respostas .resposta {
+        width:48%;
+    }
+
     .pagina-quizz .perguntas .bloco-respostas .resposta img {
         width: 100%;
         height: 175.2px;
     }
+
     .pagina-quizz .perguntas .bloco-respostas .resposta span {
+        width: 48%;
         font-size: 20px;
         line-height: 23px;
         margin-top: 7.75px;
         margin-bottom: 18.61px;
     }
+
     .pagina-quizz .resultado {
         width: 759px;
         height: 430px;
         margin: 44px auto 57px;
     }
+
     .pagina-quizz .resultado .titulo-resultado {
         width: 90%;
         height: 99px;
         margin: 18px auto 18px;
     }
+
     .pagina-quizz .resultado .titulo-resultado h3 {
         width: 691px;
         height: 54px;
@@ -102,10 +118,12 @@
         flex-direction: row;
         justify-content: flex-start;
     }
+
     .pagina-quizz .resultado .conteudo-reultado img {
         width: 364px;
         height: 273px;
     }
+
     .pagina-quizz .resultado .conteudo-reultado span {
         width: 328px;
         height: 250px;
@@ -115,24 +133,30 @@
         height: 96px;
         margin-left: 21px;
     }
+
     .pagina-quizz button {
         width: 260.38px;
         height: 52px;
     }
+
     .pagina-quizz .button p {
         font-size: 21px;
         line-height: 25px;
     }
+
     /* Início referência HTML: cria-quizz */
     .vamos-comecar .primeiro-forms {
         width: 35%;
     }
+
     .vamos-comecar .quantidade-niveis {
         margin-bottom: 0px;
     }
+
     .vamos-comecar .prosseguir {
         width: 30%;
     }
+
     .cria-quizz {
         width: 100%;
         height: 100%;
@@ -141,21 +165,27 @@
         align-items: center;
         background-color: #FAFAFA;
     }
+
     .cria-quizz .cria-perguntas {
         width: 35%;
     }
+
     .cria-quizz .cria-perguntas button {
         width: 50%;
     }
+
     .cria-quizz .cria-niveis {
         width: 35%;
     }
+
     .cria-quizz .cria-niveis button {
         width: 30%;
     }
+
     .sucesso-quizz .acessar-quizz {
         width: 13%;
     }
+
     .sucesso-quizz .voltar-inicio {
         width: 13%;
     }

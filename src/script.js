@@ -228,20 +228,22 @@ function pegouQuizz(resposta) {
 
 }
 
+function embaralha() { 
+	return Math.random() - 0.5; 
+}
+
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
     titulo = document.querySelector(".pagina-quizz")
-
     titulo.innerHTML=`      
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
     umquizz.style.backgroundImage = `url('${quizzescolhido.image}')`;
-    let y =quizzescolhido.questions[0].title;
-    console.log(y)
+    quizzescolhido.questions.sort(embaralha)
     for(let x=0; x<quizzescolhido.questions.length; x++){
         if(quizzescolhido.questions[x].answers.length == 2){
         titulo.innerHTML += `
@@ -313,9 +315,9 @@ function abrirQuizz(respostaquizz) {
                 </article>
             </section>`
         }
-        
     }
 }
+
 
 
 function erroPegouQuizz(error) {
