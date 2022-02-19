@@ -24,7 +24,7 @@
 
     <!--------------------lista-quizz-PRIMEIRA VEZ NA PÁGINA ------------------------>
    
-    <main class="paginaum" style="display: none;">
+    <main class="paginaum" >
         <section class="criarprimeiroquizz">
             <p>Você não criou nenhum quizz ainda :(</p>
             <button class="criarquizz" onclick="chamarTelaCriarQuizz()">Criar Quizz</button>
@@ -157,9 +157,9 @@
 
     <!---------------------cria-quizz----------------------->
 
-    <div class="cria-quizz" >
+    <div class="cria-quizz" style="display: none;">
         <!--                     Pág. 1                       -->
-        <main class="vamos-comecar" style="display: none;">
+        <main class="vamos-comecar">
             <h1>Comece pelo começo</h1>
             <div class="primeiro-forms">
                 <input class="titulo-quizz" type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" />
@@ -211,8 +211,7 @@
                 <p>Voltar pra home</p>
             </button>
         </main>
-
-        </div>
+    </div>
 </body>
 
 </html>

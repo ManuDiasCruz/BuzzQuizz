@@ -125,7 +125,7 @@
     }
     
     .paginaum h3 {
-        width: 80%;
+        max-width: 80%;
         height: auto;
         font-size: 19px;
         line-height: 22px;
@@ -138,6 +138,7 @@
         color: #FFFFFF;
         font-style: normal;
         font-weight: normal;
+        overflow: hidden;
     }
 
     /*--------------SEGUNDO ACESSO-------------------*/
