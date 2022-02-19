@@ -2,13 +2,13 @@ let quizzTeste = [];
 let listaQuizz = [];
 
 // Estrutura objeto respota
-let answerTrue = {
+let respostaCorreta = {
     text: "Texto da resposta 1",
     image: "https://http.cat/411.jpg",
     isCorrectAnswer: true
 };
 
-let answerWrong = {
+let respostaIncorreta = {
     text: "Texto da resposta 1",
     image: "https://http.cat/411.jpg",
     isCorrectAnswer: true
@@ -144,8 +144,13 @@ function erroPegouQuizz(error) {
     alert(error);
 }
 
+function zeraVariaveisQuizz() {
+    // Fazer todas variáveis zerarem
+}
+
 function chamarTelaCriarQuizz() {
     console.log("Entrei na função: chamarTelaCriarQuizz()");
+    zeraVariaveisQuizz();
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "flex";
     console.log("  Troquei da Tela 1.1 para a 3.1!");
@@ -211,7 +216,7 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
     }
 
     elemento.innerHTML += `
-        <button class="prosseguir" onclick="validarDadosPergunta()">
+        <button class="prosseguir" onclick="validarTodasPerguntas()">
             <p>Prosseguir pra criar níveis</p>
         </button>
     `;
@@ -222,7 +227,6 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
 function abrirNovaPergunta(elemento) {
     const novapergunta = elemento.parentNode;
     novapergunta.classList.add("pergunta");
-    novapergunta.dataset.identifier = "question";
     novapergunta.classList.remove("nova-pergunta");
     novapergunta.removeChild(elemento);
     novapergunta.innerHTML += `
@@ -256,6 +260,56 @@ function abrirNovaPergunta(elemento) {
     novapergunta.style.display = "flex";
     novapergunta.style.flexDirection = "column";
     novapergunta.style.justifyContent = "center";
+}
+
+function montarNovaResposta(elementoResposta) {
+    let textoResposta = "";
+    let urlResposta = "";
+    let ehRespostaCorreta = false;
+
+    textoResposta = elementoResposta.children[0].value;
+    urlResposta = elementoResposta.children[1].value;
+    if (elementoResposta.classList.contains("resposta-correta")) {
+        ehRespostaCorreta = true;
+    }
+
+    return [textoResposta, urlResposta, ehRespostaCorreta];
+}
+
+function validarTodasPerguntas() {
+    listaPerguntas = [];
+    let listaRespostas = [];
+
+    const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
+
+    for (let i = 0; i < divsPerguntas.length; i++) {
+        listaRespostas = [];
+        if (!validarDadosPergunta(divsPerguntas[i])) {
+            document.location.reload(true);
+        }
+
+        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
+        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
+
+        if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
+        }
+        if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
+        }
+
+        listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
+            divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
+    }
+
+    newQuizz.questions = listaPerguntas;
+    chamarTelaCriarQuizz();
+    console.log("Ao final de validarTodasPerguntas:");
+    console.log(newQuizz);
+}
+
+function montarNovaPergunta(titulo, cor, listaRespostas) {
+    return [titulo, cor, listaRespostas];
 }
 
 function chamarTelaCriarNiveis() {
@@ -308,52 +362,55 @@ function validarDadosBasicos() {
     }
 }
 
-function validarDadosPergunta() {
+function validarDadosPergunta(elemento) {
     console.log("Entrei em  validarDadosPergunta");
-    let textoPergunta = document.querySelector(".cabecalho-pergunta .texto-pergunta").value;
-    if (textoPergunta.length < 20) {
-        alert("O texto da pergunta deve ter no mínimo 20 caracteres.");
-    }
-    let respostaCorreta = document.querySelector(".resposta-correta .texto-resposta").value;
-    if (respostaCorreta === "") {
-        alert("A inserção da resposta correta é obrigatória!");
-    }
-    let urlRespostaCorreta = document.querySelector(".resposta-correta .url-resposta").value;
-    if (!validarURL(urlRespostaCorreta)) {
-        alert("A imagem deve ser uma URL válida.");
-    }
-    let respostasIncorretas = document.querySelectorAll(".resposta .texto-resposta");
-    console.log(respostasIncorretas.length);
+
+    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
+    console.log("textoPergunta: " + textoPergunta);
+
+    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
+    console.log("textoPergunta: " + textoPergunta);
+
+    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value;
+    console.log("urlRespostaCorreta: " + urlRespostaCorreta);
+
+    let respostasIncorretas = elemento.querySelectorAll(".resposta .texto-resposta");
+    console.log("respostasIncorretas: " + respostasIncorretas.length);
     let contaRespostasIncorretas = 0;
     for (let i = 0; i < respostasIncorretas.length; i++) {
         if (respostasIncorretas[i].value !== "") {
+            console.log("  respostasIncorretas: " + respostasIncorretas[i]);
             contaRespostasIncorretas++;
         }
     }
-    if (contaRespostasIncorretas == 0) {
-        alert("A inserção de pelo menos 1 resposta errada é obrigatória!");
-    }
-    let urlRespostasIncorretas = document.querySelectorAll(".resposta .url-resposta");
+
+    let urlRespostasIncorretas = elemento.querySelectorAll(".resposta .url-resposta");
+    console.log("urlRespostasIncorretas: " + urlRespostasIncorretas.length);
     let contaUrlRespostasIncorretas = 0;
-    let urlBoa = 0;
     for (let i = 0; i < urlRespostasIncorretas.length; i++) {
         if (urlRespostasIncorretas[i].value !== "") {
-            contaUrlRespostasIncorretas++;
             if (validarURL(urlRespostasIncorretas[i].value)) {
-                urlBoa++;
+                console.log("  urlRespostasIncorretas: " + urlRespostasIncorretas[i]);
+                contaUrlRespostasIncorretas++;
             }
         }
     }
-    console.log("contaRespostasIncorretas: " + contaRespostasIncorretas + ", contaUrlRespostasIncorretas: " + contaUrlRespostasIncorretas + ", urlBoa: " + urlBoa);
-    if ((contaUrlRespostasIncorretas != contaRespostasIncorretas) && (urlBoa > contaRespostasIncorretas)) {
-        alert("Cada resposta deve ter um texto e uma imagem com uma url válida a ela associada.");
+
+
+    if ((textoPergunta.length < 20) || (respostaCorreta === "") || (!validarURL(urlRespostaCorreta)) ||
+        ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
+        (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
+        alert(`
+            Erro, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            1. O texto da pergunta deve ter no mínimo 20 caracteres.
+            2. A inserção da resposta correta é obrigatória.
+            3. A inserção de pelo menos 1 resposta errada é obrigatória!
+            4. A imagem deve ser uma URL válida.
+            5. Cada resposta deve ter um texto e uma imagem com uma url válida a ela associada.
+        `);
+        return false;
     } else {
-        if (contaUrlRespostasIncorretas != contaRespostasIncorretas) {
-            alert("Cada resposta deve ter uma imagem a ela associada.");
-        }
-        if (urlBoa < contaUrlRespostasIncorretas) {
-            alert("Cada imagem deve ser uma URL válida.");
-        }
+        return true;
     }
 }
 

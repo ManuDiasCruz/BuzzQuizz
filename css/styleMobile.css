@@ -1,4 +1,3 @@
-    
     body {
         font-family: 'Roboto', sans-serif;
     }
@@ -29,6 +28,7 @@
     
     .paginaum {
         max-width: 100%;
+        /* display: none; */
         display: flex;
         align-items: center;
         justify-items: center;
@@ -139,7 +139,6 @@
         font-style: normal;
         font-weight: normal;
     }
-
     /*--------------SEGUNDO ACESSO-------------------*/
     
     .paginaum .meus-quizzes {
@@ -150,6 +149,7 @@
         justify-content: center;
         align-items: center;
     }
+    
     .paginaum .quizzes-criados {
         max-width: 340px;
         height: auto;
@@ -157,6 +157,7 @@
         overflow-x: scroll;
         display: inline-flex;
     }
+    
     .paginaum .um-quizz-criado {
         min-width: 340px;
         height: 181px;
@@ -167,7 +168,7 @@
         position: relative;
         margin-right: 12px;
     }
-
+    
     .paginaum .novo-quizz {
         display: flex;
         width: 340px;
@@ -175,6 +176,7 @@
         justify-content: space-between;
         align-items: center;
     }
+    
     .paginaum h2 {
         height: 100%;
         width: auto;
@@ -186,7 +188,7 @@
         font-style: normal;
         text-align: left;
     }
-
+    
     .paginaum ion-icon {
         color: white;
         background-color: red;
@@ -194,7 +196,6 @@
         font-size: 31px;
         margin-bottom: 8px;
     }
-    
     /* Fim referência HTML: lista-quizz */
     /* Início referência HTML: pagina-quizz */
     
