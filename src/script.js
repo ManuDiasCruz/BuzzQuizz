@@ -271,6 +271,14 @@ function embaralha() {
     return Math.random() - 0.5;
 }
 
+let opcao0;
+let opcao1;
+let opcao2;
+let opcao3;
+let pergunta0;
+let pergunta1;
+let pergunta2;
+
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
@@ -281,85 +289,48 @@ function abrirQuizz(respostaquizz) {
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
+    
     umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
     quizzescolhido.questions.sort(embaralha)
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
-        if (quizzescolhido.questions[x].answers.length == 2) {
-            titulo.innerHTML += `
+        titulo.innerHTML += `
             <section class="perguntas">
                 <article data-identifier="question" class="pergunta">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
                         <h3>${quizzescolhido.questions[x].title}</h3>
                     </div>
-                    <div class="bloco-respostas">
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
-                        </div>
-                    </div>
+                    <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section>`
-        }
-        if (quizzescolhido.questions[x].answers.length == 3) {
-            titulo.innerHTML += `
-            <section class="perguntas">
-                <article data-identifier="question" class="pergunta">
-                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
-                        <h3>${quizzescolhido.questions[x].title}</h3>
-                    </div>
-                    <div class="bloco-respostas">
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[2].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[2].text}</span>
-                        </div>
-                    </div>
-                </article>
-            </section>`
-        }
-        if (quizzescolhido.questions[x].answers.length == 4) {
-            titulo.innerHTML += `
-            <section class="perguntas">
-                <article data-identifier="question" class="pergunta">
-                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
-                        <h3>${quizzescolhido.questions[x].title}</h3>
-                    </div>
-                    <div class="bloco-respostas">
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[0].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[0].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[1].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[1].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[2].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[2].text}</span>
-                        </div>
-                        <div data-identifier="answer" class="resposta">
-                            <img src="${quizzescolhido.questions[x].answers[3].image}" alt="">
-                            <span>${quizzescolhido.questions[x].answers[3].text}</span>
-                        </div>
-                    </div>
-                </article>
-            </section>`
+            </section`
+        let classpergunta = document.querySelector(`.esse${x}`);
+        for(let y=0; y< quizzescolhido.questions[x].answers.length; y++){
+            classpergunta.innerHTML += `
+            <div data-identifier="answer" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
+                <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
+            </div> `
         }
     }
 }
 
+// numero da questao => x
+// numero da opcao => y
 
+function quizzSelecionado(numerodaquestao,opcao) {
+    let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
+    escolha.classList.add("escolhida");
+    for(let z=0; z<quizzescolhido.questions[numerodaquestao].answers.length; z++){
+        let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
+        umaopcao.removeAttribute('onclick');
+        if(umaopcao != escolha){
+            umaopcao.classList.add("nop");
+        }if(umaopcao.classList.contains(false)){
+            umaopcao.classList.add("errou");
+        }else{
+            umaopcao.classList.add("acertou");
+        }
+    }
+}
 
 function erroPegouQuizz(error) {
     alert(error);
@@ -680,4 +651,5 @@ function validarURL(texto) {
     return !!pattern.test(texto);
 }
 
+sendQuizz()
 getAllQuizz()
