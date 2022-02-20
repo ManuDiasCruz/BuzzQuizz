@@ -78,32 +78,28 @@ let quizzTeste = {
         }
     ]
 };
-let listaQuizz = [];
 
-// Estrutura objeto respota
-let respostaCorreta = {
-    text: "Texto da resposta 1",
+let level = {
+    title: "Título do nível 1",
     image: "https://http.cat/411.jpg",
-    isCorrectAnswer: true
+    text: "Descrição do nível 1",
+    minValue: 0
 };
 
-let respostaIncorreta = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: true
+let question = {
+    title: "Título da pergunta 1",
+    color: "#123456",
+    answers: []
 };
 
-// Estrutura objeto quizz
-let receivedQuizz = {
-    id: 1,
+let answer = {
+    text: "Texto da resposta 1",
+    image: "https://http.cat/411.jpg",
+    isCorrectAnswer: false
+};
+
+let quizz = {
     title: "Título do quizz",
-    image: "https://http.cat/411.jpg",
-    questions: [],
-    levels: []
-};
-
-let newQuizz = {
-    title: "Texto de pelo menos 20 caracteres",
     image: "https://http.cat/411.jpg",
     questions: [],
     levels: []
@@ -115,23 +111,10 @@ let listaPerguntas = [];
 
 let qtdadeNiveis = 0;
 const MIN_NIVEIS = 2;
-let listaNiveis = [{
-        title: "Título do nível 1",
-        image: "https://http.cat/411.jpg",
-        text: "Descrição do nível 1",
-        minValue: 0
-    },
-    {
-        title: "Título do nível 2",
-        image: "https://http.cat/412.jpg",
-        text: "Descrição do nível 2",
-        minValue: 50
-    }
-];
+let listaNiveis = [];
 
 let listaIDQuizzesSerializados = [];
 
-// NÃO MEXER NA FUNCAO CARLA VAI USAR!
 function createQuizz() {
     const quizz = {
         title: "Lessa Squad - Grupo 5",
@@ -200,30 +183,33 @@ function createQuizz() {
     return quizzTeste;
 }
 
-function sendQuizz() {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzTeste);
+function sendQuizz(quizzPronto) {
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto);
     promise.then(mandouQuizz);
     promise.catch(falhouEnvio);
 }
 
 function mandouQuizz(response) {
-    console.log("O post do quizz deu certo!");
     let quizz = response.data;
-    console.log(quizz);
     guardaMeusQuizzesLocalmente(quizz);
+    alert("Seu quizz foi adicionado ao servidor, com o id: " + quizz.id);
+}
+
+function falhouEnvio(error) {
+    alert(`
+        Infelizmente seu quizz não pôde ser enviado ao servidor.
+        ${error.data}
+    `);
 }
 
 function guardaMeusQuizzesLocalmente(quizz) {
-    const quizzSerializado = JSON.stringify(quizz); // Array convertida pra uma string
-    localStorage.setItem(quizz.id, quizzSerializado); // Armazenando a string na chave "lista" do Local Storage    
-
-    let quizzSer = getMeusQuizzesLocais(quizz);
-    console.log(quizzSer.id);
+    const quizzSerializado = JSON.stringify(quizz);
+    localStorage.setItem(quizz.id, quizzSerializado);
 }
 
 function getMeusQuizzesLocais(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id); // Pegando de volta a string armazenada na chave "lista"
-    const meuQuizz = JSON.parse(quizzSerializado); // Transformando a string de volta na array original    
+    const quizzSerializado = localStorage.getItem(quizz.id);
+    const meuQuizz = JSON.parse(quizzSerializado);
 
     return meuQuizz;
 }
@@ -236,27 +222,22 @@ function getAllQuizzesLocais() {
     console.log(listaIDQuizzesSerializados);
 }
 
-function falhouEnvio(error) {
-    alert(error);
-}
-
 function getAllQuizz() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(pegouQuizz);
     promise.catch(erroPegouQuizz);
 }
 
-function getQuizz(here) { //MONTA A PAGINA DO QUIZZ PARA O USUARIO RESPONDER
-    identificador = here
-    console.log(identificador)
+function getQuizz(here) {
+    identificador = here;
+    console.log(identificador);
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
     return identificador
 }
-let identificador
 
-function pegouQuizz(resposta) { //MOSTRA OS QUIZZES DOS OUTROS USUARIOS
+function pegouQuizz(resposta) {
     // document.querySelector(".cria-quizz").style.display = "none";
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
@@ -275,22 +256,31 @@ function embaralha() {
     return Math.random() - 0.5;
 }
 
+let opcao0;
+let opcao1;
+let opcao2;
+let opcao3;
+let pergunta0;
+let pergunta1;
+let pergunta2;
+
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
-    let titulo = document.querySelector(".pagina-quizz")
+    titulo = document.querySelector(".pagina-quizz")
     titulo.innerHTML = `      
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
+
     umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
+    quizzescolhido.questions.sort(embaralha)
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
-        quizzescolhido.questions[x].answers.sort(embaralha)
         titulo.innerHTML += `
-            <section class="perguntas" id="depoisdesse">
-                <article data-identifier="question" class="pergunta" id="pergunta">
+            <section class="perguntas">
+                <article data-identifier="question" class="pergunta">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
                         <h3>${quizzescolhido.questions[x].title}</h3>
                     </div>
@@ -300,7 +290,7 @@ function abrirQuizz(respostaquizz) {
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
-            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
+            <div data-identifier="answer" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
                 <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
@@ -402,19 +392,46 @@ function reiniciarQuizz() {
 }
 
 function erroPegouQuizz(error) {
-    alert(error);
-}
-
-function zeraVariaveisQuizz() {
-    // Fazer todas variáveis zerarem
+    alert(`
+        Infelizmente não foi possível pegar seu Quizz no servidor.
+        ${error.data}
+    `);
 }
 
 function chamarTelaCriarQuizz() {
     console.log("Entrei na função: chamarTelaCriarQuizz()");
-    zeraVariaveisQuizz();
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "flex";
     console.log("  Troquei da Tela 1.1 para a 3.1!");
+}
+
+function validarDadosBasicos() {
+    console.log("Entrei na função: validarDadosBasicos()");
+    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
+    if (tituloQuizz.length < 20) {
+        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
+    }
+    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
+    if (!validarURL(imagemQuizz)) {
+        alert("A imagem deve ser uma URL válida.");
+    }
+    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
+    if (qtdadePerguntas < 3) {
+        alert("A quantidade de perguntas deve ser no mínimo 3.");
+    }
+    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
+    if (qtdadeNiveis < 2) {
+        alert("A quantidade de níveis deve ser no mínimo 2.");
+    }
+    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
+        quizz.title = tituloQuizz;
+        quizz.image = imagemQuizz;
+        console.log("==> Quizz ao final da função validarDadosBasicos() :\\/      " + quizz);
+        console.log("      qtdadePerguntas :" + qtdadePerguntas);
+        console.log("      listaPerguntas.l:" + listaPerguntas.length);
+        console.log("      listaNiveis.l   :" + listaNiveis.length);
+        chamarTelaCriarPerguntas();
+    }
 }
 
 function chamarTelaCriarPerguntas() {
@@ -422,15 +439,14 @@ function chamarTelaCriarPerguntas() {
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
 
     // Limpando a página para criar perguntas antes de entrar com as perguntas de um novo Quizz
-    const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas").innerHTML = "";
+    const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas");
 
     montarTelaCriarPerguntas(telaCriarPerguntas);
     console.log("  Troquei da Tela 3.1 para a 3.2!");
 }
 
 function montarTelaCriarPerguntas(telaCriarPerguntas) {
-    const elemento = document.querySelector(".cria-perguntas");
-    elemento.innerHTML = `
+    telaCriarPerguntas.innerHTML = `
         <h1>Crie suas perguntas</h1>
         <div class="pergunta" data-identifier="question">
             <h2>Pergunta 1</h2>
@@ -468,7 +484,7 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
     `;
 
     for (let i = 0; i < (qtdadePerguntas - MIN_PERGUNTAS); i++) {
-        elemento.innerHTML += `
+        telaCriarPerguntas.innerHTML += `
             <div class="nova-pergunta" data-identifier="expand">
                 <h2>Pergunta ${MIN_PERGUNTAS+i+1}</h2>
                 <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
@@ -476,13 +492,13 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
         `;
     }
 
-    elemento.innerHTML += `
+    telaCriarPerguntas.innerHTML += `
         <button class="prosseguir" onclick="validarTodasPerguntas()">
             <p>Prosseguir pra criar níveis</p>
         </button>
     `;
-    elemento.style.display = "flex";
-    console.log(elemento);
+    telaCriarPerguntas.style.display = "flex";
+    console.log(telaCriarPerguntas);
 }
 
 function abrirNovaPergunta(elemento) {
@@ -534,103 +550,214 @@ function montarNovaResposta(elementoResposta) {
         ehRespostaCorreta = true;
     }
 
-    return [textoResposta, urlResposta, ehRespostaCorreta];
+    answer.text = textoResposta;
+    answer.image = urlResposta;
+    answer.isCorrectAnswer = ehRespostaCorreta;
+
+    return answer;
 }
 
 function validarTodasPerguntas() {
     listaPerguntas = [];
     let listaRespostas = [];
     let answers = [];
+    let erroPreenchimento = 0;
 
     const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
 
     for (let i = 0; i < divsPerguntas.length; i++) {
         listaRespostas = [];
         if (!validarDadosPergunta(divsPerguntas[i])) {
-            document.location.reload(true);
+            erroPreenchimento++;
         }
-
-        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
-        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
-
-        if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
-        }
-        if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
-        }
-
-        listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
-            divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
     }
 
-    newQuizz.questions = listaPerguntas;
-    newQuizz.levels = listaNiveis;
-    // const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuizz);
-    // promise.then(mandouQuizz);
-    // promise.catch(falhouEnvio);
+    if (erroPreenchimento > 0) {
+        chamarTelaCriarPerguntas();
+    } else {
 
-    console.log("Ao final de validarTodasPerguntas:");
-    console.log(newQuizz);
+        for (let i = 0; i < divsPerguntas.length; i++) {
+            listaRespostas = [];
+
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
+
+            if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
+                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
+            }
+            if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
+                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
+            }
+
+            listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
+                divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
+        }
+
+        quizz.questions = listaPerguntas;
+
+        chamarTelaCriarNiveis();
+
+        console.log("Ao final de validarTodasPerguntas:");
+        console.log(listaPerguntas);
+        console.log(quizz.questions);
+        console.log(quizz);
+    }
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    let pergunta = [];
-    pergunta.title = titulo;
-    pergunta.color = cor;
-    pergunta.answers = listaRespostas;
-    return pergunta;
+    question.title = titulo;
+    question.color = cor;
+    question.answers = listaRespostas;
+    return question;
 }
 
 function chamarTelaCriarNiveis() {
     console.log("Entrei na função: chamaTelaCriarNiveis()");
     document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
-    document.querySelector(".cria-quizz .cria-niveis").style.display = "flex";
+
+    const telaCriarNiveis = document.querySelector(".cria-quizz .cria-niveis");
+    montarTelaCriarNiveis(telaCriarNiveis);
+    // document.querySelector(".cria-quizz .cria-niveis").style.display = "flex";
     console.log("  Troquei da Tela 3.2 para a 3.3!");
 }
 
-function chamarTelaSucessoCriacaoQuizz() {
-    console.log("Entrei na função: chamaTelaSucessoCriacaoQuizz()");
-    document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
-    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "block";
-    console.log("  Troquei da Tela 3.3 para a 3.4!");
+function montarTelaCriarNiveis(telaCriarNiveis) {
+    telaCriarNiveis.innerHTML = `
+        <h1>Agora, decida os níveis!</h1>
+        <div class="nivel" data-identifier="level">
+            <h2>Nível 1</h2>
+            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+            <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
+            <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
+            <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
+        </div>
+        <div class="novo-nivel" data-identifier="expand">
+            <h2>Nível 2</h2>
+            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovoNivel(this)">
+        </div>        
+    `;
+    for (let i = 0; i < (qtdadeNiveis - MIN_NIVEIS); i++) {
+        telaCriarNiveis.innerHTML += `
+            <div class="novo-nivel" data-identifier="expand">
+                <h2>Nível ${MIN_NIVEIS+i+1}</h2>
+                <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovoNivel(this)">
+            </div>
+        `;
+    }
+
+    telaCriarNiveis.innerHTML += `
+        <button class="finaliza-quizz" onclick="validarTodosNiveis()">
+            <p>Finalizar Quizz</p>
+        </button>
+    `;
+    telaCriarNiveis.style.display = "flex";
+    console.log(telaCriarNiveis);
+}
+
+function abrirNovoNivel(elemento) {
+    const novoNível = elemento.parentNode;
+    novoNível.classList.add("nivel");
+    novoNível.classList.remove("novo-nivel");
+    novoNível.removeChild(elemento);
+    novoNível.innerHTML += `
+        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+        <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
+        <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
+        <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
+    `;
+    // Vou deixar só para resgistrar que fiz minha 1ª arrow function 
+    // sem precisar olhar nas aulas de Diego (O.O') kkkkkkkk
+    setTimeout(() => console.log(elemento.parentNode), 2000);
+
+    novoNível.style.display = "flex";
+    novoNível.style.flexDirection = "column";
+    novoNível.style.justifyContent = "center";
+}
+
+function validarTodosNiveis() {
+    listaNiveis = [];
+    let nivel;
+    const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
+    console.log("Entrei em validar todos níveis:");
+    console.log(divsNiveis);
+    let contPercentualNivelZero = 0;
+    let menorPercentual = 100;
+
+    for (let i = 0; i < divsNiveis.length; i++) {
+        // if (divsNiveis[i].querySelector(".percentual-nivel").value < menorPercentual) {
+        //     menorPercentual = divsNiveis[i].querySelector(".percentual-nivel").value;
+        //     console.log(i + ", menor percentual: " + menorPercentual);
+        // }
+        if (divsNiveis[i].querySelector(".percentual-nivel").value == 0) {
+            contPercentualNivelZero++;
+        }
+    }
+
+    // console.log("Menor percentual: " + menorPercentual);
+
+    if (contPercentualNivelZero === 0) {
+        alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%, então o nível com menor percentual será reeditado para valor percentual mínimo igual a 0.");
+        chamarTelaCriarNiveis();
+    } else {
+        for (let i = 0; i < divsNiveis.length; i++) {
+            // console.log("Entrei no for com i : " + i + ", o value é: " + divsNiveis[i].querySelector(".percentual-nivel").value);
+            // if (divsNiveis[i].querySelector(".percentual-nivel").value == menorPercentual) {
+            //     console.log("Achei o igual: " + divsNiveis[i].querySelector(".percentual-nivel").value);
+            //     divsNiveis[i].querySelector(".percentual-nivel").value = 0;
+            //     console.log("O igual após mudança: " + divsNiveis[i].querySelector(".percentual-nivel").value);
+            // }
+            if (!validarDadosNivel(divsNiveis[i])) {
+                document.location.reload(true);
+            }
+            listaNiveis.push(montarNovoNivel(divsNiveis[i]));
+        }
+
+        quizz.levels = listaNiveis;
+        chamarTelaSucessoCriacaoQuizz();
+        sendQuizz(quizz);
+    }
+}
+
+function montarNovoNivel(nivel) {
+    level.title = nivel.querySelector(".titulo-nivel").value;
+    level.image = nivel.querySelector(".url-nivel").value;
+    level.text = nivel.querySelector(".descricao-nivel").value;
+    level.minValue = nivel.querySelector(".percentual-nivel").value;
+
+    return level;
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
     console.log("Entrei na função: chamaTelaSucessoCriacaoQuizz()");
     document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
-    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "block";
-    console.log("  Troquei da Tela 3.3 para a 3.4!");
+    const telaSucessoCriacaoQuizz = document.querySelector(".cria-quizz .sucesso-quizz");
+    montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz);
+}
+document.querySelector(".paginaum").style.display = "none";
+document.querySelector(".cria-quizz .sucesso-quizz").style.display = "block";
+chamarTelaSucessoCriacaoQuizz();
+
+
+function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
+    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+    telaSucessoCriacaoQuizz.innerHTML = `
+        <h1>Seu quizz está pronto!</h1>
+        <figure class="fim-criacao-quizz"></figure>
+        <button class="acessar-quizz" onclick="acessarQuizzCriado()">
+            <p>Acessar Quizz</p>
+        </button>
+        <button class="voltar-inicio" onclick="voltarInicio()">
+            <p>Voltar pra home</p>
+        </button>    
+    `;
+
+    console.log(quizz.image);
+    telaSucessoCriacaoQuizz.querySelector(".figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    // telaSucessoCriacaoQuizz.style.alignItems = "center";
+    telaSucessoCriacaoQuizz.style.display = "flex";
+    console.log(telaSucessoCriacaoQuizz);
 }
 
-function validarDadosBasicos() {
-    console.log("Entrei na função: validarDadosBasicos()");
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
-    if (tituloQuizz.length < 20) {
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
-    }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
-    if (!validarURL(imagemQuizz)) {
-        alert("A imagem deve ser uma URL válida.");
-    }
-    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (qtdadePerguntas < 3) {
-        alert("A quantidade de perguntas deve ser no mínimo 3.");
-    }
-    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (qtdadeNiveis < 2) {
-        alert("A quantidade de níveis deve ser no mínimo 2.");
-    }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
-        newQuizz.title = tituloQuizz;
-        newQuizz.image = imagemQuizz;
-        console.log("==> Quizz ao final da função validarDadosBasicos() :\\/      " + newQuizz);
-        console.log("      qtdadePerguntas :" + qtdadePerguntas);
-        console.log("      listaPerguntas.l:" + listaPerguntas.length);
-        console.log("      listaNiveis.l   :" + listaNiveis.length);
-        chamarTelaCriarPerguntas();
-    }
-}
 
 function validarDadosPergunta(elemento) {
     console.log("Entrei em  validarDadosPergunta");
@@ -674,7 +801,7 @@ function validarDadosPergunta(elemento) {
         ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
         (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
         alert(`
-            Erro, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
             1. O texto da pergunta deve ter no mínimo 20 caracteres.
             2. A inserção da resposta correta é obrigatória.
             3. A inserção de pelo menos 1 resposta errada é obrigatória!
@@ -690,21 +817,27 @@ function validarDadosPergunta(elemento) {
 function validarDadosNivel() {
     console.log("Entrei na função: validarDadosNivel()");
     let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    if (tituloNivel.length < 10) {
-        alert("O título do nível deve ter no mínimo 10 caracteres.");
-    }
+
     let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    if ((percentualNivel < 0) || (percentualNivel > 100)) {
-        alert("O percentual(%) de acerto mínimo de ser um número entre 0 e 100.");
-    }
+
     let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    if (!validarURL(urlNivel)) {
-        alert("A imagem do nível deve ser uma URL válida.");
-    }
+
     let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
-    console.log(descricaoNivel);
-    if (descricaoNivel.length < 10) {
-        alert("A descrição do nível de ter no mínimo 30 caracteres.");
+
+
+    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
+        (descricaoNivel.length < 30)) {
+        console.log("_____________________________________");
+        alert(`
+            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            1. O título do nível deve ter no mínimo 10 caracteres.
+            2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
+            3. A imagem do nível deve ser uma URL válida.
+            4. A descrição do nível de ter no mínimo 30 caracteres.
+        `);
+        return false;
+    } else {
+        return true;
     }
 }
 
@@ -721,4 +854,4 @@ function validarURL(texto) {
 }
 
 
-getAllQuizz()
+getAllQuizz();
