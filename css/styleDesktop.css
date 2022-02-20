@@ -94,53 +94,60 @@
         display: flex;
     }
 
-    .pagina-quizz .resultado {
-        width: 759px;
-        height: 430px;
+    .fim .resultado {
+        width: 40%;
+        height: auto;
         margin: 44px auto 57px;
     }
 
-    .pagina-quizz .resultado .titulo-resultado {
-        width: 90%;
-        height: 99px;
+    .fim .resultado .titulo-resultado {
+        width: 95%;
+        height: auto;
         margin: 18px auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .pagina-quizz .resultado .titulo-resultado h3 {
-        width: 691px;
-        height: 54px;
+    .fim .resultado .titulo-resultado h3 {
+        width: 90%;
+        height: auto;
         margin: 22px 16px;
         font-size: 23px;
         line-height: 27px;
     }
-    .pagina-quizz .resultado .conteudo-reultado {
+
+    .fim .resultado .conteudo-reultado {
         display: flex;
         width: 90%;
         flex-direction: row;
         justify-content: flex-start;
     }
 
-    .pagina-quizz .resultado .conteudo-reultado img {
-        width: 364px;
-        height: 273px;
+    .fim .resultado .conteudo-reultado img {
+        width: 50%;
+        height: auto;
+        padding-right: 20px;
     }
 
-    .pagina-quizz .resultado .conteudo-reultado span {
-        width: 328px;
+    .fim.resultado .conteudo-reultado span {
+        width: 50%;
         height: 250px;
         font-size: 19px;
         line-height: 25px;
         width: 340px;
         height: 96px;
-        margin-left: 21px;
+        margin-left: 40px;
+        overflow: hidden;
     }
 
-    .pagina-quizz button {
+
+    .fim button {
         width: 260.38px;
         height: 52px;
     }
 
-    .pagina-quizz .button p {
+    .fim .button p {
         font-size: 21px;
         line-height: 25px;
     }
