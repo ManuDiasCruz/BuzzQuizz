@@ -1,3 +1,5 @@
+/* Estilo CSS para telas pequenas */
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #FAFAFA;
@@ -25,6 +27,8 @@ h1 {
     color: white;
     font-style: normal;
 }
+
+
 /* Início referência HTML: lista-quizz */
 
 .paginaum {
@@ -141,6 +145,8 @@ h1 {
     font-weight: normal;
     overflow: hidden;
 }
+
+
 /*--------------SEGUNDO ACESSO-------------------*/
 
 .paginaum .meus-quizzes {
@@ -200,7 +206,11 @@ h1 {
     font-size: 31px;
     margin-bottom: 8px;
 }
+
+
 /* Fim referência HTML: lista-quizz */
+
+
 /* Início referência HTML: pagina-quizz */
 
 .pagina-quizz {
@@ -405,7 +415,11 @@ h1 {
     background: #FAFAFA;
     color: #818181;
 }
+
+
 /* Fim referência HTML: pagina-quizz */
+
+
 /* Início referência HTML: cria-quizz */
 
 .cria-quizz main {
@@ -651,8 +665,13 @@ h1 {
     color: #818181;
     ;
 }
+
+
 /***** Aqui dentro ia vai tudo de cria-quizz *****/
+
+
 /* Fim referência HTML: cria-quizz */
+
 
 /* RESPONDENDO O QUIZZ */
 

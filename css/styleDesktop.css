@@ -1,90 +1,72 @@
-@media (min-width: 600px) {
+/* Estilo CSS para versão telas grandes */
 
+@media (min-width: 600px) {
     /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
     .paginaum {
         padding-top: calc(69px + 77px);
     }
-
     .paginaum .criarprimeiroquizz {
         width: 55%;
     }
-
-        /* Início referência HTML: lista-quizz */
-
+    /* Início referência HTML: lista-quizz */
     .paginaum .todososquizzes {
         width: 55%;
         padding-top: 77px;
         padding-bottom: 211px;
     }
-
     .paginaum h2 {
         width: 158px;
     }
-
     .paginaum .quizzes {
         justify-content: space-between;
     }
-
     /*--------------SEGUNDO ACESSO-------------------*/
-
     .paginaum .quizzes-criados {
         max-width: 49.5%;
     }
-
     .paginaum .novo-quizz {
         width: 49.5%;
         justify-content: flex-start;
     }
-
     .paginaum h2 {
         padding-right: 17px;
         padding-left: 0px;
     }
-   
     /* Fim referência HTML: lista-quizz */
     /* Início referência HTML: pagina-quizz */
     .pagina-quizz .titulo-quizz {
         height: 227px;
         width: 100%;
     }
-
     .pagina-quizz .titulo-quizz h2 {
         font-size: 39px;
         line-height: 46px;
     }
-
     .pagina-quizz .perguntas .pergunta {
         width: 40%;
         height: auto;
         margin: 42px auto 0px;
     }
-
     .pagina-quizz .perguntas .titulo-pergunta {
         width: 95%;
         height: 138px;
         margin: 27.91px auto 20.16px;
     }
-
     .pagina-quizz .perguntas .titulo-pergunta h3 {
         font-size: 23px;
         line-height: 27px;
     }
-
     .pagina-quizz .perguntas .bloco-respostas {
         margin: 0px 5%;
         width: 95%;
-    
     }
-
     .pagina-quizz .perguntas .bloco-respostas .resposta {
-        width:48%;
+        width: 48%;
     }
-
     .pagina-quizz .perguntas .bloco-respostas .resposta img {
         width: 100%;
         height: 175.2px;
     }
-
     .pagina-quizz .perguntas .bloco-respostas .resposta span {
         width: 100%;
         font-size: 20px;
@@ -93,13 +75,11 @@
         margin-bottom: 18.61px;
         display: flex;
     }
-
     .fim .resultado {
         width: 40%;
         height: auto;
         margin: 44px auto 57px;
     }
-
     .fim .resultado .titulo-resultado {
         width: 95%;
         height: auto;
@@ -108,7 +88,6 @@
         align-items: center;
         justify-content: center;
     }
-
     .fim .resultado .titulo-resultado h3 {
         width: 90%;
         height: auto;
@@ -116,20 +95,17 @@
         font-size: 23px;
         line-height: 27px;
     }
-
     .fim .resultado .conteudo-reultado {
         display: flex;
         width: 95%;
         flex-direction: row;
         justify-content: flex-start;
     }
-
     .fim .resultado .conteudo-reultado img {
         width: 50%;
         height: auto;
         padding-right: 20px;
     }
-
     .fim.resultado .conteudo-reultado span {
         width: 50%;
         height: 250px;
@@ -140,31 +116,24 @@
         margin-left: 40px;
         overflow: hidden;
     }
-
-
     .fim button {
         width: 260.38px;
         height: 52px;
     }
-
     .fim .button p {
         font-size: 21px;
         line-height: 25px;
     }
-
     /* Início referência HTML: cria-quizz */
     .vamos-comecar .primeiro-forms {
         width: 35%;
     }
-
     .vamos-comecar .quantidade-niveis {
         margin-bottom: 0px;
     }
-
     .vamos-comecar .prosseguir {
         width: 30%;
     }
-
     .cria-quizz {
         width: 100%;
         height: 100%;
@@ -173,27 +142,21 @@
         align-items: center;
         background-color: #FAFAFA;
     }
-
     .cria-quizz .cria-perguntas {
         width: 35%;
     }
-
     .cria-quizz .cria-perguntas button {
         width: 50%;
     }
-
     .cria-quizz .cria-niveis {
         width: 35%;
     }
-
     .cria-quizz .cria-niveis button {
         width: 30%;
     }
-
     .sucesso-quizz .acessar-quizz {
         width: 13%;
     }
-
     .sucesso-quizz .voltar-inicio {
         width: 13%;
     }

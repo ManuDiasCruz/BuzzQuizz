@@ -1,3 +1,5 @@
+// Arquivo de JavaScript
+
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
     image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
@@ -250,7 +252,7 @@ function getQuizz(here) { //MONTA A PAGINA DO QUIZZ PARA O USUARIO RESPONDER
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
-    return identificador 
+    return identificador
 }
 let identificador
 
@@ -296,7 +298,7 @@ function abrirQuizz(respostaquizz) {
                 </article>
             </section`
         let classpergunta = document.querySelector(`.esse${x}`);
-        for(let y=0; y< quizzescolhido.questions[x].answers.length; y++){
+        for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
                 <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
@@ -304,42 +306,43 @@ function abrirQuizz(respostaquizz) {
             </div> `
         }
     }
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
 }
 
-let questoesrespondidas =0;
+let questoesrespondidas = 0;
 let acertos = 0;
 
-function quizzSelecionado(numerodaquestao,opcao) {
+function quizzSelecionado(numerodaquestao, opcao) {
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
     escolha.classList.add("escolhida");
-    for(let z=0; z<quizzescolhido.questions[numerodaquestao].answers.length; z++){
+    for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
         let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
         umaopcao.removeAttribute('onclick');
-        if(umaopcao != escolha){
+        if (umaopcao != escolha) {
             umaopcao.classList.add("nop");
-        }if(umaopcao.classList.contains(false)){
+        }
+        if (umaopcao.classList.contains(false)) {
             umaopcao.classList.add("errou");
-        }else{
+        } else {
             umaopcao.classList.add("acertou");
         }
-        let w=z+1;
-        if(w<quizzescolhido.questions.length){
+        let w = z + 1;
+        if (w < quizzescolhido.questions.length) {
             setTimeout(() => {
                 let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
                 irpara.scrollIntoView()
-                if(questoesrespondidas == quizzescolhido.questions.length){
+                if (questoesrespondidas == quizzescolhido.questions.length) {
                     resultadoQuizz()
                 }
-            },2000);
+            }, 2000);
         }
     }
 
-    if(escolha.classList.contains(true)){
-        acertos +=1;
+    if (escolha.classList.contains(true)) {
+        acertos += 1;
         quantidadeAcertos()
     }
-    questoesrespondidas +=1;
+    questoesrespondidas += 1;
     console.log(acertos)
 }
 
@@ -348,17 +351,17 @@ let leveltotal = 0;
 let umacerto = 0;
 let porcentagemarredondada = 0;
 let numeronoarray = 0;
-let u=0
+let u = 0
 
-function quantidadeAcertos(){
-    for(u=0;u<quizzescolhido.levels.length;u++){
+function quantidadeAcertos() {
+    for (u = 0; u < quizzescolhido.levels.length; u++) {
         leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal/quizzescolhido.questions.length
+        umacerto = leveltotal / quizzescolhido.questions.length
     }
-    porcentagem = (acertos*umacerto*100)/leveltotal;
-    porcentagemarredondada =  Math.round(porcentagem);
-    for(u=0;u<(quizzescolhido.levels.length-1);u++){
-        if(porcentagemarredondada<=quizzescolhido.levels[u].minValue){
+    porcentagem = (acertos * umacerto * 100) / leveltotal;
+    porcentagemarredondada = Math.round(porcentagem);
+    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
+        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
             return u
         }
     }
@@ -395,7 +398,7 @@ function paginaInicial() {
 function reiniciarQuizz() {
     getQuizz(identificador);
     apagarresultado = document.querySelector(".fim");
-    apagarresultado.innerHTML =""
+    apagarresultado.innerHTML = ""
 }
 
 function erroPegouQuizz(error) {
