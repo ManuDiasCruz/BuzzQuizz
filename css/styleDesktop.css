@@ -86,11 +86,12 @@
     }
 
     .pagina-quizz .perguntas .bloco-respostas .resposta span {
-        width: 48%;
+        width: 100%;
         font-size: 20px;
         line-height: 23px;
         margin-top: 7.75px;
         margin-bottom: 18.61px;
+        display: flex;
     }
 
     .pagina-quizz .resultado {
