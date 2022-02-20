@@ -244,7 +244,7 @@ function getAllQuizz() {
     promise.catch(erroPegouQuizz);
 }
 
-function getQuizz(here) {
+function getQuizz(here) { //MONTA A PAGINA DO QUIZZ PARA O USUARIO RESPONDER
     identificador = here
     console.log(identificador)
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
@@ -254,7 +254,7 @@ function getQuizz(here) {
 }
 let identificador
 
-function pegouQuizz(resposta) {
+function pegouQuizz(resposta) { //MOSTRA OS QUIZZES DOS OUTROS USUARIOS
     // document.querySelector(".cria-quizz").style.display = "none";
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
@@ -397,7 +397,6 @@ function reiniciarQuizz() {
     apagarresultado = document.querySelector(".fim");
     apagarresultado.innerHTML =""
 }
-
 
 function erroPegouQuizz(error) {
     alert(error);
