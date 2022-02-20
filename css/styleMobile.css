@@ -342,6 +342,7 @@ h1 {
 }
 
 .fim .resultado .conteudo-reultado {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

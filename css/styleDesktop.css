@@ -119,7 +119,7 @@
 
     .fim .resultado .conteudo-reultado {
         display: flex;
-        width: 90%;
+        width: 95%;
         flex-direction: row;
         justify-content: flex-start;
     }

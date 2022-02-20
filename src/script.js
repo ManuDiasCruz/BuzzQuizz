@@ -250,7 +250,9 @@ function getQuizz(here) {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
+    return identificador 
 }
+let identificador
 
 function pegouQuizz(resposta) {
     // document.querySelector(".cria-quizz").style.display = "none";
@@ -355,9 +357,8 @@ function quantidadeAcertos(){
     }
     porcentagem = (acertos*umacerto*100)/leveltotal;
     porcentagemarredondada =  Math.round(porcentagem);
-    for(u=0;u<quizzescolhido.levels.length;u++){
+    for(u=0;u<(quizzescolhido.levels.length-1);u++){
         if(porcentagemarredondada<=quizzescolhido.levels[u].minValue){
-            numeronoarray = u;
             return u
         }
     }
@@ -376,15 +377,25 @@ function resultadoQuizz() {
             </div>
         </article>
         <div class="botoes">
-            <button class="reiniciar-quizz">
+            <button class="reiniciar-quizz" onclick="reiniciarQuizz()">
                 <p>Reiniciar Quizz</p>
             </button>
-            <button class="voltar-inicio">
+            <button class="voltar-inicio" onclick="paginaInicial()">
                 <p>Voltar pra home</p>
             </button>
         </div>`
-    irpara = document.querySelector(".botoes")
+    irpara = document.querySelector(".voltar-inicio")
     irpara.scrollIntoView()
+}
+
+function paginaInicial() {
+    window.location.reload();
+}
+
+function reiniciarQuizz() {
+    getQuizz(identificador);
+    apagarresultado = document.querySelector(".fim");
+    apagarresultado.innerHTML =""
 }
 
 
