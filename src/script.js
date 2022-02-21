@@ -116,7 +116,6 @@ let listaMeusQuizzes = [];
 let quizzRecemCriado;
 let existeQuizzUsuario = false;
 
-// NÃO MEXER NA FUNCAO CARLA VAI USAR!
 function createQuizz() {
     const quizz = {
         title: "Lessa Squad - Grupo 5",
@@ -289,14 +288,6 @@ function embaralha() {
     return Math.random() - 0.5;
 }
 
-let opcao0;
-let opcao1;
-let opcao2;
-let opcao3;
-let pergunta0;
-let pergunta1;
-let pergunta2;
-
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
@@ -348,7 +339,79 @@ function quizzSelecionado(numerodaquestao, opcao) {
         } else {
             umaopcao.classList.add("acertou");
         }
+        let w = z + 1;
+        if (w < quizzescolhido.questions.length) {
+            setTimeout(() => {
+                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
+                irpara.scrollIntoView()
+                if (questoesrespondidas == quizzescolhido.questions.length) {
+                    resultadoQuizz()
+                }
+            }, 2000);
+        }
     }
+
+    if (escolha.classList.contains(true)) {
+        acertos += 1;
+        quantidadeAcertos()
+    }
+    questoesrespondidas += 1;
+    console.log(acertos)
+}
+
+let porcentagem = 0;
+let leveltotal = 0;
+let umacerto = 0;
+let porcentagemarredondada = 0;
+let numeronoarray = 0;
+let u = 0
+
+function quantidadeAcertos() {
+    for (u = 0; u < quizzescolhido.levels.length; u++) {
+        leveltotal += quizzescolhido.levels[u].minValue;
+        umacerto = leveltotal / quizzescolhido.questions.length
+    }
+    porcentagem = (acertos * umacerto * 100) / leveltotal;
+    porcentagemarredondada = Math.round(porcentagem);
+    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
+        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
+            return u
+        }
+    }
+}
+
+function resultadoQuizz() {
+    let perguntas = document.querySelector(".fim");
+    perguntas.innerHTML = `
+        <article class="resultado" data-identifier="quizz-result">
+            <div class="titulo-resultado">
+                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+            </div>
+            <div class="conteudo-reultado">
+                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
+                <span>${quizzescolhido.levels[u].text}</span>
+            </div>
+        </article>
+        <div class="botoes">
+            <button class="reiniciar-quizz" onclick="reiniciarQuizz()">
+                <p>Reiniciar Quizz</p>
+            </button>
+            <button class="voltar-inicio" onclick="paginaInicial()">
+                <p>Voltar pra home</p>
+            </button>
+        </div>`
+    irpara = document.querySelector(".voltar-inicio")
+    irpara.scrollIntoView()
+}
+
+function paginaInicial() {
+    window.location.reload();
+}
+
+function reiniciarQuizz() {
+    getQuizz(identificador);
+    apagarresultado = document.querySelector(".fim");
+    apagarresultado.innerHTML = ""
 }
 
 function erroPegouQuizz(error) {
@@ -814,6 +877,5 @@ function validarURL(texto) {
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(texto);
 }
-
 
 getAllQuizz();
