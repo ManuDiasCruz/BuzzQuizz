@@ -234,6 +234,7 @@ function getAllQuizzesLocais() {
 }
 
 function getAllQuizz() {
+    document.querySelector(".paginaum .meus-quizzes").style.display = "none";
     if (localStorage.length !== 0) {
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
         document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
