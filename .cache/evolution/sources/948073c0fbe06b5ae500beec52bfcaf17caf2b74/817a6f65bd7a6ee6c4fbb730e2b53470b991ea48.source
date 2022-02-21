@@ -1,0 +1,17 @@
+[Data Source]
+DisplayName=Contatos
+Enabled=true
+Parent=948073c0fbe06b5ae500beec52bfcaf17caf2b74
+
+[Authentication]
+Host=www.google.com
+Method=OAuth2
+Port=0
+ProxyUid=system-proxy
+RememberPassword=true
+User=carlacarlaclementino@gmail.com
+CredentialName=
+IsExternal=false
+
+[Address Book]
+BackendName=google

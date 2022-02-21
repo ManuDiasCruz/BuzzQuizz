@@ -1,0 +1,46 @@
+[Data Source]
+DisplayName=Feriados no Brasil
+Enabled=true
+Parent=948073c0fbe06b5ae500beec52bfcaf17caf2b74
+
+[Authentication]
+Host=apidata.googleusercontent.com
+Method=OAuth2
+Port=443
+ProxyUid=system-proxy
+RememberPassword=true
+User=carlacarlaclementino@gmail.com
+CredentialName=
+IsExternal=false
+
+[Security]
+Method=tls
+
+[Resource]
+Identity=events::https://apidata.googleusercontent.com/caldav/v2/e1q2sojic5t6ir39c5n26q3fdhkm8obp81jn4rrle0n7cbj3c5m6arj4c5p2sprfdtjmop9ecdnmq%40virtual/events/
+
+[WebDAV Backend]
+AvoidIfmatch=false
+CalendarAutoSchedule=true
+Color=#16a765
+DisplayName=Feriados no Brasil
+EmailAddress=
+ResourcePath=/caldav/v2/e1q2sojic5t6ir39c5n26q3fdhkm8obp81jn4rrle0n7cbj3c5m6arj4c5p2sprfdtjmop9ecdnmq%40virtual/events/
+ResourceQuery=
+SslTrust=
+
+[Calendar]
+BackendName=caldav
+Color=#16a765
+Selected=true
+
+[Alarms]
+IncludeMe=true
+LastNotified=2022-02-14T14:28:59.956937Z
+
+[Offline]
+StaySynchronized=true
+
+[Refresh]
+Enabled=true
+IntervalMinutes=30

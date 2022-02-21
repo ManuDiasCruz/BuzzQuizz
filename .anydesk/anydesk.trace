@@ -1,0 +1,340 @@
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - * Build 20210413130604
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - * Prefix ad
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - 
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 15:02:20.861         ad   main   7266   7266                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 15:02:20.872         ad   main   7266   7266                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:02:20.872         ad   main   7266   7266                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:02:20.874       tray   main   7266   7266                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 15:02:20.874       tray   main   7266   7266                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-14 15:02:20.890       tray   main   7266   7266                       base.signal.hub - 1 threads.
+   info 2022-02-14 15:02:20.890       tray   main   7266   7266                    app.tunnel_ft_comp - Ready.
+   info 2022-02-14 15:02:20.945       tray   ctrl   7266   7282                      unix_app.control - Control startup.
+  error 2022-02-14 15:02:20.945       tray   ctrl   7266   7282              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-14 15:02:21.006       tray   wrk0   7266   7283              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-14 15:02:21.006       tray   wrk0   7266   7283                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-14 15:02:21.006       tray   wrk0   7266   7283        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 15:02:21.006       tray   wrk0   7266   7283                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+  error 2022-02-14 15:03:31.574       tray   wrk0   7266   7283                      unix_app.control - Service connection lost.
+   info 2022-02-14 15:03:31.574       tray   ctrl   7266   7282                    app.tunnel_ft_comp - Stopping file component.
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                                  main - * Build 20210413130604
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                                  main - * Prefix ad
+   info 2022-02-14 15:04:09.240         ad   main   2002   2002                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 15:04:09.241         ad   main   2002   2002                                  main - 
+   info 2022-02-14 15:04:09.241         ad   main   2002   2002                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 15:04:09.241         ad   main   2002   2002                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 15:04:09.344         ad   main   2002   2002                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:04:09.344         ad   main   2002   2002                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:04:09.346       tray   main   2002   2002                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 15:04:09.346       tray   main   2002   2002                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-14 15:04:09.367       tray   main   2002   2002                       base.signal.hub - 1 threads.
+   info 2022-02-14 15:04:09.367       tray   main   2002   2002                    app.tunnel_ft_comp - Ready.
+   info 2022-02-14 15:04:09.519       tray   ctrl   2002   2141                      unix_app.control - Control startup.
+  error 2022-02-14 15:04:09.519       tray   ctrl   2002   2141              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-14 15:04:09.525       tray   wrk0   2002   2142              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-14 15:04:09.525       tray   wrk0   2002   2142                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-14 15:04:09.525       tray   wrk0   2002   2142        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 15:04:09.529       tray   wrk0   2002   2142                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - * Build 20210413130604
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - * Prefix ad
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - 
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 15:06:01.875         ad   main   3620   3620                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 15:06:01.896         ad   main   3620   3620                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:06:01.896         ad   main   3620   3620                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:06:01.897         ad   main   3620   3620                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:06:01.897         ad   main   3620   3620                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:06:01.897         ad   main   3620   3620                                  main - Starting frontend process (3620).
+   info 2022-02-14 15:06:01.898   frontend   main   3620   3620                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 15:06:01.898   frontend   main   3620   3620                           gui.gui_app - Using std-resolution bitmaps.
+warning 2022-02-14 15:06:01.910   frontend   main   3620   3620        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 15:06:01.910   frontend   main   3620   3620                         app.user_info - Could not update user image (File not found: /home/carla/.face.icon). Defaulting.
+   info 2022-02-14 15:06:01.912   frontend   main   3620   3620                       base.signal.hub - 16 threads.
+   info 2022-02-14 15:06:01.912   frontend   timr   3620   3625          base.signal.local.timer_impl - Initialized master timer.
+   info 2022-02-14 15:06:02.017   frontend   ctrl   3620   3626                     unix_app.frontend - Frontend startup.
+   info 2022-02-14 15:06:02.017   frontend   ctrl   3620   3626                     unix_app.frontend - Logging the frontend in.
+warning 2022-02-14 15:06:02.018   frontend   ctrl   3620   3626        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 15:06:02.018   frontend   ctrl   3620   3626                         app.user_info - Could not update user image (File not found: /home/carla/.face.icon). Defaulting.
+warning 2022-02-14 15:06:02.147   frontend   wrk1   3620   3628        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 15:06:02.147   frontend   wrk1   3620   3628                         app.user_info - Could not update user image (File not found: /home/carla/.face.icon). Defaulting.
+   info 2022-02-14 15:06:02.153   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 15:06:02.153   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 15:06:02.155   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 15:06:02.213   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 15:06:02.214   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 15:06:02.224   frontend    x11   3620   3624                     base.monitor_info - Monitor 0: x/y : 0/0
+   info 2022-02-14 15:06:02.224   frontend    x11   3620   3624                     base.monitor_info - Monitor 0: w/h : 1920/1080
+   info 2022-02-14 15:06:02.224   frontend    x11   3620   3624                     base.monitor_info - Monitor 0 output=66
+  error 2022-02-14 15:06:23.373       tray   wrk0   2002   2142              base.prot.packet_factory - Invalid packet received (type=24, 0 bytes).
+  error 2022-02-14 15:06:23.373       tray   wrk0   2002   2142                        hub_ipc_socket - IPC packet deserialization failed.
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - * Build 20210413130604
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - * Prefix ad
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - 
+   info 2022-02-14 15:06:23.378         ad   main   3667   3667                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 15:06:23.379         ad   main   3667   3667                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 15:06:23.389         ad   main   3667   3667                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:06:23.389         ad   main   3667   3667                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:06:23.389         ad   main   3667   3667                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 15:06:23.389         ad   main   3667   3667                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 15:06:23.389         ad   main   3667   3667                                  main - Starting backend process (3667).
+   info 2022-02-14 15:06:23.390    backend   main   3667   3667                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 15:06:23.390    backend   main   3667   3667                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-14 15:06:23.399    backend   main   3667   3667                       base.signal.hub - 16 threads.
+   info 2022-02-14 15:06:23.400    backend   timr   3667   3671          base.signal.local.timer_impl - Initialized master timer.
+   info 2022-02-14 15:06:23.404    backend    x11   3667   3670                     base.monitor_info - Monitor 0: x/y : 0/0
+   info 2022-02-14 15:06:23.404    backend    x11   3667   3670                     base.monitor_info - Monitor 0: w/h : 1920/1080
+   info 2022-02-14 15:06:23.404    backend    x11   3667   3670                     base.monitor_info - Monitor 0 output=66
+warning 2022-02-14 15:06:23.404    backend   main   3667   3667           desk_rt.system_event_source - Harddrive status not working, this system has no support.
+   info 2022-02-14 15:06:23.408    backend   main   3667   3667                      audio.pa_wrapper - Connecting to PulseAudio server
+warning 2022-02-14 15:06:23.408    backend   main   3667   3667                      audio.pa_wrapper - Connection to PulseAudio server failed
+   info 2022-02-14 15:06:23.443    backend   ctrl   3667   3673                      unix_app.backend - Backend is starting up.
+  error 2022-02-14 15:06:23.467    backend   wrk0   3667   3674              base.prot.packet_factory - Invalid packet received (type=42, 0 bytes).
+  error 2022-02-14 15:06:23.467    backend   wrk0   3667   3674                        hub_ipc_socket - IPC packet deserialization failed.
+   info 2022-02-14 15:06:23.495    backend   wrk0   3667   3674                      unix_app.backend - Incoming IPC connection.
+   info 2022-02-14 15:06:23.495    backend   timr   3667   3692          base.signal.local.timer_impl - Initialized master timer.
+   info 2022-02-14 15:06:23.496    backend   timr   3667   3693          base.signal.local.timer_impl - Initialized master timer.
+   info 2022-02-14 15:06:23.496    backend   wrk0   3667   3674                   app.backend_session - Initializing session.
+   info 2022-02-14 15:06:23.496    backend   wrk0   3667   3674                      unix_app.backend - Session count: 1
+   info 2022-02-14 15:06:23.497    backend   ctrl   3667   3673                   desk_rt.x11_capture - Starting capture.
+   info 2022-02-14 15:06:23.500    backend   ctrl   3667   3673                      unix_app.backend - Backend startup finished.
+   info 2022-02-14 15:06:23.500    backend   ctrl   3667   3673                   app.backend_session - Starting sockets.
+   info 2022-02-14 15:06:23.502    backend   wrk1   3667   3675                   app.backend_session - Incoming session request: Jefferson Peixoto (125449920)
+   info 2022-02-14 15:06:23.502    backend   wrk1   3667   3675                   app.backend_session - Remote caps: sound_src, sound_sink, keyboard_sink, keyboard2, switch_sides, clip_paste_files, clip_src_files, send_sas, block_input, request_vp_dimensions, keyboard_unicode, sysinfo, remote_restart, volatile_token, keyb_hint_src, filetransfer_server, filetransfer_client, remote_printing, whiteboard, tcp_tunnel, privacy_feature, encoder_reset, two_factor_auth, reverse_remote_printing, force_remote_restart, lossless_codec, report_kbd_focus
+   info 2022-02-14 15:06:23.503    backend   wrk1   3667   3675                   app.backend_session - Remote OS: Windows, Connection flags: direct paid 3 
+   info 2022-02-14 15:06:23.503    backend   wrk1   3667   3675                   app.backend_session - Remote version: 6.2.6
+   info 2022-02-14 15:06:23.503    backend   wrk1   3667   3675                   app.backend_session - Trying to register a new backend session.
+   info 2022-02-14 15:06:23.575    backend   wrk1   3667   3675                   desk_rt.auto_adjust - Route type: direct (internet)
+   info 2022-02-14 15:06:26.985    backend   ctrl   3667   3673                   app.backend_session - Starting session (deskrt, clipboard, chat, audio, input, tcp_tunnel).
+   info 2022-02-14 15:06:26.986    backend   timr   3667   3695          base.signal.local.timer_impl - Initialized master timer.
+   info 2022-02-14 15:06:26.987    backend   ctrl   3667   3673                       desk_rt.encoder - 8 segments.
+   info 2022-02-14 15:06:26.991    backend    x11   3667   3670                     base.monitor_info - Monitor 0: x/y : 0/0
+   info 2022-02-14 15:06:26.991    backend    x11   3667   3670                     base.monitor_info - Monitor 0: w/h : 1920/1080
+   info 2022-02-14 15:06:26.991    backend    x11   3667   3670                     base.monitor_info - Monitor 0 output=66
+   info 2022-02-14 15:06:26.992    backend   ctrl   3667   3673             desk_rt.capture_component - Starting capture.
+   info 2022-02-14 15:06:26.998    backend    x11   3667   3670                     base.monitor_info - Monitor 0: x/y : 0/0
+   info 2022-02-14 15:06:26.998    backend    x11   3667   3670                     base.monitor_info - Monitor 0: w/h : 1920/1080
+   info 2022-02-14 15:06:26.998    backend    x11   3667   3670                     base.monitor_info - Monitor 0 output=66
+   info 2022-02-14 15:06:27.039    backend   ctrl   3667   3673             desk_rt.capture_component - Sending screen privacy status: off (no change).
+   info 2022-02-14 15:06:27.040    backend   wrk0   3667   3674             desk_rt.capture_component - Keyboard layout changed to: unknown
+   info 2022-02-14 15:06:27.040    backend   wrk0   3667   3674             desk_rt.capture_component - Focused monitor changed: 0 (crtc_66)
+   info 2022-02-14 15:06:27.040    backend   ctrl   3667   3673                   app.keybd_sink_comp - Keyboard layout changed to: unknown
+   info 2022-02-14 15:06:27.040    backend   ctrl   3667   3673                        app.mouse_sink - Starting mouse sink.
+   info 2022-02-14 15:06:27.041    backend   ctrl   3667   3673                   app.backend_session - Requesting stored permissions
+   info 2022-02-14 15:06:27.041    backend   ctrl   3667   3673                      app.clipbrd_comp - Engaging clipboard.
+   info 2022-02-14 15:06:27.041    backend   ctrl   3667   3673                      app.clipbrd_comp - Ready.
+   info 2022-02-14 15:06:27.041    backend   main   3667   3667                       clipbrd.capture - Clipboard capture running.
+   info 2022-02-14 15:06:27.041    backend   ctrl   3667   3673                   app.backend_session - Session started (ok).
+   info 2022-02-14 15:06:27.043    backend   wrk1   3667   3675                   desk_rt.auto_adjust - Route type: direct (internet)
+  error 2022-02-14 15:06:27.044    backend   wrk0   3667   3674              base.prot.packet_factory - Invalid packet received (type=78, 2 bytes).
+  error 2022-02-14 15:06:27.044    backend   wrk0   3667   3674                        hub_ipc_socket - IPC packet deserialization failed.
+  error 2022-02-14 15:06:27.044       tray   wrk0   2002   2142              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Recovering stored permissions.
+  error 2022-02-14 15:06:27.044       tray   wrk0   2002   2142                        hub_ipc_socket - IPC packet deserialization failed.
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Sending input permissions (enabled allowed supported)
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Sending SAS permissions (enabled allowed unsupported)
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Sending audio permissions (enabled allowed unsupported)
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Sending clipboard permissions (enabled allowed supported)
+   info 2022-02-14 15:06:27.044    backend   wrk1   3667   3675                   app.backend_session - Sending block input permissions (allowed supported)
+   info 2022-02-14 15:06:27.045    backend   wrk1   3667   3675                   app.backend_session - Sending file manager permissions (enabled allowed supported)
+   info 2022-02-14 15:06:27.045    backend   wrk1   3667   3675                   app.backend_session - Sending lock account permissions (allowed supported)
+   info 2022-02-14 15:06:27.045    backend   wrk1   3667   3675                   app.backend_session - Sending record session permissions (allowed supported)
+   info 2022-02-14 15:06:27.050    backend   wrk1   3667   3675                   app.backend_session - Sending whiteboard permissions (enabled allowed supported)
+   info 2022-02-14 15:06:27.050    backend   wrk1   3667   3675                   app.backend_session - Sending TCP tunneling permissions (enabled forbidden supported)
+   info 2022-02-14 15:06:27.050    backend   wrk1   3667   3675                   app.backend_session - Sending privacy permissions (forbidden supported)
+   info 2022-02-14 15:06:27.050    backend   wrk1   3667   3675                   app.backend_session - Sending VPN permissions (enabled allowed supported)
+   info 2022-02-14 15:06:27.055    backend   wrk0   3667   3674             desk_rt.capture_component - Keyboard layout changed to: unknown
+   info 2022-02-14 15:06:27.058    backend   wrk1   3667   3675                   app.backend_session - Received new mouse cursor parameters (0).
+   info 2022-02-14 15:06:27.058    backend   wrk1   3667   3675           desk_rt.system_event_source - Disabled mouse cursor
+   info 2022-02-14 15:06:27.058    backend   wrk2   3667   3676                   app.backend_session - Received new gui feedback parameters (0).
+   info 2022-02-14 15:06:27.058    backend   wrk2   3667   3676           desk_rt.system_event_source - Disabled gui feedback
+   info 2022-02-14 15:06:27.059    backend   wrk1   3667   3675                   app.backend_session - Received new image quality (7).
+   info 2022-02-14 15:06:27.060    backend   wrk2   3667   3676                   app.backend_session - Received new video quality (20).
+   info 2022-02-14 15:06:27.060    backend   wrk1   3667   3675                   app.backend_session - Received new auto-quality preset (2).
+   info 2022-02-14 15:06:27.060    backend   wrk1   3667   3675                   desk_rt.auto_adjust - New preset: 1.
+   info 2022-02-14 15:06:27.060    backend   wrk2   3667   3676                   app.backend_session - Enabling capture.
+   info 2022-02-14 15:06:27.085    backend   wrk1   3667   3675                       desk_rt.encoder - Format changed to 1920x1080 (X8R8G8B8).
+   info 2022-02-14 15:06:27.317    backend    x11   3667   3670                          unix_app.xkb - Building charcode translation table.
+   info 2022-02-14 15:06:27.319    backend   wrk0   3667   3674             desk_rt.capture_component - Keyboard layout changed to: unknown
+   info 2022-02-14 15:06:27.341    backend   wrk1   3667   3675                   app.backend_session - Received a thumbnail request.
+  error 2022-02-14 15:06:27.341    backend   wrk1   3667   3675                   app.backend_session - Couldn't retrieve the wallpaper (Not implemented.).
+   info 2022-02-14 15:06:28.043    backend   wrk1   3667   3675                   desk_rt.auto_adjust - Adjusting for a direct connection (0,00 kb/s).
+   info 2022-02-14 15:06:28.043    backend   wrk1   3667   3675                   desk_rt.auto_adjust - Adjusting for < 90 kb/s
+   info 2022-02-14 15:06:59.169    backend    x11   3667   3670                          unix_app.xkb - Building charcode translation table.
+   info 2022-02-14 15:16:52.127    backend   main   3667   3667                       clipbrd.capture - Clipboard changed.
+   info 2022-02-14 15:16:52.135    backend   main   3667   3667                       clipbrd.capture - Requesting utf8 text.
+   info 2022-02-14 15:17:36.026    backend   main   3667   3667                       clipbrd.capture - Clipboard changed.
+   info 2022-02-14 15:17:36.028    backend   main   3667   3667                       clipbrd.capture - Requesting utf8 text.
+   info 2022-02-14 15:17:36.199    backend   main   3667   3667                       clipbrd.capture - Clipboard changed.
+   info 2022-02-14 15:17:36.201    backend   main   3667   3667                       clipbrd.capture - Requesting utf8 text.
+   info 2022-02-14 15:19:29.778    backend   main   3667   3667                       clipbrd.capture - Clipboard changed.
+   info 2022-02-14 15:19:29.778    backend   main   3667   3667                       clipbrd.capture - Requesting utf8 text.
+  error 2022-02-14 15:20:11.831    backend   wrk0   3667   3674              base.prot.packet_factory - Invalid packet received (type=78, 2 bytes).
+  error 2022-02-14 15:20:11.831    backend   wrk0   3667   3674                        hub_ipc_socket - IPC packet deserialization failed.
+   info 2022-02-14 15:20:11.831    backend   wrk1   3667   3675                   app.backend_session - The user has requested a connection quit.
+   info 2022-02-14 15:20:11.831    backend   wrk0   3667   3674                   app.backend_session - The socket was closed remotely.
+   info 2022-02-14 15:20:11.831    backend   ctrl   3667   3673                   app.backend_session - Stopping session.
+  error 2022-02-14 15:20:11.832       tray   wrk0   2002   2142                    app.tunnel_ft_comp - Invalid session id in cancel operation (114).
+   info 2022-02-14 15:20:11.834    backend   timr   3667   3695          base.signal.local.timer_impl - Timer wants to quit.
+   info 2022-02-14 15:20:11.835    backend   ctrl   3667   3673                      app.clipbrd_comp - Closing clipboard.
+   info 2022-02-14 15:20:11.835    backend   ctrl   3667   3673                      app.clipbrd_comp - Clearing clipboard.
+   info 2022-02-14 15:20:11.835    backend   main   3667   3667                       clipbrd.capture - Ignoring own data.
+   info 2022-02-14 15:20:11.835    backend   main   3667   3667                       clipbrd.capture - Unregistered clipboard notification.
+   info 2022-02-14 15:20:11.835    backend   ctrl   3667   3673                      app.clipbrd_comp - Clipboard closed.
+   info 2022-02-14 15:20:11.835    backend   ctrl   3667   3673                   app.backend_session - Session stopped.
+   info 2022-02-14 15:20:11.837    backend   ctrl   3667   3673                   app.backend_session - Destroyed.
+   info 2022-02-14 15:20:11.837    backend   timr   3667   3693          base.signal.local.timer_impl - Timer wants to quit.
+   info 2022-02-14 15:20:11.837    backend   ctrl   3667   3673              base.prot.job_dispatcher - 0 undelivered packets.
+   info 2022-02-14 15:20:11.837    backend   timr   3667   3692          base.signal.local.timer_impl - Timer wants to quit.
+   info 2022-02-14 15:20:11.837    backend   ctrl   3667   3673                      unix_app.backend - Session count: 0 (0)
+  error 2022-02-14 19:11:27.059       tray   wrk0   2002   2142                      unix_app.control - Service connection lost.
+   info 2022-02-14 19:11:27.060       tray   ctrl   2002   2141                    app.tunnel_ft_comp - Stopping file component.
+   info 2022-02-14 19:11:27.064   frontend   wrk0   3620   3627                     unix_app.frontend - Service connection lost.
+  error 2022-02-14 19:11:27.065    backend   wrk0   3667   3674                      unix_app.backend - Service connection lost.
+   info 2022-02-14 19:11:27.065    backend   ctrl   3667   3673                      unix_app.backend - Backend is shutting down.
+   info 2022-02-14 19:11:27.066   frontend   ctrl   3620   3626                     unix_app.frontend - Frontend shutdown.
+   info 2022-02-14 19:11:27.067   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 19:11:27.092   frontend   main   3620   3620                     unix_app.frontend - Monitoring online states.
+   info 2022-02-14 19:30:29.120         ad   main   2069   2069                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - * Build 20210413130604
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - * Prefix ad
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - 
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 19:30:29.127         ad   main   2069   2069                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 19:30:29.197         ad   main   2069   2069                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 19:30:29.197         ad   main   2069   2069                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 19:30:29.201       tray   main   2069   2069                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 19:30:29.202       tray   main   2069   2069                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-14 19:30:29.227       tray   main   2069   2069                       base.signal.hub - 1 threads.
+   info 2022-02-14 19:30:29.227       tray   main   2069   2069                    app.tunnel_ft_comp - Ready.
+   info 2022-02-14 19:30:29.354       tray   ctrl   2069   2207                      unix_app.control - Control startup.
+  error 2022-02-14 19:30:29.354       tray   ctrl   2069   2207              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-14 19:30:29.372       tray   wrk0   2069   2208              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-14 19:30:29.372       tray   wrk0   2069   2208                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-14 19:30:29.372       tray   wrk0   2069   2208        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 19:30:29.376       tray   wrk0   2069   2208                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+   info 2022-02-14 23:46:29.348         ad   main   2074   2074                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-14 23:46:29.348         ad   main   2074   2074                                  main - * AnyDesk Linux Startup *
+   info 2022-02-14 23:46:29.348         ad   main   2074   2074                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - * Build 20210413130604
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - * Prefix ad
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - 
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-14 23:46:29.349         ad   main   2074   2074                                  main - Found GLib Version: 2.64.
+   info 2022-02-14 23:46:29.393         ad   main   2074   2074                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-14 23:46:29.393         ad   main   2074   2074                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-14 23:46:29.396       tray   main   2074   2074                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-14 23:46:29.396       tray   main   2074   2074                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-14 23:46:29.420       tray   main   2074   2074                       base.signal.hub - 1 threads.
+   info 2022-02-14 23:46:29.420       tray   main   2074   2074                    app.tunnel_ft_comp - Ready.
+   info 2022-02-14 23:46:29.576       tray   ctrl   2074   2202                      unix_app.control - Control startup.
+  error 2022-02-14 23:46:29.576       tray   ctrl   2074   2202              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-14 23:46:29.583       tray   wrk0   2074   2203              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-14 23:46:29.583       tray   wrk0   2074   2203                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-14 23:46:29.583       tray   wrk0   2074   2203        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-14 23:46:29.586       tray   wrk0   2074   2203                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+  error 2022-02-18 13:29:17.019       tray   wrk0   2074   2203                      unix_app.control - Service connection lost.
+   info 2022-02-18 13:29:17.020       tray   ctrl   2074   2202                    app.tunnel_ft_comp - Stopping file component.
+   info 2022-02-18 13:31:28.094         ad   main   2098   2098                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - * AnyDesk Linux Startup *
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - * Build 20210413130604
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - * Prefix ad
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - 
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-18 13:31:28.100         ad   main   2098   2098                                  main - Found GLib Version: 2.64.
+   info 2022-02-18 13:31:28.174         ad   main   2098   2098                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-18 13:31:28.175         ad   main   2098   2098                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-18 13:31:28.183       tray   main   2098   2098                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-18 13:31:28.183       tray   main   2098   2098                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-18 13:31:28.232       tray   main   2098   2098                       base.signal.hub - 1 threads.
+   info 2022-02-18 13:31:28.232       tray   main   2098   2098                    app.tunnel_ft_comp - Ready.
+   info 2022-02-18 13:31:28.307       tray   ctrl   2098   2226                      unix_app.control - Control startup.
+  error 2022-02-18 13:31:28.310       tray   ctrl   2098   2226              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-18 13:31:28.324       tray   wrk0   2098   2227              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-18 13:31:28.324       tray   wrk0   2098   2227                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-18 13:31:28.324       tray   wrk0   2098   2227        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-18 13:31:28.329       tray   wrk0   2098   2227                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+  error 2022-02-18 13:51:47.448       tray   wrk0   2098   2227                      unix_app.control - Service connection lost.
+   info 2022-02-18 13:51:47.449       tray   ctrl   2098   2226                    app.tunnel_ft_comp - Stopping file component.
+   info 2022-02-18 19:35:11.172         ad   main   2075   2075                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - * AnyDesk Linux Startup *
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - * Build 20210413130604
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - * Prefix ad
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - 
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-18 19:35:11.175         ad   main   2075   2075                                  main - Found GLib Version: 2.64.
+   info 2022-02-18 19:35:11.228         ad   main   2075   2075                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-18 19:35:11.229         ad   main   2075   2075                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-18 19:35:11.235       tray   main   2075   2075                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-18 19:35:11.235       tray   main   2075   2075                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-18 19:35:11.261       tray   main   2075   2075                       base.signal.hub - 1 threads.
+   info 2022-02-18 19:35:11.261       tray   main   2075   2075                    app.tunnel_ft_comp - Ready.
+   info 2022-02-18 19:35:11.365       tray   ctrl   2075   2191                      unix_app.control - Control startup.
+  error 2022-02-18 19:35:11.370       tray   ctrl   2075   2191              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-18 19:35:11.382       tray   wrk0   2075   2192              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-18 19:35:11.382       tray   wrk0   2075   2192                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-18 19:35:11.382       tray   wrk0   2075   2192        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-18 19:35:11.403       tray   wrk0   2075   2192                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 info 2022-02-21 08:28:53.583         ad   main   2039   2039                         impl_selector - using avx2
+ * * * * * * * * * * * * * * * * * *
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - * AnyDesk Linux Startup *
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - * Version 6.1.1 (linux_bsd_rpi_6.1.1 d5cd0aedcfaef0b868e31f90b10395e13dd0a3ef)
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - * Build 20210413130604
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - * Prefix ad
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - * Copyright (C) 2021 AnyDesk Software GmbH *
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - 
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - Distribution Info: Ubuntu 20.04.3 LTS
+   info 2022-02-21 08:28:53.590         ad   main   2039   2039                                  main - Found GLib Version: 2.64.
+   info 2022-02-21 08:28:53.679         ad   main   2039   2039                       app.common_path - user_data_dir = /home/carla/.anydesk, logged_in_user_data_dir = /home/carla/.anydesk, current_home = /home/carla
+
+   info 2022-02-21 08:28:53.679         ad   main   2039   2039                       app.common_path - initialized user = /home/carla/.anydesk, system = /etc/anydesk
+   info 2022-02-21 08:28:53.694       tray   main   2039   2039                           gui.gui_app - DPI scaling: 1,00 / 1,00
+   info 2022-02-21 08:28:53.694       tray   main   2039   2039                           gui.gui_app - Using std-resolution bitmaps.
+   info 2022-02-21 08:28:53.732       tray   main   2039   2039                       base.signal.hub - 1 threads.
+   info 2022-02-21 08:28:53.732       tray   main   2039   2039                    app.tunnel_ft_comp - Ready.
+   info 2022-02-21 08:28:53.922       tray   ctrl   2039   2180                      unix_app.control - Control startup.
+  error 2022-02-21 08:28:53.922       tray   ctrl   2039   2180              base.signal.global.event - Cannot set the subsignal count to a smaller or equal value.
+  error 2022-02-21 08:28:53.929       tray   wrk0   2039   2181              base.prot.packet_factory - Invalid packet received (type=26, 4 bytes).
+  error 2022-02-21 08:28:53.929       tray   wrk0   2039   2181                        hub_ipc_socket - IPC packet deserialization failed.
+warning 2022-02-21 08:28:53.930       tray   wrk0   2039   2181        base.signal.global.shared_file - open (/var/lib/AccountsService/users/carla) failed (13): Permissão negada 
+warning 2022-02-21 08:28:53.933       tray   wrk0   2039   2181                      unix_app.control - Could not update account image (File not found: /home/carla/.face.icon).

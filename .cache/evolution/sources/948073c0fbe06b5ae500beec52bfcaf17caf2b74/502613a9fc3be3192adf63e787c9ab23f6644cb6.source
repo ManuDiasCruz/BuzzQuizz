@@ -1,0 +1,26 @@
+[Data Source]
+DisplayName=My Tasks
+Enabled=true
+Parent=948073c0fbe06b5ae500beec52bfcaf17caf2b74
+
+[Authentication]
+Host=www.google.com
+Method=OAuth2
+Port=0
+ProxyUid=system-proxy
+RememberPassword=true
+User=carlacarlaclementino@gmail.com
+CredentialName=
+IsExternal=false
+
+[Resource]
+Identity=gtasks::MTc5NDgwMzQyNTQ5MjA2NzEzMzQ6MDow
+
+[Alarms]
+IncludeMe=false
+LastNotified=
+
+[Task List]
+BackendName=gtasks
+Color=#becedd
+Selected=true
