@@ -22,10 +22,10 @@
     }
     /*--------------SEGUNDO ACESSO-------------------*/
     .paginaum .quizzes-criados {
-        max-width: 49.5%;
+        max-width: 55%;
     }
     .paginaum .novo-quizz {
-        width: 49.5%;
+        width: 55%;
         justify-content: flex-start;
     }
     .paginaum h2 {
