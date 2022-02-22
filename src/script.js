@@ -234,10 +234,12 @@ function getAllQuizzesLocais() {
 }
 
 function getAllQuizz() {
-    document.querySelector(".paginaum .meus-quizzes").style.display = "none";
+    document.querySelector(".paginaum .novo-quizz").style.display = "none";
+    document.querySelector(".paginaum .quizzes-criados").style.display = "none";
     if (localStorage.length !== 0) {
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
-        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
+        document.querySelector(".paginaum .novo-quizz").style.display = "flex";
+        document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
         pegaMeusQuizzes(listaMeusQuizzes);
     }
@@ -293,19 +295,18 @@ function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
-    titulo = document.querySelector(".pagina-quizz")
+    let titulo = document.querySelector(".pagina-quizz")
     titulo.innerHTML = `      
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
-
     umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
-    quizzescolhido.questions.sort(embaralha)
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
+        quizzescolhido.questions[x].answers.sort(embaralha)
         titulo.innerHTML += `
-            <section class="perguntas">
-                <article data-identifier="question" class="pergunta">
+            <section class="perguntas" id="depoisdesse">
+                <article data-identifier="question" class="pergunta" id="pergunta">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
                         <h3>${quizzescolhido.questions[x].title}</h3>
                     </div>
@@ -315,16 +316,17 @@ function abrirQuizz(respostaquizz) {
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
-            <div data-identifier="answer" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
+            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
                 <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
     }
+    window.scrollTo(0, 0)
 }
 
-// numero da questao => x
-// numero da opcao => y
+let questoesrespondidas = 0;
+let acertos = 0;
 
 function quizzSelecionado(numerodaquestao, opcao) {
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
