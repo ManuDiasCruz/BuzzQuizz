@@ -1,0 +1,115 @@
+@media (max-width: 600px){
+
+    /*-----------BARRA DO TOPO--------------- */
+
+    .barratopo {
+        width: 100%;
+        height: 54px;
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        position: fixed;
+        z-index: 2;
+    }
+
+    .centro {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .espaçobarratopo {
+        width: 100vw;
+        height: 38px;
+        background-color: white;
+    }
+
+    .logo {
+        padding-left: 15px;
+    }
+
+
+    .instagram {
+        display: none;
+    }
+
+
+    .linhavertical {
+        display: none;
+        
+    }
+
+    .pesquisa {
+        display: none;
+    }
+
+    .icones {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .direct {
+        display: none;
+    }
+
+
+    .iconeextra {
+        display: block;
+        width: 42.67px;
+        height: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 10px;
+    }
+
+    /*---------------STORES---------------*/
+
+
+    .stores {
+        background-color: #E5E5E5;
+
+    }
+
+    .seta {
+        display: none;
+    }
+
+
+
+    .espaçostores{
+        background-color: #E5E5E5;
+        height: 0;
+        width: 0;
+    }
+
+    /*------------SIDEBAR-------------*/
+
+    .extra {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        display: none;
+    }
+
+
+    /*-------------BOTTOMBAR----------------*/
+
+    .bottombar {
+        width: 100%;
+        height: 54px;
+        background-color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+    }
+
+}

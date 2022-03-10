@@ -1,0 +1,466 @@
+
+
+body {
+    background-color: #E5E5E5;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #262626;
+}
+
+/*-----------BARRA DO TOPO--------------- */
+
+.barratopo {
+    width: 100vw;
+    height: 54px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    z-index: 2;
+}
+
+.centro {
+    width: 935px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.espaçobarratopo {
+    width: 100%;
+    height: 38px;
+    background-color: white;
+}
+
+.logo {
+    width: 31px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.instagram {
+    height: 100%;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+ion-icon {
+    font-size: 22px;
+}
+
+.linhavertical {
+    width: 1px;
+    height: 25px;
+    background-color: #DBDBDB;
+    
+}
+
+.imginstagram {
+    height: 29px;
+    width: 103px;
+    margin-left: 9px;
+}
+
+.pesquisa {
+    height: 100%;
+    width: 593px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+}
+
+.barradepesquisa {
+    width: 215px;
+    height: 28px;
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;    ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+.icones {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.direct {
+    width: 42.67px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconeextra {
+    display: none;
+}
+
+
+/*----------BACKGROUND-----------*/
+
+.conteudo {
+    background-color: #E5E5E5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*------------FEED-------------*/
+
+
+.feed {
+    background-color: #E5E5E5;
+    width: 935px;
+    height: 100vh;
+    padding-top: 34px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+/*---------------STORES---------------*/
+
+
+.stores {
+    background-color: white;
+    height: 118px;
+    max-width: 614px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: inline-flex;
+    border-radius: 3px;
+    border: 1px solid #E5E5E5;
+    position: relative;
+}
+
+.seta {
+    position: absolute;
+    padding-left: 95%;
+    padding-top: 46px;
+}
+
+.setastores {
+    font-size: 26px;
+    background-color: white;
+    border-radius: 50%;
+    color:#E5E5E5;
+    filter: drop-shadow(0 0 0.75rem grey);
+}
+
+
+.umstore {
+    height: 124px; /*auto?*/
+    width: 81px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-image: url(./imagens/storesbackground.png);
+    background-repeat: no-repeat;
+    background-size: 66px;
+    background-position: top 14.5px right 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.fotostore {
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+}
+
+.nome {
+    width: 66px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-weight: 400;
+
+}
+
+.textostores {
+    display: flex;
+    justify-content: center;
+}
+
+.espaçostores{
+    background-color: #E5E5E5;
+    height: 20px;
+    width: 100%;
+}
+
+/*------------ESQUERDA-------------*/
+
+.feedmaisstores{
+    height: 800px; /*auto?*/
+    width: 614px;
+}
+
+/*-----------POSTS--------------*/
+
+.posts {
+    background-color: white;
+    height: 749px;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #DBDBDB;
+}
+
+.conta {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.foto {
+    height: 100%;
+    width: 170px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 7px;
+    font-weight: 400;
+}
+
+.perfil {
+    height: 43px;
+    width: 52px;
+    border-radius: 50%;
+}
+
+.verificado {
+    width: 10px;
+    padding-left: 5px;
+    padding-top: 1px;
+}
+
+
+.dots {
+    height: 100%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video {
+    width: 612px;
+    height: 612px;
+    background-color: black;
+}
+
+.imgpost {
+    width: 100%;
+    height: 612px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.imgpixar {
+    width: 100%;
+}
+
+.like {
+    width: 100%;
+    height: 38px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.iconesrodape {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+}
+
+.esquerdarodape {
+    width: 35.69px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.save {
+    width: 312px;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 8.5px;
+}
+
+
+.curtidas {
+    width: auto;
+    height: 36px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 7px;
+}
+
+.contacurtir {
+    width: 20px;
+    height: 20px;
+}
+
+.ncurtidas {
+    padding-left: 5px;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.espaçoposts {
+    width: 614px;
+    height: 24px;
+}
+
+/*------------SIDEBAR-------------*/
+
+
+.sidebar{
+    height: 500px;
+    width: 293px;
+    position: fixed;
+    top: 88px;
+    right: 290px;
+}
+
+.storedestaque {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.destaque {
+    height: 56px;
+    width: 56px;
+}
+
+.textodestaque {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 17px;
+}
+.nomedaconta {
+    padding-bottom: 5px;
+}
+
+.seguir {
+    height: 100%;/*auto?*/
+    width: 100%;
+}
+
+.sugestoes {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #8E8E8E;
+}
+
+
+.umasugestao {
+    display: flex;
+    height: 38px;
+    width: 100%;
+    flex-direction: column;
+}
+
+.colunas {
+    display: flex;
+    flex-direction: row;
+}
+
+.sugestaodireita {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #139EF2;
+    font-size: 12px;
+}
+
+.sugestaoesquerda {
+    height: 48px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.fotosugestao {
+    width: 32px;
+}
+
+.sugestoesinsta {
+    padding-left: 11px;
+}
+
+.nomesugestao {
+    padding-bottom: 5px;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    color: #C7C7C7;
+}
+
+.direitosautorais {
+    padding-top: 10px;
+}
+
+
+/*---------------FONTES-----------------*/
+
+.nomedaconta, .nomeperfil, .nomesugestao {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.subtitulo, .textostores, .search, .tesegue {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.direitosautorais {
+    font-weight: 300;
+    font-size: 11px;
+}
+
+.vertudo {
+    color: #262626
+}
+
+.bottombar {
+    display: none;
+}
