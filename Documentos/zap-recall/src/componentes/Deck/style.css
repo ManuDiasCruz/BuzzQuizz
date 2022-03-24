@@ -1,0 +1,61 @@
+.Deck {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 0;
+  position: absolute;
+  background-color: var(--cor-fundo);
+  overflow-y: auto;
+}
+
+.Deck::-webkit-scrollbar {
+  display: none;
+}
+
+.Deck header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 36px;
+  color: white;
+  font-family: "Righteous";
+  z-index: 1;
+  background-color: var(--cor-fundo);
+  padding: 20px;
+}
+
+.Deck header img {
+  width: 52px;
+  height: 60px;
+}
+
+.Deck main {
+  margin: 150px 0px;
+}
+
+.Deck .resultado {
+  margin-bottom: 20px;
+}
+
+.Deck footer {
+  width: 100%;
+  min-height: 70px;
+  padding: 25px 115px;
+  font-size: 18px;
+  background-color: white;
+  color: black;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+}
