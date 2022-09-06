@@ -4,7 +4,7 @@
 
 <img src=img/Buzz_quizz.gif  width="400" />
 
-[Buzz Quizz]([https://driveneats-sable.vercel.app/](https://manudiascruz.github.io/BuzzQuizz/))
+[Buzz Quizz](https://manudiascruz.github.io/BuzzQuizz/)
 
 ## 📝 Sobre
 
