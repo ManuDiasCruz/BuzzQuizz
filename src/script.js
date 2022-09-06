@@ -180,7 +180,6 @@ function createQuizz() {
             }
         ]
     };
-    console.log(quizzTeste);
     return quizzTeste;
 }
 
@@ -229,8 +228,6 @@ function getAllQuizzesLocais() {
         quizzSerializado = localStorage.getItem(localStorage.key(i));
         listaMeusQuizzes.push(JSON.parse(quizzSerializado));
     }
-    console.log("Meus quizzes locais:");
-    console.log(listaMeusQuizzes);
 }
 
 function getAllQuizz() {
@@ -251,14 +248,12 @@ function getAllQuizz() {
 
 function getQuizz(here) {
     identificador = here;
-    console.log("get quizz" + identificador);
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
 }
 
 function pegouQuizz(resposta) {
-    // document.querySelector(".cria-quizz").style.display = "none";
     quizzTeste = resposta.data;
     let todos_quizzes = document.querySelector(".quizzes");
     for (let i = 0; i < quizzTeste.length; i++) {
@@ -266,25 +261,22 @@ function pegouQuizz(resposta) {
         <article class="quizz${i}" onclick="getQuizz(${quizzTeste[i].id})">
             <h3>${quizzTeste[i].title}</h3>
         </article>`
-        umquizz = document.querySelector(`.quizz${i}`);
-        umquizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
+        let umQuizz = document.querySelector(`.quizz${i}`);
+        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
     }
 }
 
 function pegaMeusQuizzes(listaMeusQuizzes) {
-    console.log("Entrei em pegaMeusQuizzes");
     getAllQuizzesLocais();
-    // document.querySelector(".cria-quizz").style.display = "none";
     let meusQuizzes = document.querySelector(".quizzes-criados");
     for (let i = 0; i < listaMeusQuizzes.length; i++) {
         meusQuizzes.innerHTML += `               
         <article class="quizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
             <h3>${listaMeusQuizzes[i].title}</h3>
         </article>`
-        umquizz = document.querySelector(`.quizz${i}`);
-        umquizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
+        let umQuizz = document.querySelector(`.quizz${i}`);
+        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
     }
-    console.log(meusQuizzes);
 }
 
 function embaralha() {
@@ -359,7 +351,6 @@ function quizzSelecionado(numerodaquestao, opcao) {
         quantidadeAcertos()
     }
     questoesrespondidas += 1;
-    console.log(acertos)
 }
 
 let porcentagem = 0;
@@ -425,14 +416,11 @@ function erroPegouQuizz(error) {
 }
 
 function chamarTelaCriarQuizz() {
-    console.log("Entrei na função: chamarTelaCriarQuizz()");
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "flex";
-    console.log("  Troquei da Tela 1.1 para a 3.1!");
 }
 
 function validarDadosBasicos() {
-    console.log("Entrei na função: validarDadosBasicos()");
     let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
     if (tituloQuizz.length < 20) {
         alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
@@ -452,23 +440,16 @@ function validarDadosBasicos() {
     if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
         quizz.title = tituloQuizz;
         quizz.image = imagemQuizz;
-        console.log("==> Quizz ao final da função validarDadosBasicos() :\\/      " + quizz);
-        console.log("      qtdadePerguntas :" + qtdadePerguntas);
-        console.log("      listaPerguntas.l:" + listaPerguntas.length);
-        console.log("      listaNiveis.l   :" + listaNiveis.length);
         chamarTelaCriarPerguntas();
     }
 }
 
 function chamarTelaCriarPerguntas() {
-    console.log("Entrei na função: chamaTelaCriarPerguntas()");
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
 
-    // Limpando a página para criar perguntas antes de entrar com as perguntas de um novo Quizz
     const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas");
 
     montarTelaCriarPerguntas(telaCriarPerguntas);
-    console.log("  Troquei da Tela 3.1 para a 3.2!");
 }
 
 function montarTelaCriarPerguntas(telaCriarPerguntas) {
@@ -524,7 +505,6 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
         </button>
     `;
     telaCriarPerguntas.style.display = "flex";
-    console.log(telaCriarPerguntas);
 }
 
 function abrirNovaPergunta(elemento) {
@@ -556,9 +536,6 @@ function abrirNovaPergunta(elemento) {
             <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
         </div>
     `;
-    // Vou deixar só para resgistrar que fiz minha 1ª arrow function 
-    // sem precisar olhar nas aulas de Diego (O.O') kkkkkkkk
-    setTimeout(() => console.log(elemento.parentNode), 2000);
 
     novapergunta.style.display = "flex";
     novapergunta.style.flexDirection = "column";
@@ -622,11 +599,6 @@ function validarTodasPerguntas() {
         quizz.questions = listaPerguntas;
 
         chamarTelaCriarNiveis();
-
-        console.log("Ao final de validarTodasPerguntas:");
-        console.log(listaPerguntas);
-        console.log(quizz.questions);
-        console.log(quizz);
     }
 }
 
@@ -638,13 +610,11 @@ function montarNovaPergunta(titulo, cor, listaRespostas) {
 }
 
 function chamarTelaCriarNiveis() {
-    console.log("Entrei na função: chamaTelaCriarNiveis()");
     document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
 
     const telaCriarNiveis = document.querySelector(".cria-quizz .cria-niveis");
+
     montarTelaCriarNiveis(telaCriarNiveis);
-    // document.querySelector(".cria-quizz .cria-niveis").style.display = "flex";
-    console.log("  Troquei da Tela 3.2 para a 3.3!");
 }
 
 function montarTelaCriarNiveis(telaCriarNiveis) {
@@ -677,7 +647,6 @@ function montarTelaCriarNiveis(telaCriarNiveis) {
         </button>
     `;
     telaCriarNiveis.style.display = "flex";
-    console.log(telaCriarNiveis);
 }
 
 function abrirNovoNivel(elemento) {
@@ -691,9 +660,6 @@ function abrirNovoNivel(elemento) {
         <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
         <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
     `;
-    // Vou deixar só para resgistrar que fiz minha 1ª arrow function 
-    // sem precisar olhar nas aulas de Diego (O.O') kkkkkkkk
-    setTimeout(() => console.log(elemento.parentNode), 2000);
 
     novoNível.style.display = "flex";
     novoNível.style.flexDirection = "column";
@@ -704,8 +670,6 @@ function validarTodosNiveis() {
     listaNiveis = [];
     let nivel;
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
-    console.log("Entrei em validar todos níveis:");
-    console.log(divsNiveis);
     let contPercentualNivelZero = 0;
     let menorPercentual = 100;
 
@@ -715,7 +679,6 @@ function validarTodosNiveis() {
             contPercentualNivelZero++;
         }
     }
-    // console.log("Menor percentual: " + menorPercentual);
 
     if (contPercentualNivelZero === 0) {
         alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
@@ -744,7 +707,6 @@ function montarNovoNivel(nivel) {
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
-    console.log("Entrei na função: chamaTelaSucessoCriacaoQuizz()");
     document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
     const telaSucessoCriacaoQuizz = document.querySelector(".cria-quizz .sucesso-quizz");
     montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz);
@@ -789,37 +751,25 @@ function voltarInicio() {
 }
 
 function validarDadosPergunta(elemento) {
-    console.log("Entrei em  validarDadosPergunta");
-
     let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
-    console.log("textoPergunta: " + textoPergunta);
-
     let corPergunta = elemento.querySelector(".cabecalho-pergunta .cor-pergunta").value;
-    console.log("corPergunta: " + corPergunta);
-
     let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
-    console.log("textoPergunta: " + textoPergunta);
-
     let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value;
-    console.log("urlRespostaCorreta: " + urlRespostaCorreta);
-
     let respostasIncorretas = elemento.querySelectorAll(".resposta .texto-resposta");
-    console.log("respostasIncorretas: " + respostasIncorretas.length);
     let contaRespostasIncorretas = 0;
+
     for (let i = 0; i < respostasIncorretas.length; i++) {
         if (respostasIncorretas[i].value !== "") {
-            console.log("  respostasIncorretas: " + respostasIncorretas[i]);
             contaRespostasIncorretas++;
         }
     }
 
     let urlRespostasIncorretas = elemento.querySelectorAll(".resposta .url-resposta");
-    console.log("urlRespostasIncorretas: " + urlRespostasIncorretas.length);
     let contaUrlRespostasIncorretas = 0;
+
     for (let i = 0; i < urlRespostasIncorretas.length; i++) {
         if (urlRespostasIncorretas[i].value !== "") {
             if (validarURL(urlRespostasIncorretas[i].value)) {
-                console.log("  urlRespostasIncorretas: " + urlRespostasIncorretas[i]);
                 contaUrlRespostasIncorretas++;
             }
         }
@@ -843,19 +793,14 @@ function validarDadosPergunta(elemento) {
 }
 
 function validarDadosNivel() {
-    console.log("Entrei na função: validarDadosNivel()");
     let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-
     let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-
     let urlNivel = document.querySelector(".nivel .url-nivel").value;
-
     let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
 
 
     if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
         (descricaoNivel.length < 30)) {
-        console.log("_____________________________________");
         alert(`
             ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
             1. O título do nível deve ter no mínimo 10 caracteres.
