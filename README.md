@@ -8,7 +8,7 @@
 
 ## 📝 Sobre
 
-<p>A aplicação foi feita com o objetivo de treinar a programação em dupla. As tecnologias utilizadas foram: HTML, CSS e Javascript.</p>
+<p>A aplicação foi feita com o objetivo de treinar a programação em dupla por meio da confecção de um site de quizzes. As tecnologias utilizadas foram: HTML, CSS e Javascript.</p>
 
 [![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript&theme=light)](https://skills.thijs.gg)
 
