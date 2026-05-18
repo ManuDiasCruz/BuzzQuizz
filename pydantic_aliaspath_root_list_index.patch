@@ -1,0 +1,193 @@
+diff --git a/pydantic/aliases.py b/pydantic/aliases.py
+--- a/pydantic/aliases.py
++++ b/pydantic/aliases.py
+@@
+-    def __init__(self, first_arg: str, *args: str | int) -> None:
++    def __init__(self, first_arg: str | int, *args: str | int) -> None:
+         self.path = [first_arg] + list(args)
+diff --git a/tests/test_aliases.py b/tests/test_aliases.py
+--- a/tests/test_aliases.py
++++ b/tests/test_aliases.py
+@@
+ def test_validation_alias_parse_data():
+@@
+     assert exc_info.value.errors(include_url=False) == [
+         {
+             'type': 'missing',
+             'loc': ('a',),
+             'msg': 'Field required',
+             'input': {'b': ['hello']},
+         }
+     ]
++
++
++def test_validation_alias_path_root_list_index() -> None:
++    class Row(BaseModel):
++        id: int = Field(validation_alias=AliasPath(0))
++        name: str = Field(validation_alias=AliasPath(1))
++        email: str = Field(validation_alias=AliasPath(2))
++
++    assert Row.model_validate([42, 'alice', 'a@example.com']) == Row(
++        id=42, name='alice', email='a@example.com'
++    )
++
++
++def test_validation_alias_path_root_list_sparse_index() -> None:
++    class Record(BaseModel):
++        id: int = Field(validation_alias=AliasPath(0))
++        status: str = Field(validation_alias=AliasPath(7))
++
++    assert Record.model_validate([123, None, None, None, None, None, None, 'ok']) == Record(id=123, status='ok')
+diff --git a/pydantic-core/src/lookup_key.rs b/pydantic-core/src/lookup_key.rs
+--- a/pydantic-core/src/lookup_key.rs
++++ b/pydantic-core/src/lookup_key.rs
+@@
+         match self {
+             Self::Str(py_str) => SmallVec::from_buf([LookupPath {
+-                first_item: PathItemString(py_str),
++                first_item: PathItem::S(PathItemString(py_str)),
+                 rest: Vec::new(),
+             }]),
+@@
+ pub(crate) struct LookupPath {
+-    /// All paths must start with a string key
+-    first_item: PathItemString,
++    /// First path item. String roots are used for normal object fields; integer roots support
++    /// `AliasPath(0)` lookups against sequence model input.
++    first_item: PathItem,
+@@
+-        let Ok(first_item_py_str) = first_item.cast_into::<PyString>() else {
+-            return py_err!(PyTypeError; "The first item in an alias path should be a string");
+-        };
+-
+-        let first_item = PathItemString(first_item_py_str.try_into()?);
++        let first_item = PathItem::from_py(first_item)?;
+         let rest = iter.map(PathItem::from_py).collect::<PyResult<_>>()?;
+@@
+     pub fn py_get_dict_item<'py>(&self, dict: &Bound<'py, PyDict>) -> PyResult<Option<Bound<'py, PyAny>>> {
+-        self.get_impl(dict, PyDictMethods::get_item, |d, loc| Ok(loc.py_get_item(&d)))
++        self.get_impl(dict, |d, loc| Ok(loc.py_get_item(d.as_any())), |d, loc| Ok(loc.py_get_item(&d)))
+     }
+@@
+     pub fn py_get_mapping_item<'py>(&self, dict: &Bound<'py, PyMapping>) -> PyResult<Option<Bound<'py, PyAny>>> {
+-        self.get_impl(dict, mapping_get, |d, loc| Ok(loc.py_get_item(&d)))
++        self.get_impl(dict, |d, loc| Ok(loc.py_get_item(d.as_any())), |d, loc| Ok(loc.py_get_item(&d)))
+     }
+@@
+     pub fn simple_py_get_attr<'py>(&self, obj: &Bound<'py, PyAny>) -> PyResult<Option<Bound<'py, PyAny>>> {
+         self.get_impl(obj, py_get_attrs, |d, loc| loc.py_get_attrs(&d))
+     }
+@@
+-        if let Some(v) = dict
+-            .iter()
+-            .rev()
+-            .find_map(|(k, v)| (k == self.first_key()).then_some(v))
++        if let Some(v) = self.first_item.json_obj_get(dict)
+@@
+-        lookup: impl Fn(&'a SourceT, &'s PathItemString) -> PyResult<Option<OutputT>>,
++        lookup: impl Fn(&'a SourceT, &'s PathItem) -> PyResult<Option<OutputT>>,
+@@
+-        location.push(LocItem::from(self.first_item.0.clone()));
++        location.push(self.first_item.to_loc_item());
+@@
+-            line_error = line_error.with_outer_location(self.first_item.0.clone());
++            line_error = line_error.with_outer_location(self.first_item.to_loc_item());
+@@
+-    pub fn first_key(&self) -> &str {
+-        &self.first_item
++    pub fn first_key(&self) -> Option<&str> {
++        match &self.first_item {
++            PathItem::S(path_item_string) => Some(path_item_string),
++            PathItem::Pos(_) | PathItem::Neg(_) => None,
++        }
+     }
+@@
+-    pub fn first_item(&self) -> &PathItemString {
++    pub fn first_item(&self) -> &PathItem {
+         &self.first_item
+     }
+diff --git a/pydantic-core/src/validators/model_fields.rs b/pydantic-core/src/validators/model_fields.rs
+--- a/pydantic-core/src/validators/model_fields.rs
++++ b/pydantic-core/src/validators/model_fields.rs
+@@
+ use crate::lookup_key::LookupPathCollection;
+ use crate::lookup_key::LookupType;
++use crate::lookup_key::PathItem;
+@@
+     validate_by_name: Option<bool>,
++    allow_root_sequence_aliases: bool,
+ }
+@@
+         let lookup = LookupTree::from_fields(&fields, |field| &field.lookup_path_collection);
++        let allow_root_sequence_aliases = fields.iter().any(|field| {
++            field.lookup_path_collection.by_alias.iter().any(|path| {
++                matches!(path.first_item(), PathItem::Pos(_) | PathItem::Neg(_))
++            })
++        });
+         Ok(CombinedValidator::ModelFields(Self {
+@@
+             validate_by_alias: config.get_as(intern!(py, "validate_by_alias"))?,
+             validate_by_name: config.get_as(intern!(py, "validate_by_name"))?,
++            allow_root_sequence_aliases,
+         })
+@@
+-            let dict = match input.validate_model_fields(strict, from_attributes) {
++            let dict = match input.validate_model_fields(strict, from_attributes) {
+                 Ok(d) => d,
++                Err(ValError::LineErrors(errors))
++                    if self.allow_root_sequence_aliases
++                        && errors.iter().all(|e| matches!(e.error_type, ErrorType::DictType { .. })) =>
++                {
++                    if let Some(py_input) = input.as_python() {
++                        return self.validate_by_get_item(py, input, RootSequenceInput(py_input), state).map(|(model_dict, model_extra_dict_op, fields_set)| {
++                            state.add_fields_set(fields_set.len());
++                            (model_dict, model_extra_dict_op, fields_set).into_py_any(py).map_err(ValError::from)
++                        })?;
++                    }
++                    return Err(ValError::LineErrors(errors));
++                }
+                 Err(ValError::LineErrors(errors)) => {
+@@
+-                            used_keys.insert(lookup_path.first_key());
++                            if let Some(first_key) = lookup_path.first_key() {
++                                used_keys.insert(first_key);
++                            }
+@@
+ }
++
++struct RootSequenceInput<'a, 'py>(&'a Bound<'py, PyAny>);
++
++impl<'py> ValidatedDict<'py> for RootSequenceInput<'_, 'py> {
++    type Key<'a> = Bound<'py, PyAny> where Self: 'a;
++    type Item<'a> = Bound<'py, PyAny> where Self: 'a;
++
++    fn get_item(&self, key: &crate::lookup_key::LookupPath) -> ValResult<Option<Self::Item<'_>>> {
++        key.simple_py_get_attr(self.0).map_err(Into::into)
++    }
++
++    fn iterate<'a, R>(
++        &'a self,
++        consumer: impl ConsumeIterator<ValResult<(Self::Key<'a>, Self::Item<'a>)>, Output = R>,
++    ) -> ValResult<R> {
++        Ok(consumer.consume_iterator(std::iter::empty()))
++    }
++
++    fn last_key(&self) -> Option<Self::Key<'_>> {
++        None
++    }
++}
+diff --git a/pydantic-core/src/validators/shared/lookup_tree.rs b/pydantic-core/src/validators/shared/lookup_tree.rs
+--- a/pydantic-core/src/validators/shared/lookup_tree.rs
++++ b/pydantic-core/src/validators/shared/lookup_tree.rs
+@@
+-use crate::lookup_key::{LookupPath, LookupPathCollection, LookupType, PathItem, PathItemString};
++use crate::lookup_key::{LookupPath, LookupPathCollection, LookupType, PathItem, PathItemString};
+@@
+ fn add_path_to_map(map: &mut AHashMap<PathItemString, LookupTreeNode>, path: &LookupPath, info: LookupFieldInfo) {
+-    let base_key = path.first_item().to_owned();
++    let PathItem::S(base_key) = path.first_item() else {
++        // Root integer aliases are handled by direct Python input lookup; JSON object lookup trees
++        // continue to index only string keys at the object root.
++        return;
++    };
++    let base_key = base_key.to_owned();
