@@ -1,27 +1,27 @@
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: "https://cdn.pixabay.com/photo/2017/05/31/18/38/panda-2362498_1280.jpg",
     questions: [{
             title: "Outro urso fofinho também é um tipo de panda... qual?",
             color: "#F05C5C",
             answers: [{
                     text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    image: "https://cdn.pixabay.com/photo/2020/06/18/11/38/red-panda-5313260_1280.jpg",
                     isCorrectAnswer: true
                 },
                 {
                     text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
+                    image: "https://cdn.pixabay.com/photo/2016/09/18/18/51/brown-bear-1679632_1280.jpg",
                     isCorrectAnswer: false
                 },
                 {
                     text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
+                    image: "https://cdn.pixabay.com/photo/2018/03/13/18/05/animal-3222651_1280.jpg",
                     isCorrectAnswer: false
                 },
                 {
                     text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
+                    image: "https://cdn.pixabay.com/photo/2016/11/22/19/14/bear-1850487_1280.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -287,6 +287,7 @@ function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
+    resetGameState();
     let titulo = document.querySelector(".pagina-quizz")
     titulo.innerHTML = `      
         <section class="titulo-quizz">
@@ -304,7 +305,7 @@ function abrirQuizz(respostaquizz) {
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
+            </section>`
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
@@ -334,23 +335,22 @@ function quizzSelecionado(numerodaquestao, opcao) {
         } else {
             umaopcao.classList.add("acertou");
         }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
-        }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.classList.contains("true")) {
         acertos += 1;
-        quantidadeAcertos()
     }
+
     questoesrespondidas += 1;
+
+    if (questoesrespondidas === quizzescolhido.questions.length) {
+        setTimeout(resultadoQuizz, 2000);
+    } else {
+        const proximaPergunta = document.querySelectorAll(".pergunta")[numerodaquestao + 1];
+        if (proximaPergunta) {
+            setTimeout(() => proximaPergunta.scrollIntoView({ behavior: "smooth", block: "center" }), 2000);
+        }
+    }
 }
 
 let porcentagem = 0;
@@ -361,29 +361,20 @@ let numeronoarray = 0;
 let u = 0
 
 function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
-        }
-    }
+    return Math.round((acertos / quizzescolhido.questions.length) * 100);
 }
 
 function resultadoQuizz() {
+    const nivelResultado = getNivelResultado();
     let perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivelResultado.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivelResultado.image}" alt="Imagem do resultado">
+                <span>${nivelResultado.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -553,11 +544,11 @@ function montarNovaResposta(elementoResposta) {
         ehRespostaCorreta = true;
     }
 
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    return {
+        text: textoResposta,
+        image: urlResposta,
+        isCorrectAnswer: ehRespostaCorreta
+    };
 }
 
 function validarTodasPerguntas() {
@@ -603,10 +594,11 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -698,12 +690,12 @@ function validarTodosNiveis() {
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,7 +705,7 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+    quizz.image = "https://cdn.pixabay.com/photo/2020/04/30/16/53/panda-5114470_1280.jpg";
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -792,11 +784,11 @@ function validarDadosPergunta(elemento) {
     }
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elementoNivel) {
+    let tituloNivel = elementoNivel.querySelector(".titulo-nivel").value;
+    let percentualNivel = parseInt(elementoNivel.querySelector(".percentual-nivel").value);
+    let urlNivel = elementoNivel.querySelector(".url-nivel").value;
+    let descricaoNivel = elementoNivel.querySelector(".descricao-nivel").value;
 
 
     if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
@@ -824,6 +816,27 @@ function validarURL(texto) {
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(texto);
+}
+
+
+function resetGameState() {
+    questoesrespondidas = 0;
+    acertos = 0;
+    porcentagem = 0;
+    porcentagemarredondada = 0;
+}
+
+function getNivelResultado() {
+    const percentual = Math.round((acertos / quizzescolhido.questions.length) * 100);
+    porcentagemarredondada = percentual;
+    const levelsOrdenados = [...quizzescolhido.levels].sort((a, b) => a.minValue - b.minValue);
+    let nivelSelecionado = levelsOrdenados[0];
+    for (let i = 0; i < levelsOrdenados.length; i++) {
+        if (percentual >= levelsOrdenados[i].minValue) {
+            nivelSelecionado = levelsOrdenados[i];
+        }
+    }
+    return nivelSelecionado;
 }
 
 getAllQuizz();
