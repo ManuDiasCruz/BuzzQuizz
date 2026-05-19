@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Panda Master">
+  <defs>
+    <linearGradient id="party" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6B0"/>
+      <stop offset="100%" stop-color="#FFD980"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#party)"/>
+  <g fill="#EC362D">
+    <polygon points="30,30 38,52 60,52 42,66 50,90 30,76 10,90 18,66 0,52 22,52"/>
+    <polygon points="370,40 376,58 394,58 380,68 386,86 370,76 354,86 360,68 346,58 364,58"/>
+    <polygon points="40,250 46,266 62,266 50,276 54,290 40,282 26,290 30,276 18,266 34,266"/>
+    <polygon points="360,260 366,276 382,276 370,286 374,300 360,292 346,300 350,286 338,276 354,276"/>
+  </g>
+  <g transform="translate(200 175)">
+    <ellipse cx="0" cy="50" rx="92" ry="58" fill="#FFFFFF"/>
+    <circle cx="0" cy="-5" r="68" fill="#FFFFFF"/>
+    <ellipse cx="-50" cy="-58" rx="20" ry="22" fill="#1A1A1A"/>
+    <ellipse cx="50"  cy="-58" rx="20" ry="22" fill="#1A1A1A"/>
+    <ellipse cx="-22" cy="-8" rx="16" ry="18" fill="#1A1A1A"/>
+    <ellipse cx="22"  cy="-8" rx="16" ry="18" fill="#1A1A1A"/>
+    <circle cx="-22" cy="-6" r="5" fill="#FFFFFF"/>
+    <circle cx="22"  cy="-6" r="5" fill="#FFFFFF"/>
+    <ellipse cx="0" cy="20" rx="9" ry="6" fill="#1A1A1A"/>
+    <path d="M-22 30 q22 18 44 0" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M-78 -60 L-50 -100 L-22 -60 L0 -100 L22 -60 L50 -100 L78 -60" stroke="#EC362D" stroke-width="4" fill="none" stroke-linejoin="round"/>
+  </g>
+</svg>

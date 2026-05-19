@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Urso pardo">
+  <rect width="400" height="300" fill="#E8D8B5"/>
+  <g transform="translate(200 175)">
+    <ellipse cx="0" cy="40" rx="100" ry="60" fill="#7A4B2A"/>
+    <circle cx="0" cy="-10" r="70" fill="#7A4B2A"/>
+    <circle cx="-55" cy="-60" r="20" fill="#7A4B2A"/>
+    <circle cx="55" cy="-60" r="20" fill="#7A4B2A"/>
+    <circle cx="-55" cy="-60" r="11" fill="#5B3520"/>
+    <circle cx="55" cy="-60" r="11" fill="#5B3520"/>
+    <circle cx="-22" cy="-10" r="5" fill="#1A1A1A"/>
+    <circle cx="22" cy="-10" r="5" fill="#1A1A1A"/>
+    <ellipse cx="0" cy="14" rx="22" ry="16" fill="#D8B68A"/>
+    <ellipse cx="0" cy="10" rx="8" ry="6" fill="#1A1A1A"/>
+    <path d="M-12 20 q12 10 24 0" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

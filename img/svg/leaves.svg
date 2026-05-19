@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Folhas verdes">
+  <rect width="400" height="300" fill="#E8F8E0"/>
+  <g fill="#4CAF50">
+    <ellipse cx="80"  cy="80"  rx="38" ry="18" transform="rotate(-30 80 80)"/>
+    <ellipse cx="170" cy="60"  rx="42" ry="20" transform="rotate(15 170 60)"/>
+    <ellipse cx="260" cy="90"  rx="38" ry="18" transform="rotate(-20 260 90)"/>
+    <ellipse cx="330" cy="50"  rx="34" ry="16" transform="rotate(25 330 50)"/>
+    <ellipse cx="60"  cy="170" rx="42" ry="20" transform="rotate(20 60 170)"/>
+    <ellipse cx="150" cy="160" rx="38" ry="18" transform="rotate(-15 150 160)"/>
+    <ellipse cx="240" cy="180" rx="42" ry="20" transform="rotate(30 240 180)"/>
+    <ellipse cx="330" cy="160" rx="38" ry="18" transform="rotate(-25 330 160)"/>
+    <ellipse cx="100" cy="250" rx="38" ry="18" transform="rotate(-20 100 250)"/>
+    <ellipse cx="200" cy="260" rx="42" ry="20" transform="rotate(10 200 260)"/>
+    <ellipse cx="300" cy="250" rx="38" ry="18" transform="rotate(-30 300 250)"/>
+  </g>
+  <g stroke="#2E7D32" stroke-width="1.5" fill="none">
+    <line x1="55" y1="92" x2="100" y2="70"/>
+    <line x1="145" y1="68" x2="195" y2="55"/>
+    <line x1="240" y1="100" x2="280" y2="82"/>
+  </g>
+</svg>

@@ -27,6 +27,10 @@ h1 {
     font-style: normal;
 }
 
+header h1 {
+    cursor: pointer;
+}
+
 
 /* Início referência HTML: lista-quizz */
 
@@ -122,11 +126,19 @@ h1 {
     display: flex;
     flex-direction: row;
     margin-right: 10px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
-    background-size: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/svg/placeholder.svg);
+    background-size: cover;
+    background-position: center;
     object-fit: cover;
     position: relative;
     margin-bottom: 12px;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.paginaum article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 }
 
 .paginaum h3 {
@@ -171,9 +183,9 @@ h1 {
     min-width: 340px;
     height: 181px;
     border-radius: 5px;
-    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%); */
-    background-image: url("../img/pandavermelho.jpg");
-    background-size: 100%;
+    background-image: url("../img/svg/placeholder.svg");
+    background-size: cover;
+    background-position: center;
     object-fit: cover;
     position: relative;
     margin-right: 12px;
@@ -229,9 +241,9 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)); */
-    background-image: url("../img/pandavermelho.jpg");
-    background-size: 100%;
+    background-image: url("../img/svg/placeholder.svg");
+    background-size: cover;
+    background-position: center;
     object-fit: cover;
 }
 
@@ -689,14 +701,42 @@ h1 {
 
 /* RESPONDENDO O QUIZZ */
 
+.pagina-quizz .perguntas .bloco-respostas .resposta {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 4px;
+    transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:hover:not(.respondida) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .nop {
-    opacity: 0.3;
+    opacity: 0.35;
 }
 
-.errou {
-    color: red;
+.errou h4 {
+    color: #C62828;
 }
 
-.acertou {
-    color: green;
+.errou img {
+    outline: 3px solid #C62828;
+}
+
+.acertou h4 {
+    color: #2E7D32;
+}
+
+.acertou img {
+    outline: 3px solid #2E7D32;
+}
+
+.escolhida {
+    font-weight: 700;
+}
+
+img {
+    background-color: #FAFAFA;
 }

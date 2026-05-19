@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Vermelho e preto">
+  <rect width="200" height="300" fill="#1A1A1A"/>
+  <rect x="200" width="200" height="300" fill="#E53935"/>
+  <circle cx="100" cy="150" r="56" fill="#E53935" opacity="0.85"/>
+  <circle cx="300" cy="150" r="56" fill="#1A1A1A" opacity="0.85"/>
+</svg>
