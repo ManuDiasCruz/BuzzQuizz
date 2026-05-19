@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Panda gigante">
+  <defs>
+    <linearGradient id="forest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8E6CF"/>
+      <stop offset="100%" stop-color="#7BC487"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#forest)"/>
+  <g transform="translate(200 175)">
+    <ellipse cx="0" cy="40" rx="105" ry="65" fill="#FFFFFF"/>
+    <circle cx="0" cy="-10" r="75" fill="#FFFFFF"/>
+    <ellipse cx="-58" cy="-65" rx="22" ry="24" fill="#1A1A1A"/>
+    <ellipse cx="58" cy="-65" rx="22" ry="24" fill="#1A1A1A"/>
+    <ellipse cx="-25" cy="-12" rx="20" ry="22" fill="#1A1A1A"/>
+    <ellipse cx="25" cy="-12" rx="20" ry="22" fill="#1A1A1A"/>
+    <circle cx="-25" cy="-10" r="6" fill="#FFFFFF"/>
+    <circle cx="25" cy="-10" r="6" fill="#FFFFFF"/>
+    <ellipse cx="-65" cy="55" rx="22" ry="34" fill="#1A1A1A"/>
+    <ellipse cx="65" cy="55" rx="22" ry="34" fill="#1A1A1A"/>
+    <ellipse cx="0" cy="22" rx="10" ry="7" fill="#1A1A1A"/>
+    <path d="M-22 32 q22 14 44 0" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Puma">
+  <defs>
+    <linearGradient id="rocks" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C9B493"/>
+      <stop offset="100%" stop-color="#6E5A3D"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#rocks)"/>
+  <g transform="translate(200 175)">
+    <ellipse cx="0" cy="40" rx="100" ry="58" fill="#B98654"/>
+    <circle cx="0" cy="-10" r="68" fill="#B98654"/>
+    <path d="M-58 -52 L-40 -85 L-28 -52 Z" fill="#B98654"/>
+    <path d="M58 -52 L40 -85 L28 -52 Z" fill="#B98654"/>
+    <ellipse cx="-22" cy="-14" rx="9" ry="11" fill="#F5E099"/>
+    <ellipse cx="22" cy="-14" rx="9" ry="11" fill="#F5E099"/>
+    <circle cx="-22" cy="-12" r="5" fill="#1A1A1A"/>
+    <circle cx="22" cy="-12" r="5" fill="#1A1A1A"/>
+    <path d="M-8 14 L8 14 L0 22 Z" fill="#1A1A1A"/>
+    <path d="M-25 30 q12 10 25 0 q12 -10 25 0" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

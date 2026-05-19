@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Musgo">
+  <rect width="400" height="300" fill="#2D5024"/>
+  <g>
+    <circle cx="60"  cy="80"  r="30" fill="#5E9C41"/>
+    <circle cx="120" cy="60"  r="22" fill="#6FB44C"/>
+    <circle cx="180" cy="90"  r="32" fill="#5E9C41"/>
+    <circle cx="240" cy="60"  r="24" fill="#7BC459"/>
+    <circle cx="300" cy="95"  r="30" fill="#5E9C41"/>
+    <circle cx="360" cy="70"  r="20" fill="#6FB44C"/>
+    <circle cx="40"  cy="170" r="26" fill="#6FB44C"/>
+    <circle cx="110" cy="180" r="34" fill="#5E9C41"/>
+    <circle cx="180" cy="170" r="22" fill="#7BC459"/>
+    <circle cx="250" cy="195" r="30" fill="#6FB44C"/>
+    <circle cx="320" cy="180" r="26" fill="#5E9C41"/>
+    <circle cx="380" cy="200" r="20" fill="#7BC459"/>
+    <circle cx="80"  cy="260" r="28" fill="#5E9C41"/>
+    <circle cx="160" cy="270" r="22" fill="#7BC459"/>
+    <circle cx="230" cy="265" r="32" fill="#6FB44C"/>
+    <circle cx="310" cy="270" r="24" fill="#5E9C41"/>
+  </g>
+  <g fill="#A4D38A" opacity="0.7">
+    <circle cx="120" cy="60"  r="6"/>
+    <circle cx="240" cy="60"  r="6"/>
+    <circle cx="180" cy="170" r="6"/>
+    <circle cx="320" cy="180" r="6"/>
+    <circle cx="160" cy="270" r="6"/>
+  </g>
+</svg>
