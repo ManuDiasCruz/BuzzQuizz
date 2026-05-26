@@ -18,9 +18,21 @@
     .paginaum .quizzes {
         justify-content: space-between;
     }
+    .paginaum article {
+        width: calc(50% - 6px);
+        margin-right: 0px;
+    }
+    .paginaum .app-notice {
+        width: 100%;
+        text-align: left;
+    }
     /*--------------SEGUNDO ACESSO-------------------*/
     .paginaum .quizzes-criados {
         max-width: 55%;
+    }
+    .paginaum .quizzes-criados article {
+        width: 330px;
+        min-width: 330px;
     }
     .paginaum .novo-quizz {
         width: 55%;
@@ -64,6 +76,7 @@
     .pagina-quizz .perguntas .bloco-respostas .resposta img {
         width: 100%;
         height: 175.2px;
+        object-fit: cover;
     }
     .pagina-quizz .perguntas .bloco-respostas .resposta span {
         width: 100%;
@@ -101,18 +114,17 @@
     }
     .fim .resultado .conteudo-reultado img {
         width: 50%;
-        height: auto;
+        height: 220px;
         padding-right: 20px;
+        object-fit: cover;
     }
-    .fim.resultado .conteudo-reultado span {
+    .fim .resultado .conteudo-reultado span {
         width: 50%;
-        height: 250px;
         font-size: 19px;
         line-height: 25px;
-        width: 340px;
-        height: 96px;
-        margin-left: 40px;
-        overflow: hidden;
+        height: auto;
+        margin-left: 0px;
+        overflow: visible;
     }
     .fim button {
         width: 260.38px;
