@@ -1,389 +1,726 @@
-let quizzTeste = {
-    title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
-    questions: [{
-            title: "Outro urso fofinho também é um tipo de panda... qual?",
-            color: "#F05C5C",
-            answers: [{
-                    text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Você é um Panda agora! Qual sua comida favorita?",
-            color: "#55DD65",
-            answers: [{
-                    text: "Um gostoso e nutritivo bambu",
-                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Folhinhas fininhas e verdinhas",
-                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Musguinho cheio de bichinhos",
-                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Qual sua cor favorita?",
-            color: "#6ACAE2",
-            answers: [{
-                    text: "Preto ou vermelho, depende do dia",
-                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Branco e preto, um clássico que nunca sai de moda...",
-                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        }
-    ],
-    levels: [{
-            title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
-            text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
-            minValue: 60
-        },
-        {
-            title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
-            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
-            minValue: 0
-        }
-    ]
-};
-
-let level = {
-    title: "Título do nível 1",
-    image: "https://http.cat/411.jpg",
-    text: "Descrição do nível 1",
-    minValue: 0
-};
-
-let question = {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: []
-};
-
-let answer = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: false
-};
-
-let quizz = {
-    title: "Título do quizz",
-    image: "https://http.cat/411.jpg",
-    questions: [],
-    levels: []
-};
-
-let qtdadePerguntas = 0;
+const API_URL = "https://mock-api.driven.com.br/api/v4/buzzquizz";
 const MIN_PERGUNTAS = 3;
-let listaPerguntas = [];
-
-let qtdadeNiveis = 0;
 const MIN_NIVEIS = 2;
-let listaNiveis = [];
-
-let listaMeusQuizzes = [];
-
-let quizzRecemCriado;
-let existeQuizzUsuario = false;
-
-function createQuizz() {
-    const quizz = {
-        title: "Lessa Squad - Grupo 5",
-        image: "https://http.cat/411.jpg",
-        questions: [{
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
+const FALLBACK_IMAGE = "img/pandavermelho.jpg";
+const LOCAL_STORAGE_PREFIX = "buzzquizz-v2:";
+const SHOWCASE_QUIZZES = [
+    {
+        id: "show-pandas",
+        title: "Qual panda combina mais com você?",
+        image: "https://cdn.pixabay.com/photo/2014/07/27/13/50/panda-400277_640.jpg",
+        questions: [
+            {
+                title: "Qual detalhe mais combina com o panda vermelho?",
+                color: "#D94C3D",
+                answers: [
+                    {
+                        text: "Cauda longa e avermelhada",
+                        image: "https://cdn.pixabay.com/photo/2018/06/28/18/44/red-panda-3445380_640.jpg",
                         isCorrectAnswer: true
                     },
                     {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
+                        text: "Pelagem preta e branca clássica",
+                        image: "https://cdn.pixabay.com/photo/2016/03/04/22/54/animal-1236875_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Escamas brilhantes",
+                        image: "https://cdn.pixabay.com/photo/2017/08/07/12/47/ocean-2603504_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Casco resistente",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/13/lunar-surface-11088_640.jpg",
                         isCorrectAnswer: false
                     }
                 ]
             },
             {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
+                title: "Qual cenário combina melhor com um panda?",
+                color: "#5C8A3B",
+                answers: [
+                    {
+                        text: "Bosques com bambu por perto",
+                        image: "https://cdn.pixabay.com/photo/2019/09/23/15/21/panda-4504579_640.jpg",
                         isCorrectAnswer: true
                     },
                     {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
+                        text: "Dunas lunares",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/13/lunar-surface-11088_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Praias abertas",
+                        image: "https://cdn.pixabay.com/photo/2017/08/07/12/47/ocean-2603504_640.jpg",
                         isCorrectAnswer: false
                     }
                 ]
             },
             {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
+                title: "Qual imagem costuma representar o panda gigante?",
+                color: "#39495E",
+                answers: [
+                    {
+                        text: "Um animal preto e branco",
+                        image: "https://cdn.pixabay.com/photo/2016/03/04/22/54/animal-1236875_640.jpg",
                         isCorrectAnswer: true
                     },
                     {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
+                        text: "Um astronauta em órbita",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/11/astronaut-11080_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Um veleiro entre montanhas",
+                        image: "https://cdn.pixabay.com/photo/2018/09/16/22/26/sailboat-4436708_640.jpg",
                         isCorrectAnswer: false
                     }
                 ]
             }
         ],
-        levels: [{
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
+        levels: [
+            {
+                title: "Explorador iniciante",
+                image: "https://cdn.pixabay.com/photo/2016/03/04/22/54/animal-1236875_640.jpg",
+                text: "Você passou pelo quizz, mas ainda pode observar melhor os detalhes e diferenças entre os pandas.",
                 minValue: 0
             },
             {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
+                title: "Especialista em pandas",
+                image: "https://cdn.pixabay.com/photo/2019/09/23/15/21/panda-4504579_640.jpg",
+                text: "Você acertou o essencial e percebeu bem o contraste entre espécies, habitats e aparências.",
+                minValue: 60
             }
         ]
+    },
+    {
+        id: "show-space",
+        title: "Até onde vai seu olhar para o espaço?",
+        image: "https://cdn.pixabay.com/photo/2011/12/14/12/26/astronaut-11118_1280.jpg",
+        questions: [
+            {
+                title: "Qual imagem remete melhor a uma caminhada espacial?",
+                color: "#23395B",
+                answers: [
+                    {
+                        text: "Astronauta visto do lado de fora da nave",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/11/astronaut-11080_640.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Uma praia em dia aberto",
+                        image: "https://cdn.pixabay.com/photo/2017/08/07/12/47/ocean-2603504_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Um panda em descanso",
+                        image: "https://cdn.pixabay.com/photo/2016/03/04/22/54/animal-1236875_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Qual cenário representa melhor a superfície da Lua?",
+                color: "#4A5568",
+                answers: [
+                    {
+                        text: "Solo claro e rochoso",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/13/lunar-surface-11088_640.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Montanhas com nuvens",
+                        image: "https://cdn.pixabay.com/photo/2017/11/29/22/22/mountains-2987219_1280.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Floresta com bambu",
+                        image: "https://cdn.pixabay.com/photo/2019/09/23/15/21/panda-4504579_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Qual imagem mais parece uma foto de equipamento espacial?",
+                color: "#1D3557",
+                answers: [
+                    {
+                        text: "Traje e capacete de astronauta",
+                        image: "https://cdn.pixabay.com/photo/2016/11/19/20/16/astronaut-1840936_640.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Veleiro entre montanhas",
+                        image: "https://cdn.pixabay.com/photo/2018/09/16/22/26/sailboat-4436708_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Panda ilustrado",
+                        image: "https://cdn.pixabay.com/photo/2014/07/27/13/50/panda-400277_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Astronauta surreal refletido na agua",
+                        image: "https://cdn.pixabay.com/photo/2019/04/06/06/44/astronaut-4106766_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Observador terrestre",
+                image: "https://cdn.pixabay.com/photo/2011/12/14/12/13/lunar-surface-11088_640.jpg",
+                text: "Você identificou algumas pistas, mas ainda há espaço para explorar melhor a missão e o cenário.",
+                minValue: 0
+            },
+            {
+                title: "Tripulante atento",
+                image: "https://cdn.pixabay.com/photo/2011/12/14/12/11/astronaut-11080_640.jpg",
+                text: "Você reconheceu bem as imagens clássicas do tema espacial e passou pelo quizz com firmeza.",
+                minValue: 60
+            }
+        ]
+    },
+    {
+        id: "show-travel",
+        title: "Que estilo de viagem parece mais com você?",
+        image: "https://cdn.pixabay.com/photo/2017/11/29/22/22/mountains-2987219_1280.jpg",
+        questions: [
+            {
+                title: "Qual paisagem costuma aparecer em um roteiro de aventura?",
+                color: "#3B6C87",
+                answers: [
+                    {
+                        text: "Montanhas altas e ar aberto",
+                        image: "https://cdn.pixabay.com/photo/2017/11/29/22/22/mountains-2987219_1280.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Solo lunar sem vegetacao",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/13/lunar-surface-11088_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Astronauta na nave",
+                        image: "https://cdn.pixabay.com/photo/2016/11/19/20/16/astronaut-1840936_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Qual imagem combina mais com um passeio costeiro?",
+                color: "#2F7D8C",
+                answers: [
+                    {
+                        text: "Um veleiro entre montanhas",
+                        image: "https://cdn.pixabay.com/photo/2018/09/16/22/26/sailboat-4436708_640.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Panda em galho",
+                        image: "https://cdn.pixabay.com/photo/2016/03/04/22/54/animal-1236875_640.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Caminhada espacial",
+                        image: "https://cdn.pixabay.com/photo/2011/12/14/12/11/astronaut-11080_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Qual cena lembra melhor um dia simples de praia?",
+                color: "#9B613C",
+                answers: [
+                    {
+                        text: "Criancas brincando perto do mar",
+                        image: "https://cdn.pixabay.com/photo/2017/08/07/12/47/ocean-2603504_640.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Montanhas e nuvens altas",
+                        image: "https://cdn.pixabay.com/photo/2017/11/29/22/22/mountains-2987219_1280.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Panda com bambu",
+                        image: "https://cdn.pixabay.com/photo/2019/09/23/15/21/panda-4504579_640.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Planejador inicial",
+                image: "https://cdn.pixabay.com/photo/2017/08/07/12/47/ocean-2603504_640.jpg",
+                text: "Você percebeu parte das imagens, mas ainda há espaço para diferenciar melhor clima, cenário e intenção.",
+                minValue: 0
+            },
+            {
+                title: "Roteirista atento",
+                image: "https://cdn.pixabay.com/photo/2018/09/16/22/26/sailboat-4436708_640.jpg",
+                text: "Você leu bem os sinais visuais do roteiro e atravessou o quizz com escolhas consistentes.",
+                minValue: 60
+            }
+        ]
+    }
+];
+
+let quizzTeste = clonarQuizz(SHOWCASE_QUIZZES[0]);
+let qtdadePerguntas = 0;
+let listaPerguntas = [];
+let qtdadeNiveis = 0;
+let listaNiveis = [];
+let listaMeusQuizzes = [];
+let listaTodosQuizzes = clonarQuizz(SHOWCASE_QUIZZES);
+let quizzRecemCriado = null;
+let quizzAtual = null;
+let identificador = null;
+let questoesrespondidas = 0;
+let acertos = 0;
+let porcentagemarredondada = 0;
+let resultadoMostrado = false;
+let nivelResultadoAtual = null;
+let quizz = criarRascunhoQuizz();
+
+function criarRascunhoQuizz() {
+    return {
+        title: "",
+        image: FALLBACK_IMAGE,
+        questions: [],
+        levels: []
     };
-    return quizzTeste;
 }
 
-function sendQuizz(quizzPronto) {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto);
-    promise.then(mandouQuizz);
-    promise.catch(falhouEnvio);
-}
-
-function mandouQuizz(response) {
-    let quizz = response.data;
-    guardaMeusQuizzesLocalmente(quizz);
-    alert("Seu quizz foi adicionado ao servidor, com o id: " + quizz.id);
-    quizzRecemCriado = quizz;
-}
-
-function falhouEnvio(error) {
-    alert(`
-        Infelizmente seu quizz não pôde ser enviado ao servidor.
-        ${error.data}
-    `);
-}
-
-function guardaMeusQuizzesLocalmente(quizz) {
-    const quizzSerializado = JSON.stringify(quizz);
-    localStorage.setItem(quizz.id, quizzSerializado);
-}
-
-function getMeuQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
-    const meuQuizz = JSON.parse(quizzSerializado);
-
-    return meuQuizz;
-}
-
-function getMeuUltimoQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
-    const meuQuizz = JSON.parse(quizzSerializado);
-
-    return meuQuizz;
-}
-
-function getAllQuizzesLocais() {
-    let quizzSerializado;
-    for (var i = 0; i < localStorage.length; i++) {
-        quizzSerializado = localStorage.getItem(localStorage.key(i));
-        listaMeusQuizzes.push(JSON.parse(quizzSerializado));
-    }
-}
-
-function getAllQuizz() {
-    document.querySelector(".paginaum .novo-quizz").style.display = "none";
-    document.querySelector(".paginaum .quizzes-criados").style.display = "none";
-    if (localStorage.length !== 0) {
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
-        document.querySelector(".paginaum .novo-quizz").style.display = "flex";
-        document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
-        document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        pegaMeusQuizzes(listaMeusQuizzes);
-    }
-    console.log(document.querySelector(".paginaum .meus-quizzes").style.display = "flex");
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    promise.then(pegouQuizz);
-    promise.catch(erroPegouQuizz);
-}
-
-function getQuizz(here) {
-    identificador = here;
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
-    promise.then(abrirQuizz);
-    promise.catch(erroPegouQuizz);
-}
-
-function pegouQuizz(resposta) {
-    quizzTeste = resposta.data;
-    let todos_quizzes = document.querySelector(".quizzes");
-    for (let i = 0; i < quizzTeste.length; i++) {
-        todos_quizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${quizzTeste[i].id})">
-            <h3>${quizzTeste[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
-    }
-}
-
-function pegaMeusQuizzes(listaMeusQuizzes) {
-    getAllQuizzesLocais();
-    let meusQuizzes = document.querySelector(".quizzes-criados");
-    for (let i = 0; i < listaMeusQuizzes.length; i++) {
-        meusQuizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
-            <h3>${listaMeusQuizzes[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
-    }
+function clonarQuizz(quizzOriginal) {
+    return JSON.parse(JSON.stringify(quizzOriginal));
 }
 
 function embaralha() {
     return Math.random() - 0.5;
 }
 
+function ordenarNiveis(niveis) {
+    return [...niveis].sort((a, b) => Number(a.minValue) - Number(b.minValue));
+}
+
+function normalizarId(id) {
+    return String(id);
+}
+
+function possuiEstruturaCompleta(quiz) {
+    return Boolean(quiz && Array.isArray(quiz.questions) && Array.isArray(quiz.levels));
+}
+
+function urlDeImagemValida(url) {
+    return validarURL(url) ? url : FALLBACK_IMAGE;
+}
+
+function aplicarImagemDeFundo(elemento, url) {
+    const imagem = urlDeImagemValida(url);
+    elemento.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${imagem}')`;
+}
+
+function configurarImagem(elemento, url, alt) {
+    elemento.src = urlDeImagemValida(url);
+    elemento.alt = alt || "Imagem do quizz";
+    elemento.addEventListener("error", () => {
+        if (elemento.src.endsWith(FALLBACK_IMAGE)) {
+            return;
+        }
+        elemento.src = FALLBACK_IMAGE;
+    }, { once: true });
+}
+
+function createQuizz() {
+    return clonarQuizz(SHOWCASE_QUIZZES[0]);
+}
+
+function chaveLocalStorage(id) {
+    return `${LOCAL_STORAGE_PREFIX}${id}`;
+}
+
+function guardaMeusQuizzesLocalmente(quiz) {
+    const quizzSerializado = JSON.stringify(quiz);
+    localStorage.setItem(chaveLocalStorage(quiz.id), quizzSerializado);
+}
+
+function getMeuQuizzLocal(quiz) {
+    const serializado = localStorage.getItem(chaveLocalStorage(quiz.id)) || localStorage.getItem(quiz.id);
+    return serializado ? JSON.parse(serializado) : null;
+}
+
+function getMeuUltimoQuizzLocal(quiz) {
+    return getMeuQuizzLocal(quiz);
+}
+
+function getAllQuizzesLocais() {
+    listaMeusQuizzes = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const valor = localStorage.getItem(key);
+        try {
+            const quiz = JSON.parse(valor);
+            if (possuiEstruturaCompleta(quiz) && quiz.id !== undefined && quiz.id !== null) {
+                listaMeusQuizzes.push(quiz);
+            }
+        } catch (error) {
+            console.warn(`Item ignorado no localStorage: ${key}`);
+        }
+    }
+    return listaMeusQuizzes;
+}
+
+function atualizarStatusFeed(texto) {
+    const status = document.querySelector(".feed-status");
+    if (!status) {
+        return;
+    }
+    status.textContent = texto;
+    status.style.display = texto ? "block" : "none";
+}
+
+function quizPublicoConsistente(quiz) {
+    if (!quiz || !quiz.title || !quiz.image) {
+        return false;
+    }
+
+    const tituloNormalizado = quiz.title.toLowerCase();
+    const imagemNormalizada = quiz.image.toLowerCase();
+    const pareceTeste = /(test|integration|demo|delete|update|automatico|automated)/i.test(tituloNormalizado);
+    const usaHostTemporario = [
+        "example.com",
+        "via.placeholder.com",
+        "picsum.photos",
+        "placeholder.com"
+    ].some((host) => imagemNormalizada.includes(host));
+    const pareceImagem = /\.(jpe?g|png|gif|webp)(\?|$)/i.test(imagemNormalizada);
+
+    return !pareceTeste && !usaHostTemporario && pareceImagem;
+}
+
+function mesclarQuizzesPublicos(quizzesExternos) {
+    const vistos = new Set();
+    const assinaturas = new Set();
+    const combinados = [];
+    const externosFiltrados = quizzesExternos.filter((quiz) => quizPublicoConsistente(quiz));
+    for (const quiz of [...SHOWCASE_QUIZZES, ...externosFiltrados]) {
+        if (!quiz || quiz.id === undefined || quiz.id === null) {
+            continue;
+        }
+        const id = normalizarId(quiz.id);
+        const assinatura = `${(quiz.title || "").trim().toLowerCase()}::${(quiz.image || "").trim().toLowerCase()}`;
+        if (vistos.has(id) || assinaturas.has(assinatura)) {
+            continue;
+        }
+        vistos.add(id);
+        assinaturas.add(assinatura);
+        combinados.push(quiz);
+    }
+    return combinados;
+}
+
+function criarCardQuizz(quiz) {
+    const card = document.createElement("article");
+    card.className = "quiz-card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("data-identifier", "quizz-card");
+    aplicarImagemDeFundo(card, quiz.image);
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = quiz.title || "Quizz sem titulo";
+    card.appendChild(titulo);
+
+    card.addEventListener("click", () => getQuizz(quiz.id));
+    card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            getQuizz(quiz.id);
+        }
+    });
+    return card;
+}
+
+function renderizarCards(container, quizzes) {
+    if (!container) {
+        return;
+    }
+    container.innerHTML = "";
+    quizzes.forEach((quiz) => container.appendChild(criarCardQuizz(quiz)));
+}
+
+function renderizarMeusQuizzes() {
+    getAllQuizzesLocais();
+    const secaoMeusQuizzes = document.querySelector(".paginaum .meus-quizzes");
+    const cabecalhoMeusQuizzes = document.querySelector(".paginaum .novo-quizz");
+    const listaQuizzesCriados = document.querySelector(".paginaum .quizzes-criados");
+    const criarPrimeiroQuizz = document.querySelector(".paginaum .criarprimeiroquizz");
+
+    if (listaMeusQuizzes.length === 0) {
+        secaoMeusQuizzes.style.display = "none";
+        cabecalhoMeusQuizzes.style.display = "none";
+        listaQuizzesCriados.style.display = "none";
+        criarPrimeiroQuizz.style.display = "flex";
+        return;
+    }
+
+    secaoMeusQuizzes.style.display = "flex";
+    cabecalhoMeusQuizzes.style.display = "flex";
+    listaQuizzesCriados.style.display = "flex";
+    criarPrimeiroQuizz.style.display = "none";
+    renderizarCards(listaQuizzesCriados, listaMeusQuizzes);
+}
+
+function renderizarTodosQuizzes(quizzes) {
+    const listaQuizzes = document.querySelector(".quizzes");
+    renderizarCards(listaQuizzes, quizzes);
+}
+
+function getAllQuizz() {
+    renderizarMeusQuizzes();
+    renderizarTodosQuizzes(listaTodosQuizzes);
+    atualizarStatusFeed("");
+
+    if (typeof axios === "undefined") {
+        listaTodosQuizzes = clonarQuizz(SHOWCASE_QUIZZES);
+        renderizarTodosQuizzes(listaTodosQuizzes);
+        atualizarStatusFeed("Mostrando quizzes de demonstracao.");
+        return;
+    }
+
+    const promise = axios.get(`${API_URL}/quizzes`);
+    promise.then(pegouQuizz);
+    promise.catch(() => {
+        listaTodosQuizzes = clonarQuizz(SHOWCASE_QUIZZES);
+        renderizarTodosQuizzes(listaTodosQuizzes);
+        atualizarStatusFeed("Mostrando quizzes de demonstracao enquanto o servidor nao responde.");
+    });
+}
+
+function pegouQuizz(resposta) {
+    const quizzesExternos = Array.isArray(resposta.data) ? resposta.data : [];
+    listaTodosQuizzes = mesclarQuizzesPublicos(quizzesExternos);
+    quizzTeste = listaTodosQuizzes;
+    renderizarTodosQuizzes(listaTodosQuizzes);
+    atualizarStatusFeed(quizzesExternos.length === 0 ? "Mostrando quizzes de demonstracao." : "");
+}
+
+function pegaMeusQuizzes() {
+    renderizarMeusQuizzes();
+}
+
+function encontrarQuizzLocalOuShowcase(id) {
+    const alvo = normalizarId(id);
+    getAllQuizzesLocais();
+    const quizLocal = listaMeusQuizzes.find((quiz) => normalizarId(quiz.id) === alvo);
+    if (quizLocal) {
+        return quizLocal;
+    }
+    return SHOWCASE_QUIZZES.find((quiz) => normalizarId(quiz.id) === alvo) || null;
+}
+
+function getQuizz(here) {
+    identificador = here;
+    const quizDisponivelOffline = encontrarQuizzLocalOuShowcase(here);
+    if (quizDisponivelOffline) {
+        abrirQuizz({ data: clonarQuizz(quizDisponivelOffline) });
+        return;
+    }
+
+    if (typeof axios === "undefined") {
+        erroPegouQuizz(new Error("Servidor indisponivel."));
+        return;
+    }
+
+    const promise = axios.get(`${API_URL}/quizzes/${here}`);
+    promise.then(abrirQuizz);
+    promise.catch(() => {
+        if (quizDisponivelOffline) {
+            abrirQuizz({ data: clonarQuizz(quizDisponivelOffline) });
+            return;
+        }
+        erroPegouQuizz(new Error("Quizz nao encontrado."));
+    });
+}
+
+function resetarEstadoQuizz() {
+    questoesrespondidas = 0;
+    acertos = 0;
+    porcentagemarredondada = 0;
+    resultadoMostrado = false;
+    nivelResultadoAtual = null;
+    document.querySelector(".fim").innerHTML = "";
+}
+
 function abrirQuizz(respostaquizz) {
+    const quizEscolhido = respostaquizz.data;
+    if (!possuiEstruturaCompleta(quizEscolhido)) {
+        erroPegouQuizz(new Error("Dados do quizz incompletos."));
+        return;
+    }
+
+    resetarEstadoQuizz();
+    quizzAtual = clonarQuizz(quizEscolhido);
+
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
-    quizzescolhido = respostaquizz.data;
-    let titulo = document.querySelector(".pagina-quizz")
-    titulo.innerHTML = `      
-        <section class="titulo-quizz">
-            <h2> <span>${quizzescolhido.title}</span></h2>
-        </section>`
-    umquizz = document.querySelector(".titulo-quizz");
-    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
-    for (let x = 0; x < quizzescolhido.questions.length; x++) {
-        quizzescolhido.questions[x].answers.sort(embaralha)
-        titulo.innerHTML += `
-            <section class="perguntas" id="depoisdesse">
-                <article data-identifier="question" class="pergunta" id="pergunta">
-                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
-                        <h3>${quizzescolhido.questions[x].title}</h3>
-                    </div>
-                    <div class="bloco-respostas esse${x}"></div>
-                </article>
-            </section`
-        let classpergunta = document.querySelector(`.esse${x}`);
-        for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
-            classpergunta.innerHTML += `
-            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
-                <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
-            </div> `
-        }
-    }
-    window.scrollTo(0, 0)
-}
+    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
 
-let questoesrespondidas = 0;
-let acertos = 0;
+    const paginaQuizz = document.querySelector(".pagina-quizz");
+    paginaQuizz.innerHTML = "";
+
+    const hero = document.createElement("section");
+    hero.className = "titulo-quizz";
+    aplicarImagemDeFundo(hero, quizzAtual.image);
+    hero.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${urlDeImagemValida(quizzAtual.image)}')`;
+
+    const heroTitle = document.createElement("h2");
+    const heroTitleText = document.createElement("span");
+    heroTitleText.textContent = quizzAtual.title || "Quizz";
+    heroTitle.appendChild(heroTitleText);
+    hero.appendChild(heroTitle);
+    paginaQuizz.appendChild(hero);
+
+    quizzAtual.questions.forEach((pergunta, indicePergunta) => {
+        const secaoPerguntas = document.createElement("section");
+        secaoPerguntas.className = "perguntas";
+
+        const cardPergunta = document.createElement("article");
+        cardPergunta.className = "pergunta";
+        cardPergunta.setAttribute("data-identifier", "question");
+
+        const tituloPergunta = document.createElement("div");
+        tituloPergunta.className = "titulo-pergunta";
+        tituloPergunta.style.backgroundColor = pergunta.color || "#434CA0";
+
+        const perguntaTitulo = document.createElement("h3");
+        perguntaTitulo.textContent = pergunta.title || `Pergunta ${indicePergunta + 1}`;
+        tituloPergunta.appendChild(perguntaTitulo);
+
+        const blocoRespostas = document.createElement("div");
+        blocoRespostas.className = `bloco-respostas esse${indicePergunta}`;
+        blocoRespostas.dataset.respondida = "false";
+
+        const respostasEmbaralhadas = [...pergunta.answers].sort(embaralha);
+        respostasEmbaralhadas.forEach((resposta, indiceResposta) => {
+            const respostaCard = document.createElement("div");
+            respostaCard.className = `resposta pergunta${indicePergunta}${indiceResposta}`;
+            respostaCard.setAttribute("data-identifier", "answer");
+            respostaCard.dataset.correct = resposta.isCorrectAnswer ? "true" : "false";
+            respostaCard.addEventListener("click", () => quizzSelecionado(indicePergunta, indiceResposta));
+
+            const respostaImagem = document.createElement("img");
+            configurarImagem(respostaImagem, resposta.image, resposta.text || "Imagem da resposta");
+
+            const respostaTexto = document.createElement("h4");
+            respostaTexto.textContent = resposta.text || "Resposta";
+
+            respostaCard.appendChild(respostaImagem);
+            respostaCard.appendChild(respostaTexto);
+            blocoRespostas.appendChild(respostaCard);
+        });
+
+        cardPergunta.appendChild(tituloPergunta);
+        cardPergunta.appendChild(blocoRespostas);
+        secaoPerguntas.appendChild(cardPergunta);
+        paginaQuizz.appendChild(secaoPerguntas);
+    });
+
+    window.scrollTo(0, 0);
+}
 
 function quizzSelecionado(numerodaquestao, opcao) {
-    let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
-    escolha.classList.add("escolhida");
-    for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
-        let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
-        umaopcao.removeAttribute('onclick');
-        if (umaopcao != escolha) {
-            umaopcao.classList.add("nop");
-        }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
-            umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
-        }
+    if (!quizzAtual || resultadoMostrado) {
+        return;
     }
 
-    if (escolha.classList.contains(true)) {
+    const blocoPergunta = document.querySelector(`.esse${numerodaquestao}`);
+    if (!blocoPergunta || blocoPergunta.dataset.respondida === "true") {
+        return;
+    }
+
+    blocoPergunta.dataset.respondida = "true";
+    const respostas = blocoPergunta.querySelectorAll(".resposta");
+    const escolha = blocoPergunta.querySelector(`.pergunta${numerodaquestao}${opcao}`);
+    if (!escolha) {
+        return;
+    }
+
+    escolha.classList.add("escolhida");
+    respostas.forEach((respostaCard) => {
+        respostaCard.style.pointerEvents = "none";
+        if (respostaCard !== escolha) {
+            respostaCard.classList.add("nop");
+        }
+        if (respostaCard.dataset.correct === "true") {
+            respostaCard.classList.add("acertou");
+        } else {
+            respostaCard.classList.add("errou");
+        }
+    });
+
+    if (escolha.dataset.correct === "true") {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+    quantidadeAcertos();
+
+    setTimeout(() => {
+        if (questoesrespondidas === quizzAtual.questions.length) {
+            resultadoQuizz();
+            return;
+        }
+        const perguntasNaTela = document.querySelectorAll(".pagina-quizz .pergunta");
+        const proximaPergunta = perguntasNaTela[numerodaquestao + 1];
+        if (proximaPergunta) {
+            proximaPergunta.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, 1200);
 }
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
-let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
-
 function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
+    if (!quizzAtual || quizzAtual.questions.length === 0) {
+        porcentagemarredondada = 0;
+        nivelResultadoAtual = null;
+        return null;
     }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+
+    porcentagemarredondada = Math.round((acertos / quizzAtual.questions.length) * 100);
+    const niveisOrdenados = ordenarNiveis(quizzAtual.levels);
+    nivelResultadoAtual = niveisOrdenados[0] || null;
+
+    niveisOrdenados.forEach((nivel) => {
+        if (porcentagemarredondada >= Number(nivel.minValue)) {
+            nivelResultadoAtual = nivel;
         }
-    }
+    });
+
+    return nivelResultadoAtual;
 }
 
 function resultadoQuizz() {
-    let perguntas = document.querySelector(".fim");
-    perguntas.innerHTML = `
+    if (resultadoMostrado) {
+        return;
+    }
+
+    resultadoMostrado = true;
+    const nivelAtual = quantidadeAcertos();
+    if (!nivelAtual) {
+        return;
+    }
+
+    const fim = document.querySelector(".fim");
+    fim.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivelAtual.title}</h3>
             </div>
-            <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+            <div class="conteudo-resultado">
+                <img src="${urlDeImagemValida(nivelAtual.image)}" alt="Imagem do resultado">
+                <span>${nivelAtual.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -393,62 +730,129 @@ function resultadoQuizz() {
             <button class="voltar-inicio" onclick="paginaInicial()">
                 <p>Voltar pra home</p>
             </button>
-        </div>`
-    irpara = document.querySelector(".voltar-inicio")
-    irpara.scrollIntoView()
+        </div>`;
+
+    const imagemResultado = fim.querySelector("img");
+    if (imagemResultado) {
+        configurarImagem(imagemResultado, nivelAtual.image, "Imagem do resultado");
+    }
+    const resultado = document.querySelector(".fim .resultado");
+    if (resultado) {
+        resultado.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+function mostrarPaginaInicial() {
+    resetarEstadoQuizz();
+    document.querySelector(".pagina-quizz").style.display = "none";
+    document.querySelector(".paginaum").style.display = "flex";
+    document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
+    document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
+    document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
+    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
+    getAllQuizz();
+    window.scrollTo(0, 0);
 }
 
 function paginaInicial() {
-    window.location.reload();
+    mostrarPaginaInicial();
 }
 
 function reiniciarQuizz() {
-    getQuizz(identificador);
-    apagarresultado = document.querySelector(".fim");
-    apagarresultado.innerHTML = ""
+    if (!quizzAtual) {
+        return;
+    }
+    abrirQuizz({ data: clonarQuizz(quizzAtual) });
 }
 
 function erroPegouQuizz(error) {
-    alert(`
-        Infelizmente não foi possível pegar seu Quizz no servidor.
-        ${error.data}
-    `);
+    alert(`Infelizmente nao foi possivel abrir este quizz.\n${error.message || ""}`);
+}
+
+function prepararQuizzLocalmente() {
+    const quizzLocal = clonarQuizz(quizz);
+    quizzLocal.id = `local-${Date.now()}`;
+    quizzRecemCriado = quizzLocal;
+    guardaMeusQuizzesLocalmente(quizzLocal);
+    return quizzLocal;
+}
+
+function sendQuizz(quizzPronto) {
+    if (typeof axios === "undefined") {
+        falhouEnvio(new Error("Servidor indisponivel."));
+        return;
+    }
+    const promise = axios.post(`${API_URL}/quizzes`, quizzPronto);
+    promise.then(mandouQuizz);
+    promise.catch(falhouEnvio);
+}
+
+function mandouQuizz() {
+    const status = document.querySelector(".sucesso-quizz .criacao-status");
+    if (status) {
+        status.textContent = "Salvo neste dispositivo e enviado ao servidor.";
+    }
+}
+
+function falhouEnvio() {
+    const status = document.querySelector(".sucesso-quizz .criacao-status");
+    if (status) {
+        status.textContent = "Salvo neste dispositivo. O servidor nao respondeu desta vez.";
+    }
 }
 
 function chamarTelaCriarQuizz() {
+    quizz = criarRascunhoQuizz();
+    quizzRecemCriado = null;
+    listaPerguntas = [];
+    listaNiveis = [];
+
     document.querySelector(".paginaum").style.display = "none";
+    document.querySelector(".pagina-quizz").style.display = "none";
+    document.querySelector(".fim").innerHTML = "";
+    document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
+    document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
+    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "flex";
+    window.scrollTo(0, 0);
 }
 
 function validarDadosBasicos() {
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
-    if (tituloQuizz.length < 20) {
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
+    const tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value.trim();
+    const imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value.trim();
+    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value, 10);
+    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value, 10);
+
+    let houveErro = false;
+    if (tituloQuizz.length < 20 || tituloQuizz.length > 65) {
+        alert("O titulo do quizz deve ter no minimo 20 e no maximo 65 caracteres.");
+        houveErro = true;
     }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
     if (!validarURL(imagemQuizz)) {
-        alert("A imagem deve ser uma URL válida.");
+        alert("A imagem deve ser uma URL valida.");
+        houveErro = true;
     }
-    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (qtdadePerguntas < 3) {
-        alert("A quantidade de perguntas deve ser no mínimo 3.");
+    if (Number.isNaN(qtdadePerguntas) || qtdadePerguntas < MIN_PERGUNTAS) {
+        alert("A quantidade de perguntas deve ser no minimo 3.");
+        houveErro = true;
     }
-    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (qtdadeNiveis < 2) {
-        alert("A quantidade de níveis deve ser no mínimo 2.");
+    if (Number.isNaN(qtdadeNiveis) || qtdadeNiveis < MIN_NIVEIS) {
+        alert("A quantidade de niveis deve ser no minimo 2.");
+        houveErro = true;
     }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
-        quizz.title = tituloQuizz;
-        quizz.image = imagemQuizz;
-        chamarTelaCriarPerguntas();
+
+    if (houveErro) {
+        return;
     }
+
+    quizz.title = tituloQuizz;
+    quizz.image = imagemQuizz;
+    chamarTelaCriarPerguntas();
 }
 
 function chamarTelaCriarPerguntas() {
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
-
     const telaCriarPerguntas = document.querySelector(".cria-quizz .cria-perguntas");
-
     montarTelaCriarPerguntas(telaCriarPerguntas);
 }
 
@@ -464,55 +868,55 @@ function montarTelaCriarPerguntas(telaCriarPerguntas) {
             <h2>Resposta correta</h2>
             <div class="resposta-correta">
                 <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
-                <input class="url-resposta" type="url" placeholder="URl da imagem" />
+                <input class="url-resposta" type="url" placeholder="URL da imagem" />
             </div>
             <h2>Respostas incorretas</h2>
             <div class="resposta">
                 <input class="texto-resposta" type="text" placeholder="Resposta incorreta 1" required="required" />
-                <input class="url-resposta" type="url" placeholder="URl da imagem 1" />
+                <input class="url-resposta" type="url" placeholder="URL da imagem 1" />
             </div>
             <div class="resposta">
                 <input class="texto-resposta" type="text" placeholder="Resposta incorreta 2" required="required" />
-                <input class="url-resposta" type="url" placeholder="URl da imagem 2" />
+                <input class="url-resposta" type="url" placeholder="URL da imagem 2" />
             </div>
             <div class="resposta">
                 <input class="texto-resposta" type="text" placeholder="Resposta incorreta 3" required="required" />
-                <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
+                <input class="url-resposta" type="url" placeholder="URL da imagem 3" />
             </div>
         </div>
         <div class="nova-pergunta" data-identifier="expand">
             <h2>Pergunta 2</h2>
-            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+            <img class="botaoEditar" src="img/editar.png" alt="Botao editar" onclick="abrirNovaPergunta(this)">
         </div>
         <div class="nova-pergunta" data-identifier="expand">
             <h2>Pergunta 3</h2>
-            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+            <img class="botaoEditar" src="img/editar.png" alt="Botao editar" onclick="abrirNovaPergunta(this)">
         </div>
     `;
 
     for (let i = 0; i < (qtdadePerguntas - MIN_PERGUNTAS); i++) {
         telaCriarPerguntas.innerHTML += `
             <div class="nova-pergunta" data-identifier="expand">
-                <h2>Pergunta ${MIN_PERGUNTAS+i+1}</h2>
-                <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovaPergunta(this)">
+                <h2>Pergunta ${MIN_PERGUNTAS + i + 1}</h2>
+                <img class="botaoEditar" src="img/editar.png" alt="Botao editar" onclick="abrirNovaPergunta(this)">
             </div>
         `;
     }
 
     telaCriarPerguntas.innerHTML += `
         <button class="prosseguir" onclick="validarTodasPerguntas()">
-            <p>Prosseguir pra criar níveis</p>
+            <p>Prosseguir pra criar niveis</p>
         </button>
     `;
     telaCriarPerguntas.style.display = "flex";
 }
 
 function abrirNovaPergunta(elemento) {
-    const novapergunta = elemento.parentNode;
-    novapergunta.classList.add("pergunta");
-    novapergunta.classList.remove("nova-pergunta");
-    novapergunta.removeChild(elemento);
-    novapergunta.innerHTML += `
+    const novaPergunta = elemento.parentNode;
+    novaPergunta.classList.add("pergunta");
+    novaPergunta.classList.remove("nova-pergunta");
+    novaPergunta.removeChild(elemento);
+    novaPergunta.innerHTML += `
         <div class="cabecalho-pergunta">
             <input class="texto-pergunta" type="text" placeholder="Texto da pergunta" minlength="20" />
             <input class="cor-pergunta" type="color" placeholder="Cor de fundo da pergunta" />
@@ -520,123 +924,106 @@ function abrirNovaPergunta(elemento) {
         <h2>Resposta correta</h2>
         <div class="resposta-correta">
             <input class="texto-resposta" type="text" placeholder="Resposta correta" required="required" />
-            <input class="url-resposta" type="url" placeholder="URl da imagem" />
+            <input class="url-resposta" type="url" placeholder="URL da imagem" />
         </div>
         <h2>Respostas incorretas</h2>
         <div class="resposta">
             <input class="texto-resposta" type="text" placeholder="Resposta incorreta 1" required="required" />
-            <input class="url-resposta" type="url" placeholder="URl da imagem 1" />
+            <input class="url-resposta" type="url" placeholder="URL da imagem 1" />
         </div>
         <div class="resposta">
             <input class="texto-resposta" type="text" placeholder="Resposta incorreta 2" required="required" />
-            <input class="url-resposta" type="url" placeholder="URl da imagem 2" />
+            <input class="url-resposta" type="url" placeholder="URL da imagem 2" />
         </div>
         <div class="resposta">
             <input class="texto-resposta" type="text" placeholder="Resposta incorreta 3" required="required" />
-            <input class="url-resposta" type="url" placeholder="URl da imagem 3" />
+            <input class="url-resposta" type="url" placeholder="URL da imagem 3" />
         </div>
     `;
-
-    novapergunta.style.display = "flex";
-    novapergunta.style.flexDirection = "column";
-    novapergunta.style.justifyContent = "center";
+    novaPergunta.style.display = "flex";
 }
 
 function montarNovaResposta(elementoResposta) {
-    let textoResposta = "";
-    let urlResposta = "";
-    let ehRespostaCorreta = false;
+    return {
+        text: elementoResposta.children[0].value.trim(),
+        image: elementoResposta.children[1].value.trim(),
+        isCorrectAnswer: elementoResposta.classList.contains("resposta-correta")
+    };
+}
 
-    textoResposta = elementoResposta.children[0].value;
-    urlResposta = elementoResposta.children[1].value;
-    if (elementoResposta.classList.contains("resposta-correta")) {
-        ehRespostaCorreta = true;
-    }
-
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+function montarNovaPergunta(titulo, cor, listaRespostasPergunta) {
+    return {
+        title: titulo.trim(),
+        color: cor || "#434CA0",
+        answers: [...listaRespostasPergunta]
+    };
 }
 
 function validarTodasPerguntas() {
     listaPerguntas = [];
-    let listaRespostas = [];
-    let answers = [];
-    let erroPreenchimento = 0;
-
-    const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
+    const divsPerguntas = document.querySelectorAll(".cria-quizz .cria-perguntas .pergunta");
+    if (divsPerguntas.length !== qtdadePerguntas) {
+        alert("Abra e preencha todas as perguntas antes de continuar.");
+        return;
+    }
 
     for (let i = 0; i < divsPerguntas.length; i++) {
-        listaRespostas = [];
         if (!validarDadosPergunta(divsPerguntas[i])) {
-            erroPreenchimento++;
+            return;
         }
     }
 
-    if (erroPreenchimento > 0) {
-        chamarTelaCriarPerguntas();
-    } else {
+    for (let i = 0; i < divsPerguntas.length; i++) {
+        const respostasPergunta = [];
+        respostasPergunta.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
+        respostasPergunta.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
 
-        for (let i = 0; i < divsPerguntas.length; i++) {
-            listaRespostas = [];
-
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
-
-            if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
-            }
-            if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
-            }
-
-            listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
-                divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
+        const respostasOpcionais = divsPerguntas[i].querySelectorAll(".resposta");
+        if (respostasOpcionais[1].children[0].value.trim() !== "") {
+            respostasPergunta.push(montarNovaResposta(respostasOpcionais[1]));
+        }
+        if (respostasOpcionais[2].children[0].value.trim() !== "") {
+            respostasPergunta.push(montarNovaResposta(respostasOpcionais[2]));
         }
 
-        quizz.questions = listaPerguntas;
-
-        chamarTelaCriarNiveis();
+        listaPerguntas.push(montarNovaPergunta(
+            divsPerguntas[i].querySelector(".texto-pergunta").value,
+            divsPerguntas[i].querySelector(".cor-pergunta").value,
+            respostasPergunta
+        ));
     }
-}
 
-function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    quizz.questions = listaPerguntas;
+    chamarTelaCriarNiveis();
 }
 
 function chamarTelaCriarNiveis() {
     document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
-
     const telaCriarNiveis = document.querySelector(".cria-quizz .cria-niveis");
-
     montarTelaCriarNiveis(telaCriarNiveis);
 }
 
 function montarTelaCriarNiveis(telaCriarNiveis) {
     telaCriarNiveis.innerHTML = `
-        <h1>Agora, decida os níveis!</h1>
+        <h1>Agora, decida os niveis!</h1>
         <div class="nivel" data-identifier="level">
-            <h2>Nível 1</h2>
-            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
-            <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
-            <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
-            <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
+            <h2>Nivel 1</h2>
+            <input class="titulo-nivel" type="text" placeholder="Titulo do nivel" minlength="10" />
+            <input class="percentual-nivel" type="number" placeholder="% de acerto minima" min="0" max="100" />
+            <input class="url-nivel" type="url" placeholder="URL da imagem do nivel" />
+            <textarea class="descricao-nivel" type="text" placeholder="Descricao do nivel" minlength="30"></textarea>
         </div>
         <div class="novo-nivel" data-identifier="expand">
-            <h2>Nível 2</h2>
-            <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovoNivel(this)">
-        </div>        
+            <h2>Nivel 2</h2>
+            <img class="botaoEditar" src="img/editar.png" alt="Botao editar" onclick="abrirNovoNivel(this)">
+        </div>
     `;
+
     for (let i = 0; i < (qtdadeNiveis - MIN_NIVEIS); i++) {
         telaCriarNiveis.innerHTML += `
             <div class="novo-nivel" data-identifier="expand">
-                <h2>Nível ${MIN_NIVEIS+i+1}</h2>
-                <img class="botaoEditar" src="img/editar.png" alt="Botão editar" onclick="abrirNovoNivel(this)">
+                <h2>Nivel ${MIN_NIVEIS + i + 1}</h2>
+                <img class="botaoEditar" src="img/editar.png" alt="Botao editar" onclick="abrirNovoNivel(this)">
             </div>
         `;
     }
@@ -650,179 +1037,168 @@ function montarTelaCriarNiveis(telaCriarNiveis) {
 }
 
 function abrirNovoNivel(elemento) {
-    const novoNível = elemento.parentNode;
-    novoNível.classList.add("nivel");
-    novoNível.classList.remove("novo-nivel");
-    novoNível.removeChild(elemento);
-    novoNível.innerHTML += `
-        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
-        <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
-        <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
-        <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
+    const novoNivel = elemento.parentNode;
+    novoNivel.classList.add("nivel");
+    novoNivel.classList.remove("novo-nivel");
+    novoNivel.removeChild(elemento);
+    novoNivel.innerHTML += `
+        <input class="titulo-nivel" type="text" placeholder="Titulo do nivel" minlength="10" />
+        <input class="percentual-nivel" type="number" placeholder="% de acerto minima" min="0" max="100" />
+        <input class="url-nivel" type="url" placeholder="URL da imagem do nivel" />
+        <textarea class="descricao-nivel" type="text" placeholder="Descricao do nivel" minlength="30"></textarea>
     `;
+}
 
-    novoNível.style.display = "flex";
-    novoNível.style.flexDirection = "column";
-    novoNível.style.justifyContent = "center";
+function montarNovoNivel(nivel) {
+    return {
+        title: nivel.querySelector(".titulo-nivel").value.trim(),
+        image: nivel.querySelector(".url-nivel").value.trim(),
+        text: nivel.querySelector(".descricao-nivel").value.trim(),
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function validarTodosNiveis() {
     listaNiveis = [];
-    let nivel;
-    const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
-    let contPercentualNivelZero = 0;
-    let menorPercentual = 100;
+    const divsNiveis = document.querySelectorAll(".cria-quizz .cria-niveis .nivel");
+    if (divsNiveis.length !== qtdadeNiveis) {
+        alert("Abra e preencha todos os niveis antes de finalizar.");
+        return;
+    }
 
     for (let i = 0; i < divsNiveis.length; i++) {
-
-        if (divsNiveis[i].querySelector(".percentual-nivel").value == 0) {
-            contPercentualNivelZero++;
+        if (!validarDadosNivel(divsNiveis[i])) {
+            return;
         }
+        listaNiveis.push(montarNovoNivel(divsNiveis[i]));
     }
 
-    if (contPercentualNivelZero === 0) {
-        alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
-        chamarTelaCriarNiveis();
-    } else {
-        for (let i = 0; i < divsNiveis.length; i++) {
-            if (!validarDadosNivel(divsNiveis[i])) {
-                document.location.reload(true);
-            }
-            listaNiveis.push(montarNovoNivel(divsNiveis[i]));
-        }
-
-        quizz.levels = listaNiveis;
-        chamarTelaSucessoCriacaoQuizz();
-        sendQuizz(quizz);
+    const niveisComZero = listaNiveis.filter((nivel) => Number(nivel.minValue) === 0);
+    if (niveisComZero.length === 0) {
+        alert("E obrigatorio existir pelo menos 1 nivel cuja % de acerto minima seja 0%.");
+        return;
     }
+
+    quizz.levels = ordenarNiveis(listaNiveis);
+    const quizzLocal = prepararQuizzLocalmente();
+    chamarTelaSucessoCriacaoQuizz(quizzLocal);
+    sendQuizz(clonarQuizz(quizz));
 }
 
-function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
-}
-
-function chamarTelaSucessoCriacaoQuizz() {
+function chamarTelaSucessoCriacaoQuizz(quizzCriado) {
     document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
     const telaSucessoCriacaoQuizz = document.querySelector(".cria-quizz .sucesso-quizz");
-    montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz);
+    montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz, quizzCriado);
 }
 
-function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz, quizzCriado) {
+    const quizFinal = quizzCriado || quizzRecemCriado || quizz;
     telaSucessoCriacaoQuizz.innerHTML = `
-        <h1>Seu quizz está pronto!</h1>
-        <figure class="fim-criacao-quizz"></figure>
+        <h1>Seu quizz esta pronto!</h1>
+        <figure class="fim-criacao-quizz"><h3></h3></figure>
+        <p class="criacao-status">Salvo neste dispositivo.</p>
         <button class="acessar-quizz" onclick="acessarQuizzCriado()">
             <p>Acessar Quizz</p>
         </button>
         <button class="voltar-inicio" onclick="voltarInicio()">
             <p>Voltar pra home</p>
-        </button>    
+        </button>
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    const figura = telaSucessoCriacaoQuizz.querySelector("figure");
+    aplicarImagemDeFundo(figura, quizFinal.image);
+    const tituloFigura = figura.querySelector("h3");
+    tituloFigura.textContent = quizFinal.title;
     telaSucessoCriacaoQuizz.style.display = "flex";
+    window.scrollTo(0, 0);
 }
 
 function acessarQuizzCriado() {
-    getQuizz(quizzRecemCriado.id);
+    if (!quizzRecemCriado) {
+        return;
+    }
     document.querySelector(".sucesso-quizz").style.display = "none";
+    abrirQuizz({ data: clonarQuizz(quizzRecemCriado) });
 }
 
 function voltarInicio() {
-    if (localStorage.length !== 0) {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
-        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
-        document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        if (localStorage.length === 1) {
-            pegaMeusQuizzes(listaMeusQuizzes);
-        }
-    } else {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "flex";
-    }
-
+    mostrarPaginaInicial();
 }
 
 function validarDadosPergunta(elemento) {
-    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
-    let corPergunta = elemento.querySelector(".cabecalho-pergunta .cor-pergunta").value;
-    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
-    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value;
-    let respostasIncorretas = elemento.querySelectorAll(".resposta .texto-resposta");
+    const textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value.trim();
+    const respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value.trim();
+    const urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value.trim();
+    const respostasIncorretas = elemento.querySelectorAll(".resposta");
+
     let contaRespostasIncorretas = 0;
+    let contaUrlsValidas = 0;
 
-    for (let i = 0; i < respostasIncorretas.length; i++) {
-        if (respostasIncorretas[i].value !== "") {
-            contaRespostasIncorretas++;
+    respostasIncorretas.forEach((resposta) => {
+        const texto = resposta.querySelector(".texto-resposta").value.trim();
+        const url = resposta.querySelector(".url-resposta").value.trim();
+        if (texto !== "") {
+            contaRespostasIncorretas += 1;
         }
-    }
-
-    let urlRespostasIncorretas = elemento.querySelectorAll(".resposta .url-resposta");
-    let contaUrlRespostasIncorretas = 0;
-
-    for (let i = 0; i < urlRespostasIncorretas.length; i++) {
-        if (urlRespostasIncorretas[i].value !== "") {
-            if (validarURL(urlRespostasIncorretas[i].value)) {
-                contaUrlRespostasIncorretas++;
-            }
+        if (texto !== "" && validarURL(url)) {
+            contaUrlsValidas += 1;
         }
-    }
+    });
 
-    if ((textoPergunta.length < 20) || (respostaCorreta === "") || (!validarURL(urlRespostaCorreta)) ||
-        ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
-        (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
+    const respostaValida = textoPergunta.length >= 20 &&
+        respostaCorreta !== "" &&
+        validarURL(urlRespostaCorreta) &&
+        contaRespostasIncorretas >= 1 &&
+        contaRespostasIncorretas === contaUrlsValidas;
+
+    if (!respostaValida) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
-            1. O texto da pergunta deve ter no mínimo 20 caracteres.
-            2. A inserção da resposta correta é obrigatória.
-            3. A inserção de pelo menos 1 resposta errada é obrigatória!
-            4. A imagem deve ser uma URL válida.
-            5. Cada resposta deve ter um texto e uma imagem com uma url válida a ela associada.
+            ERRO! Dados incompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            1. O texto da pergunta deve ter no minimo 20 caracteres.
+            2. A insercao da resposta correta e obrigatoria.
+            3. A insercao de pelo menos 1 resposta errada e obrigatoria.
+            4. A imagem deve ser uma URL valida.
+            5. Cada resposta deve ter um texto e uma imagem com uma URL valida a ela associada.
         `);
         return false;
-    } else {
-        return true;
     }
+
+    return true;
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elemento) {
+    const tituloNivel = elemento.querySelector(".titulo-nivel").value.trim();
+    const percentualNivel = Number(elemento.querySelector(".percentual-nivel").value);
+    const urlNivel = elemento.querySelector(".url-nivel").value.trim();
+    const descricaoNivel = elemento.querySelector(".descricao-nivel").value.trim();
 
-
-    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
-        (descricaoNivel.length < 30)) {
+    if (
+        tituloNivel.length < 10 ||
+        Number.isNaN(percentualNivel) ||
+        percentualNivel < 0 ||
+        percentualNivel > 100 ||
+        !validarURL(urlNivel) ||
+        descricaoNivel.length < 30
+    ) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
-            1. O título do nível deve ter no mínimo 10 caracteres.
-            2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
-            3. A imagem do nível deve ser uma URL válida.
-            4. A descrição do nível de ter no mínimo 30 caracteres.
+            ERRO! Dados incompletos, verifique se os campos do seu nivel cumprem os seguintes requisitos:
+            1. O titulo do nivel deve ter no minimo 10 caracteres.
+            2. O percentual de acerto minimo deve ser um numero entre 0 e 100.
+            3. A imagem do nivel deve ser uma URL valida.
+            4. A descricao do nivel deve ter no minimo 30 caracteres.
         `);
         return false;
-    } else {
-        return true;
     }
+    return true;
 }
 
-// Código de retirado de:
-// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 function validarURL(texto) {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    const pattern = new RegExp('^(https?:\\/\\/)?' +
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+        '((\\d{1,3}\\.){3}\\d{1,3}))' +
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+        '(\\?[;&a-z\\d%_.~+=-]*)?' +
+        '(\\#[-a-z\\d_]*)?$', 'i');
     return !!pattern.test(texto);
 }
 
