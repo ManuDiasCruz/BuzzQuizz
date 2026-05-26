@@ -53,7 +53,9 @@ A branch usada para esta entrega é `v2-mce-task003-qb`.
 
 Para publicar no GitHub Pages, configure a origem do Pages para a branch `v2-mce-task003-qb` e a pasta `/`.
 
-[Deployment da v2](https://manudiascruz.github.io/v2-mce-task003-qb/)
+[Deployment da v2](https://manudiascruz.github.io/BuzzQuizz/)
+
+Observação: neste repositório, o GitHub Pages usa o nome do projeto (`/BuzzQuizz/`) no URL público. O caminho `/v2-mce-task003-qb/` não é gerado automaticamente só por trocar a branch publicada.
 
 ## Limitações e próximos passos
 
