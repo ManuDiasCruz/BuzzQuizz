@@ -218,7 +218,6 @@ h1 {
     margin-top: 69px;
     height: 100%;
     width: 100%;
-    display: block;
     display: none;
 }
 
@@ -615,7 +614,7 @@ h1 {
     border: 1px solid #D1D1D1;
     box-sizing: border-box;
     border-radius: 5px;
-    font: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-style: italic;
     font-weight: 400;
@@ -691,12 +690,81 @@ h1 {
 
 .nop {
     opacity: 0.3;
+    transition: opacity 0.3s ease;
 }
 
-.errou {
-    color: red;
+.resposta.errou h4 {
+    color: #D63A2F;
 }
 
-.acertou {
-    color: green;
+.resposta.acertou h4 {
+    color: #2E9F4A;
+}
+
+.resposta {
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 4px;
+}
+
+.resposta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.resposta img {
+    background-color: #f1f1f1;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.paginaum article,
+.paginaum .quizz-card {
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.paginaum .quizz-card:hover,
+.paginaum .quizz-card:focus {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.18);
+    outline: none;
+}
+
+.paginaum .quizzes-criados .quizz-card {
+    min-width: 330px;
+    height: 181px;
+    border-radius: 5px;
+    margin-right: 12px;
+    position: relative;
+    display: flex;
+}
+
+.paginaum .quizzes-criados {
+    scrollbar-width: thin;
+}
+
+.cria-quizz button:hover,
+.paginaum .criarquizz:hover {
+    filter: brightness(1.05);
+    cursor: pointer;
+}
+
+.cria-quizz input:focus,
+.cria-quizz textarea:focus {
+    outline: 2px solid #EC362D;
+    outline-offset: 1px;
+}
+
+.aviso-vazio {
+    width: 100%;
+    text-align: center;
+    color: #B9B9B9;
+    padding: 20px 0;
+}
+
+.titulo-pergunta h3 {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
