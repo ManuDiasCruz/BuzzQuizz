@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Imagem indisponível">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFEDEB"/>
+      <stop offset="100%" stop-color="#FFD8D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <g fill="#EC362D" font-family="Roboto, Arial, sans-serif" text-anchor="middle">
+    <circle cx="200" cy="120" r="42" fill="#EC362D" opacity="0.15"/>
+    <path d="M186 110 a14 14 0 1 1 28 0 v6 a14 14 0 0 1 -28 0 z" fill="#EC362D"/>
+    <circle cx="200" cy="140" r="4" fill="#EC362D"/>
+    <text x="200" y="210" font-size="22" font-weight="700">BuzzQuizz</text>
+    <text x="200" y="240" font-size="14" fill="#8E3A36">imagem indisponível</text>
+  </g>
+</svg>
