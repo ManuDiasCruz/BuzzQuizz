@@ -62,9 +62,11 @@ Esta versão foi preparada na branch `v2-mch-task003-bquiz` e inclui:
 
 ## Deploy
 
-Versão publicada da v2:
+Versão publicada da v2 neste repositório:
 
-[https://manudiascruz.github.io/v2-mch-task003-bquiz/](https://manudiascruz.github.io/v2-mch-task003-bquiz/)
+[https://manudiascruz.github.io/BuzzQuizz/](https://manudiascruz.github.io/BuzzQuizz/)
+
+O caminho `/v2-mch-task003-bquiz/` não é gerado automaticamente para este projeto, porque o URL de um GitHub Pages project site acompanha o nome do repositório. Para publicar exatamente em `https://manudiascruz.github.io/v2-mch-task003-bquiz/`, seria necessário usar um repositório com esse nome ou uma rota publicada a partir de um user-pages site.
 
 Para atualizar o GitHub Pages desta branch:
 
