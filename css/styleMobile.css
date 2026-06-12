@@ -2,6 +2,15 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA;
+}
+
+button,
+ion-icon,
+.paginaum article,
+.resposta,
+.botaoEditar {
+    cursor: pointer;
 }
 
 header {
@@ -123,10 +132,21 @@ h1 {
     flex-direction: row;
     margin-right: 10px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
-    background-size: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
     position: relative;
     margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paginaum article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+.paginaum article:focus-visible {
+    outline: 3px solid rgba(236, 54, 45, 0.45);
+    outline-offset: 3px;
 }
 
 .paginaum h3 {
@@ -231,8 +251,8 @@ h1 {
     justify-content: center;
     /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)); */
     background-image: url("../img/pandavermelho.jpg");
-    background-size: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
 }
 
 .pagina-quizz .titulo-quizz h2 {
@@ -298,11 +318,18 @@ h1 {
     height: auto;
     display: flex;
     flex-direction: column;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:hover {
+    transform: translateY(-2px);
 }
 
 .pagina-quizz .perguntas .bloco-respostas .resposta img {
     width: 100%;
     height: 113px;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
 .pagina-quizz .perguntas .bloco-respostas .resposta span {
@@ -362,7 +389,7 @@ h1 {
     color: #FFFFFF;
 }
 
-.fim .resultado .conteudo-reultado {
+.fim .resultado .conteudo-resultado {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -370,13 +397,16 @@ h1 {
     align-items: center;
 }
 
-.fim .resultado .conteudo-reultado img {
+.fim .resultado .conteudo-resultado img {
     margin-bottom: 9px;
     width: 90%;
     height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
-.fim .resultado .conteudo-reultado span {
+.fim .resultado .conteudo-resultado span {
     width: 90%;
     height: auto;
     font-family: Roboto;
@@ -488,6 +518,11 @@ h1 {
     border: none;
     padding-bottom: 17px;
     padding-top: 17px;
+}
+
+.cria-quizz button:disabled {
+    cursor: wait;
+    opacity: 0.65;
 }
 
 .cria-quizz .vamos-comecar {
@@ -662,9 +697,21 @@ h1 {
     margin: 0px auto 0px;
     width: 90%;
     height: 181px;
-    background-size: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
     border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.cria-quizz .sucesso-quizz figure h3 {
+    color: #FFFFFF;
+    font-size: 19px;
+    line-height: 22px;
+    font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 .cria-quizz .sucesso-quizz .acessar-quizz {
@@ -693,10 +740,15 @@ h1 {
     opacity: 0.3;
 }
 
-.errou {
+.resposta.errou h4 {
     color: red;
 }
 
-.acertou {
+.resposta.acertou h4 {
     color: green;
+}
+
+.escolhida img {
+    outline: 4px solid rgba(236, 54, 45, 0.35);
+    outline-offset: 2px;
 }

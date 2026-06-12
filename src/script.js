@@ -1,104 +1,336 @@
-let quizzTeste = {
+const API_URL = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
+const STORAGE_PREFIX = "buzzquizz:";
+const FALLBACK_IMAGE = "img/pandavermelho.jpg";
+
+const PIXABAY_IMAGES = {
+    redPanda: "https://cdn.pixabay.com/photo/2022/10/07/09/24/little-panda-7504633_1280.jpg",
+    giantPanda: "https://cdn.pixabay.com/photo/2016/09/04/22/44/panda-1645495_640.jpg",
+    bambooForest: "https://cdn.pixabay.com/photo/2016/03/27/19/49/bamboo-1283976_1280.jpg",
+    bambooClose: "https://cdn.pixabay.com/photo/2017/12/08/21/14/bamboo-3006747_640.jpg",
+    quizCard: "https://cdn.pixabay.com/photo/2016/11/05/11/10/quiz-1799934_640.png",
+    pancakes: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg",
+    romanesco: "https://cdn.pixabay.com/photo/2018/06/23/16/22/romanesco-3493007_640.jpg",
+    fries: "https://cdn.pixabay.com/photo/2016/11/20/09/06/bowl-1842294_640.jpg",
+    churros: "https://cdn.pixabay.com/photo/2017/03/30/15/47/churros-2188871_640.jpg",
+    bagan: "https://cdn.pixabay.com/photo/2016/01/13/01/36/bagan-1137015_640.jpg",
+    eiffelTower: "https://cdn.pixabay.com/photo/2018/04/25/09/26/eiffel-tower-3349075_1280.jpg",
+    mountain: "https://cdn.pixabay.com/photo/2017/02/14/03/03/ama-dablam-2064522_1280.jpg"
+};
+
+const FALLBACK_IMAGES = [
+    PIXABAY_IMAGES.redPanda,
+    PIXABAY_IMAGES.bambooForest,
+    PIXABAY_IMAGES.pancakes,
+    PIXABAY_IMAGES.romanesco,
+    PIXABAY_IMAGES.bagan,
+    PIXABAY_IMAGES.eiffelTower,
+    PIXABAY_IMAGES.mountain
+];
+
+const FEATURED_QUIZZES = [{
+    id: "local-panda-pixabay",
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: PIXABAY_IMAGES.redPanda,
     questions: [{
-            title: "Outro urso fofinho também é um tipo de panda... qual?",
-            color: "#F05C5C",
+            title: "Qual animal também é conhecido como panda-vermelho?",
+            color: "#E85D4F",
             answers: [{
-                    text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    text: "O pequeno panda-vermelho",
+                    image: PIXABAY_IMAGES.redPanda,
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
+                    text: "Um panda gigante jovem",
+                    image: PIXABAY_IMAGES.giantPanda,
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
+                    text: "Um bosque de bambu",
+                    image: PIXABAY_IMAGES.bambooForest,
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
+                    text: "Um desenho genérico de quiz",
+                    image: PIXABAY_IMAGES.quizCard,
                     isCorrectAnswer: false
                 }
             ]
         },
         {
-            title: "Você é um Panda agora! Qual sua comida favorita?",
-            color: "#55DD65",
+            title: "Qual alimento aparece com mais frequência na dieta do panda gigante?",
+            color: "#4AA96C",
             answers: [{
-                    text: "Um gostoso e nutritivo bambu",
-                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
+                    text: "Bambu",
+                    image: PIXABAY_IMAGES.bambooClose,
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Folhinhas fininhas e verdinhas",
-                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
+                    text: "Frutas cítricas",
+                    image: PIXABAY_IMAGES.quizCard,
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Musguinho cheio de bichinhos",
-                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
+                    text: "Areia de praia",
+                    image: PIXABAY_IMAGES.bambooForest,
                     isCorrectAnswer: false
                 }
             ]
         },
         {
-            title: "Qual sua cor favorita?",
-            color: "#6ACAE2",
+            title: "Qual imagem combina melhor com o habitat natural do panda?",
+            color: "#3C8DAD",
             answers: [{
-                    text: "Preto ou vermelho, depende do dia",
-                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
+                    text: "Floresta de bambu",
+                    image: PIXABAY_IMAGES.bambooForest,
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Branco e preto, um clássico que nunca sai de moda...",
-                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
+                    text: "Cartão de perguntas",
+                    image: PIXABAY_IMAGES.quizCard,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Retrato em fundo neutro",
+                    image: PIXABAY_IMAGES.giantPanda,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Ao terminar um quiz, o que define o nível exibido?",
+            color: "#EC362D",
+            answers: [{
+                    text: "A porcentagem de respostas corretas",
+                    image: PIXABAY_IMAGES.quizCard,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "A ordem em que as imagens carregam",
+                    image: PIXABAY_IMAGES.redPanda,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "A quantidade de quizzes na página inicial",
+                    image: PIXABAY_IMAGES.giantPanda,
                     isCorrectAnswer: false
                 }
             ]
         }
     ],
     levels: [{
-            title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
-            text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
-            minValue: 60
+            title: "Especialista em pandas",
+            image: PIXABAY_IMAGES.redPanda,
+            text: "Você acertou a maior parte das perguntas e mostrou atenção aos detalhes do quiz. Seu resultado ficou no nível mais alto.",
+            minValue: 75
         },
         {
-            title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
-            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
+            title: "Explorador do bambuzal",
+            image: PIXABAY_IMAGES.bambooForest,
+            text: "Você reconhece alguns pontos importantes, mas ainda dá para melhorar observando as perguntas e respostas com calma.",
+            minValue: 40
+        },
+        {
+            title: "Visitante curioso",
+            image: PIXABAY_IMAGES.giantPanda,
+            text: "Você está começando agora. Refaça o quiz, compare as imagens e tente alcançar um resultado melhor.",
             minValue: 0
         }
     ]
-};
+}, {
+    id: "local-food-pixabay",
+    title: "Você reconhece estes sabores e ingredientes?",
+    image: PIXABAY_IMAGES.pancakes,
+    questions: [{
+            title: "Qual imagem mostra panquecas servidas com frutas?",
+            color: "#9B5D36",
+            answers: [{
+                    text: "Panquecas com framboesas",
+                    image: PIXABAY_IMAGES.pancakes,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Churros com açúcar",
+                    image: PIXABAY_IMAGES.churros,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual vegetal é conhecido por seu padrão em espiral?",
+            color: "#4D7C45",
+            answers: [{
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Bambu",
+                    image: PIXABAY_IMAGES.bambooClose,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batata",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual opção é preparada com tiras de batata fritas?",
+            color: "#B96C2F",
+            answers: [{
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Panquecas",
+                    image: PIXABAY_IMAGES.pancakes,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual doce tem massa frita alongada e cobertura de açúcar?",
+            color: "#7A4E3A",
+            answers: [{
+                    text: "Churros",
+                    image: PIXABAY_IMAGES.churros,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Chef de olhar afiado",
+            image: PIXABAY_IMAGES.pancakes,
+            text: "Você reconheceu pratos, ingredientes e texturas com muita precisão. Seu repertório visual de comida está bem apurado.",
+            minValue: 75
+        },
+        {
+            title: "Degustador curioso",
+            image: PIXABAY_IMAGES.churros,
+            text: "Você identificou boa parte das opções, mas ainda pode observar melhor as formas, cores e modos de preparo.",
+            minValue: 40
+        },
+        {
+            title: "Aprendiz de cozinha",
+            image: PIXABAY_IMAGES.romanesco,
+            text: "Você está começando a explorar esse cardápio visual. Refaça o quiz e compare os detalhes de cada alimento.",
+            minValue: 0
+        }
+    ]
+}, {
+    id: "local-travel-pixabay",
+    title: "Uma volta ao mundo em três paisagens",
+    image: PIXABAY_IMAGES.bagan,
+    questions: [{
+            title: "Em qual país fica a planície de templos de Bagan?",
+            color: "#9B623C",
+            answers: [{
+                    text: "Myanmar",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "França",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Nepal",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual monumento está localizado na cidade de Paris?",
+            color: "#4E657D",
+            answers: [{
+                    text: "Torre Eiffel",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Templos de Bagan",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Ama Dablam",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual paisagem representa uma montanha do Himalaia?",
+            color: "#496A65",
+            answers: [{
+                    text: "Ama Dablam",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Torre Eiffel",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Bagan ao amanhecer",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Viajante experiente",
+            image: PIXABAY_IMAGES.eiffelTower,
+            text: "Você conectou paisagens, monumentos e países com segurança. Seu mapa mental está pronto para novas rotas.",
+            minValue: 67
+        },
+        {
+            title: "Explorador em formação",
+            image: PIXABAY_IMAGES.bagan,
+            text: "Você reconheceu parte do caminho. Observe os detalhes arquitetônicos e naturais antes de tentar novamente.",
+            minValue: 34
+        },
+        {
+            title: "Primeira viagem",
+            image: PIXABAY_IMAGES.mountain,
+            text: "Essas paisagens ainda são novidade para você. Refaça o percurso e associe cada imagem ao seu destino.",
+            minValue: 0
+        }
+    ]
+}];
 
-let level = {
-    title: "Título do nível 1",
-    image: "https://http.cat/411.jpg",
-    text: "Descrição do nível 1",
-    minValue: 0
-};
-
-let question = {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: []
-};
-
-let answer = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: false
-};
+let quizzTeste = FEATURED_QUIZZES[0];
 
 let quizz = {
-    title: "Título do quizz",
-    image: "https://http.cat/411.jpg",
+    title: "",
+    image: PIXABAY_IMAGES.quizCard,
     questions: [],
     levels: []
 };
@@ -114,169 +346,242 @@ let listaNiveis = [];
 let listaMeusQuizzes = [];
 
 let quizzRecemCriado;
-let existeQuizzUsuario = false;
-
-function createQuizz() {
-    const quizz = {
-        title: "Lessa Squad - Grupo 5",
-        image: "https://http.cat/411.jpg",
-        questions: [{
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [{
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
-    };
-    return quizzTeste;
-}
+let identificador = null;
+let quizzescolhido = null;
+let envioEmAndamento = false;
 
 function sendQuizz(quizzPronto) {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto);
+    definirEstadoEnvio(true);
+    const promise = axios.post(API_URL, quizzPronto);
     promise.then(mandouQuizz);
     promise.catch(falhouEnvio);
+    return promise;
 }
 
 function mandouQuizz(response) {
     let quizz = response.data;
+    definirEstadoEnvio(false);
     guardaMeusQuizzesLocalmente(quizz);
-    alert("Seu quizz foi adicionado ao servidor, com o id: " + quizz.id);
     quizzRecemCriado = quizz;
+    chamarTelaSucessoCriacaoQuizz();
 }
 
 function falhouEnvio(error) {
+    definirEstadoEnvio(false);
+    const detalheErro = (error.response && error.response.data) ? JSON.stringify(error.response.data) : "Tente novamente em alguns instantes.";
     alert(`
         Infelizmente seu quizz não pôde ser enviado ao servidor.
-        ${error.data}
+        ${detalheErro}
     `);
 }
 
 function guardaMeusQuizzesLocalmente(quizz) {
     const quizzSerializado = JSON.stringify(quizz);
-    localStorage.setItem(quizz.id, quizzSerializado);
+    localStorage.setItem(STORAGE_PREFIX + quizz.id, quizzSerializado);
 }
 
 function getMeuQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
+    const quizzSerializado = localStorage.getItem(STORAGE_PREFIX + quizz.id) || localStorage.getItem(quizz.id);
     const meuQuizz = JSON.parse(quizzSerializado);
 
     return meuQuizz;
 }
 
 function getMeuUltimoQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
+    const quizzSerializado = localStorage.getItem(STORAGE_PREFIX + quizz.id) || localStorage.getItem(quizz.id);
     const meuQuizz = JSON.parse(quizzSerializado);
 
     return meuQuizz;
 }
 
 function getAllQuizzesLocais() {
-    let quizzSerializado;
+    listaMeusQuizzes = [];
     for (var i = 0; i < localStorage.length; i++) {
-        quizzSerializado = localStorage.getItem(localStorage.key(i));
-        listaMeusQuizzes.push(JSON.parse(quizzSerializado));
+        const chave = localStorage.key(i);
+        if (!chave.startsWith(STORAGE_PREFIX) && !/^\d+$/.test(chave)) {
+            continue;
+        }
+        const quizzSerializado = localStorage.getItem(chave);
+
+        try {
+            const quizzLocal = JSON.parse(quizzSerializado);
+            if (quizzLocal && quizzLocal.id && quizzLocal.title && quizzLocal.image && Array.isArray(quizzLocal.questions) && Array.isArray(quizzLocal.levels)) {
+                listaMeusQuizzes.push(quizzLocal);
+            }
+        } catch (error) {
+            // Ignora entradas antigas ou de outras aplicações no localStorage.
+        }
     }
+
+    return listaMeusQuizzes;
 }
 
 function getAllQuizz() {
+    const meusQuizzes = getAllQuizzesLocais();
     document.querySelector(".paginaum .novo-quizz").style.display = "none";
     document.querySelector(".paginaum .quizzes-criados").style.display = "none";
-    if (localStorage.length !== 0) {
+    document.querySelector(".paginaum .quizzes-criados").innerHTML = "";
+    document.querySelector(".paginaum .quizzes").innerHTML = "";
+    if (meusQuizzes.length !== 0) {
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
         document.querySelector(".paginaum .novo-quizz").style.display = "flex";
         document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        pegaMeusQuizzes(listaMeusQuizzes);
+        pegaMeusQuizzes(meusQuizzes);
+    } else {
+        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "flex";
+        document.querySelector(".paginaum .todososquizzes").style.display = "flex";
     }
-    console.log(document.querySelector(".paginaum .meus-quizzes").style.display = "flex");
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    document.querySelector(".paginaum .meus-quizzes").style.display = meusQuizzes.length ? "flex" : "none";
+    renderTodosQuizzes([]);
+    const promise = axios.get(API_URL);
     promise.then(pegouQuizz);
-    promise.catch(erroPegouQuizz);
+    promise.catch(erroPegouListaQuizzes);
 }
 
 function getQuizz(here) {
     identificador = here;
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
+    const quizzLocal = buscarQuizzLocal(here);
+    if (quizzLocal) {
+        abrirQuizz({ data: quizzLocal });
+        return;
+    }
+    const promise = axios.get(API_URL + "/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
 }
 
 function pegouQuizz(resposta) {
-    quizzTeste = resposta.data;
-    let todos_quizzes = document.querySelector(".quizzes");
-    for (let i = 0; i < quizzTeste.length; i++) {
-        todos_quizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${quizzTeste[i].id})">
-            <h3>${quizzTeste[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
-    }
+    quizzTeste = Array.isArray(resposta.data) ? resposta.data : [];
+    renderTodosQuizzes(quizzTeste);
 }
 
 function pegaMeusQuizzes(listaMeusQuizzes) {
-    getAllQuizzesLocais();
     let meusQuizzes = document.querySelector(".quizzes-criados");
+    meusQuizzes.innerHTML = "";
     for (let i = 0; i < listaMeusQuizzes.length; i++) {
-        meusQuizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
-            <h3>${listaMeusQuizzes[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
+        adicionarCardQuizz(meusQuizzes, listaMeusQuizzes[i]);
     }
+}
+
+function buscarQuizzLocal(id) {
+    const idNormalizado = String(id);
+    const quizzDestaque = FEATURED_QUIZZES.find((quizz) => String(quizz.id) === idNormalizado);
+    if (quizzDestaque) {
+        return quizzDestaque;
+    }
+
+    return getAllQuizzesLocais().find((quizz) => String(quizz.id) === idNormalizado);
+}
+
+function renderTodosQuizzes(quizzesApi) {
+    const todosQuizzes = document.querySelector(".quizzes");
+    todosQuizzes.innerHTML = "";
+    const quizzesRemotosValidos = quizzesApi.filter((quizz) => quizz && quizz.id && quizz.title && quizz.image);
+    const quizzes = FEATURED_QUIZZES.concat(quizzesRemotosValidos);
+
+    for (let i = 0; i < quizzes.length; i++) {
+        adicionarCardQuizz(todosQuizzes, quizzes[i]);
+    }
+}
+
+function adicionarCardQuizz(container, quizz) {
+    const card = document.createElement("article");
+    card.classList.add("quizz-card");
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", "Abrir quizz " + quizz.title);
+    card.addEventListener("click", () => getQuizz(quizz.id));
+    card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            getQuizz(quizz.id);
+        }
+    });
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = quizz.title;
+    card.appendChild(titulo);
+    const imageUrl = getImagemSegura(quizz.image);
+    const fallbackUrl = getImagemFallback(quizz.title);
+    aplicarImagemDeFundo(card, imageUrl);
+    testarImagem(imageUrl, () => {
+        aplicarImagemDeFundo(card, fallbackUrl);
+        testarImagem(fallbackUrl, () => aplicarImagemDeFundo(card, FALLBACK_IMAGE));
+    });
+    container.appendChild(card);
+}
+
+function getIndiceImagemFallback(semente) {
+    const texto = String(semente || "BuzzQuizz");
+    let total = 0;
+
+    for (let i = 0; i < texto.length; i++) {
+        total += texto.charCodeAt(i);
+    }
+
+    return total % FALLBACK_IMAGES.length;
+}
+
+function getImagemFallback(semente) {
+    return FALLBACK_IMAGES[getIndiceImagemFallback(semente)];
+}
+
+function aplicarFallbackImagem(imagem) {
+    if (imagem.dataset.fallbackApplied === "true") {
+        imagem.onerror = null;
+        imagem.src = FALLBACK_IMAGE;
+        return;
+    }
+
+    imagem.dataset.fallbackApplied = "true";
+    imagem.src = FALLBACK_IMAGES[Number(imagem.dataset.fallbackIndex)] || FALLBACK_IMAGE;
+}
+
+function getImagemSegura(url) {
+    if (!validarURL(url)) {
+        return FALLBACK_IMAGE;
+    }
+
+    const imagemUrl = new URL(url);
+    const hostname = imagemUrl.hostname.toLowerCase();
+    if (hostname === "example.com" || hostname.endsWith(".example.com")) {
+        return FALLBACK_IMAGE;
+    }
+
+    return imagemUrl.href;
+}
+
+function aplicarImagemDeFundo(elemento, url) {
+    elemento.style.backgroundImage = "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('" + url + "')";
+}
+
+function aplicarImagemTitulo(elemento, url) {
+    elemento.style.backgroundImage = "linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('" + url + "')";
+}
+
+function testarImagem(url, aoFalhar) {
+    if (url === FALLBACK_IMAGE) {
+        return;
+    }
+
+    const imagem = new Image();
+    imagem.onerror = aoFalhar;
+    imagem.src = url;
+}
+
+function escapeHTML(valor) {
+    const div = document.createElement("div");
+    div.textContent = valor || "";
+    return div.innerHTML;
+}
+
+function escapeAttribute(valor) {
+    return escapeHTML(valor).replace(/"/g, "&quot;");
+}
+
+function getCorSegura(cor) {
+    return /^#[0-9a-f]{6}$/i.test(cor || "") ? cor : "#434CA0";
 }
 
 function embaralha() {
@@ -284,33 +589,57 @@ function embaralha() {
 }
 
 function abrirQuizz(respostaquizz) {
+    const quizzSelecionado = respostaquizz && respostaquizz.data;
+    if (!quizzSelecionado || !Array.isArray(quizzSelecionado.questions) || quizzSelecionado.questions.length === 0 ||
+        !quizzSelecionado.questions.every((question) => question && question.title && Array.isArray(question.answers) && question.answers.length > 1) ||
+        !Array.isArray(quizzSelecionado.levels) || quizzSelecionado.levels.length === 0 ||
+        !quizzSelecionado.levels.every((level) => level && level.title && level.text)) {
+        alert("Este quizz está incompleto e não pode ser aberto.");
+        return;
+    }
+
+    questoesrespondidas = 0;
+    acertos = 0;
+    porcentagem = 0;
+    porcentagemarredondada = 0;
+    document.querySelector(".fim").innerHTML = "";
     document.querySelector(".paginaum").style.display = "none";
+    document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
+    document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
+    document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
+    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
-    quizzescolhido = respostaquizz.data;
+    quizzescolhido = quizzSelecionado;
     let titulo = document.querySelector(".pagina-quizz")
-    titulo.innerHTML = `      
+    titulo.innerHTML = `
         <section class="titulo-quizz">
-            <h2> <span>${quizzescolhido.title}</span></h2>
-        </section>`
-    umquizz = document.querySelector(".titulo-quizz");
-    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
+            <h2><span>${escapeHTML(quizzescolhido.title)}</span></h2>
+        </section>
+        <section class="perguntas"></section>`;
+    const umquizz = document.querySelector(".titulo-quizz");
+    const perguntasContainer = titulo.querySelector(".perguntas");
+    const imagemTitulo = getImagemSegura(quizzescolhido.image);
+    const fallbackTitulo = getImagemFallback(quizzescolhido.title);
+    aplicarImagemTitulo(umquizz, imagemTitulo);
+    testarImagem(imagemTitulo, () => {
+        aplicarImagemTitulo(umquizz, fallbackTitulo);
+        testarImagem(fallbackTitulo, () => aplicarImagemTitulo(umquizz, FALLBACK_IMAGE));
+    });
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
         quizzescolhido.questions[x].answers.sort(embaralha)
-        titulo.innerHTML += `
-            <section class="perguntas" id="depoisdesse">
-                <article data-identifier="question" class="pergunta" id="pergunta">
-                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
-                        <h3>${quizzescolhido.questions[x].title}</h3>
+        perguntasContainer.innerHTML += `
+                <article data-identifier="question" class="pergunta" data-question-index="${x}">
+                    <div class="titulo-pergunta" style="background-color: ${getCorSegura(quizzescolhido.questions[x].color)}">
+                        <h3>${escapeHTML(quizzescolhido.questions[x].title)}</h3>
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
-                </article>
-            </section`
+                </article>`;
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
-            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
-                <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
+            <div data-identifier="answer" data-answer-index="${y}" data-correct="${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" id="pergunta${x}${y}" class="resposta pergunta${x}${y}" onclick="quizzSelecionado(${x},${y})">
+                <img src="${getImagemSegura(quizzescolhido.questions[x].answers[y].image)}" data-fallback-index="${getIndiceImagemFallback(quizzescolhido.questions[x].answers[y].text)}" alt="${escapeAttribute(quizzescolhido.questions[x].answers[y].text)}" onerror="aplicarFallbackImagem(this)">
+                <h4>${escapeHTML(quizzescolhido.questions[x].answers[y].text)}</h4>
             </div> `
         }
     }
@@ -321,69 +650,74 @@ let questoesrespondidas = 0;
 let acertos = 0;
 
 function quizzSelecionado(numerodaquestao, opcao) {
+    const pergunta = document.querySelector(`[data-question-index="${numerodaquestao}"]`);
+    if (!pergunta || pergunta.classList.contains("respondida")) {
+        return;
+    }
+
+    pergunta.classList.add("respondida");
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
     escolha.classList.add("escolhida");
-    for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
-        let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
+    const respostas = pergunta.querySelectorAll(".resposta");
+    for (let z = 0; z < respostas.length; z++) {
+        let umaopcao = respostas[z];
         umaopcao.removeAttribute('onclick');
         if (umaopcao != escolha) {
             umaopcao.classList.add("nop");
         }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
+        if (umaopcao.dataset.correct === "true") {
             umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
+        } else {
+            umaopcao.classList.add("errou");
         }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.dataset.correct === "true") {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+    quantidadeAcertos();
+
+    setTimeout(() => {
+        if (questoesrespondidas === quizzescolhido.questions.length) {
+            resultadoQuizz();
+        } else {
+            const proximaPergunta = document.querySelector(`[data-question-index="${numerodaquestao + 1}"]`);
+            if (proximaPergunta) {
+                proximaPergunta.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+    }, 1200);
 }
 
 let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
 let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
 
 function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
+    porcentagem = (acertos / quizzescolhido.questions.length) * 100;
     porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
-        }
-    }
+    return porcentagemarredondada;
+}
+
+function calcularNivelResultado() {
+    const niveisOrdenados = quizzescolhido.levels
+        .map((nivel) => ({ ...nivel, minValue: Number(nivel.minValue) }))
+        .sort((a, b) => b.minValue - a.minValue);
+
+    return niveisOrdenados.find((nivel) => porcentagemarredondada >= nivel.minValue) || niveisOrdenados[niveisOrdenados.length - 1];
 }
 
 function resultadoQuizz() {
+    const nivelResultado = calcularNivelResultado();
     let perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${escapeHTML(nivelResultado.title)}</h3>
             </div>
-            <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+            <div class="conteudo-resultado">
+                <img src="${getImagemSegura(nivelResultado.image)}" data-fallback-index="${getIndiceImagemFallback(nivelResultado.title)}" alt="Imagem do resultado" onerror="aplicarFallbackImagem(this)">
+                <span>${escapeHTML(nivelResultado.text)}</span>
             </div>
         </article>
         <div class="botoes">
@@ -394,25 +728,36 @@ function resultadoQuizz() {
                 <p>Voltar pra home</p>
             </button>
         </div>`
-    irpara = document.querySelector(".voltar-inicio")
+    const irpara = document.querySelector(".resultado")
     irpara.scrollIntoView()
 }
 
 function paginaInicial() {
-    window.location.reload();
+    document.querySelector(".pagina-quizz").style.display = "none";
+    document.querySelector(".fim").innerHTML = "";
+    document.querySelector(".paginaum").style.display = "flex";
+    getAllQuizz();
+    window.scrollTo(0, 0);
 }
 
 function reiniciarQuizz() {
-    getQuizz(identificador);
-    apagarresultado = document.querySelector(".fim");
-    apagarresultado.innerHTML = ""
+    if (quizzescolhido) {
+        abrirQuizz({ data: quizzescolhido });
+    } else {
+        getQuizz(identificador);
+    }
 }
 
 function erroPegouQuizz(error) {
+    const detalheErro = (error.response && error.response.data) ? JSON.stringify(error.response.data) : "Tente novamente em alguns instantes.";
     alert(`
         Infelizmente não foi possível pegar seu Quizz no servidor.
-        ${error.data}
+        ${detalheErro}
     `);
+}
+
+function erroPegouListaQuizzes() {
+    renderTodosQuizzes([]);
 }
 
 function chamarTelaCriarQuizz() {
@@ -421,25 +766,27 @@ function chamarTelaCriarQuizz() {
 }
 
 function validarDadosBasicos() {
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
-    if (tituloQuizz.length < 20) {
+    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value.trim();
+    if (tituloQuizz.length < 20 || tituloQuizz.length > 65) {
         alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
+    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value.trim();
     if (!validarURL(imagemQuizz)) {
         alert("A imagem deve ser uma URL válida.");
     }
     qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (qtdadePerguntas < 3) {
+    if (Number.isNaN(qtdadePerguntas) || qtdadePerguntas < 3) {
         alert("A quantidade de perguntas deve ser no mínimo 3.");
     }
     qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (qtdadeNiveis < 2) {
+    if (Number.isNaN(qtdadeNiveis) || qtdadeNiveis < 2) {
         alert("A quantidade de níveis deve ser no mínimo 2.");
     }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
+    if ((tituloQuizz.length >= 20) && (tituloQuizz.length <= 65) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
         quizz.title = tituloQuizz;
         quizz.image = imagemQuizz;
+        quizz.questions = [];
+        quizz.levels = [];
         chamarTelaCriarPerguntas();
     }
 }
@@ -543,30 +890,24 @@ function abrirNovaPergunta(elemento) {
 }
 
 function montarNovaResposta(elementoResposta) {
-    let textoResposta = "";
-    let urlResposta = "";
-    let ehRespostaCorreta = false;
-
-    textoResposta = elementoResposta.children[0].value;
-    urlResposta = elementoResposta.children[1].value;
-    if (elementoResposta.classList.contains("resposta-correta")) {
-        ehRespostaCorreta = true;
-    }
-
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    return {
+        text: elementoResposta.children[0].value.trim(),
+        image: elementoResposta.children[1].value.trim(),
+        isCorrectAnswer: elementoResposta.classList.contains("resposta-correta")
+    };
 }
 
 function validarTodasPerguntas() {
     listaPerguntas = [];
     let listaRespostas = [];
-    let answers = [];
     let erroPreenchimento = 0;
 
     const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
+
+    if (divsPerguntas.length !== qtdadePerguntas) {
+        alert("Abra e preencha todas as perguntas antes de continuar.");
+        return;
+    }
 
     for (let i = 0; i < divsPerguntas.length; i++) {
         listaRespostas = [];
@@ -576,20 +917,19 @@ function validarTodasPerguntas() {
     }
 
     if (erroPreenchimento > 0) {
-        chamarTelaCriarPerguntas();
+        return;
     } else {
 
         for (let i = 0; i < divsPerguntas.length; i++) {
             listaRespostas = [];
 
             listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
+            const respostasIncorretas = divsPerguntas[i].querySelectorAll(".resposta");
 
-            if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
-            }
-            if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
+            for (let j = 0; j < respostasIncorretas.length; j++) {
+                if (respostasIncorretas[j].children[0].value.trim() !== "") {
+                    listaRespostas.push(montarNovaResposta(respostasIncorretas[j]));
+                }
             }
 
             listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
@@ -603,10 +943,11 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -622,7 +963,7 @@ function montarTelaCriarNiveis(telaCriarNiveis) {
         <h1>Agora, decida os níveis!</h1>
         <div class="nivel" data-identifier="level">
             <h2>Nível 1</h2>
-            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
             <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
             <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
             <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -655,7 +996,7 @@ function abrirNovoNivel(elemento) {
     novoNível.classList.remove("novo-nivel");
     novoNível.removeChild(elemento);
     novoNível.innerHTML += `
-        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
         <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
         <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
         <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -667,11 +1008,18 @@ function abrirNovoNivel(elemento) {
 }
 
 function validarTodosNiveis() {
+    if (envioEmAndamento) {
+        return;
+    }
+
     listaNiveis = [];
-    let nivel;
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
     let contPercentualNivelZero = 0;
-    let menorPercentual = 100;
+
+    if (divsNiveis.length !== qtdadeNiveis) {
+        alert("Abra e preencha todos os níveis antes de finalizar o quizz.");
+        return;
+    }
 
     for (let i = 0; i < divsNiveis.length; i++) {
 
@@ -682,28 +1030,38 @@ function validarTodosNiveis() {
 
     if (contPercentualNivelZero === 0) {
         alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
-        chamarTelaCriarNiveis();
     } else {
         for (let i = 0; i < divsNiveis.length; i++) {
             if (!validarDadosNivel(divsNiveis[i])) {
-                document.location.reload(true);
+                return;
             }
             listaNiveis.push(montarNovoNivel(divsNiveis[i]));
         }
 
         quizz.levels = listaNiveis;
-        chamarTelaSucessoCriacaoQuizz();
         sendQuizz(quizz);
     }
 }
 
-function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
+function definirEstadoEnvio(enviando) {
+    envioEmAndamento = enviando;
+    const botao = document.querySelector(".cria-niveis .finaliza-quizz");
 
-    return level;
+    if (!botao) {
+        return;
+    }
+
+    botao.disabled = enviando;
+    botao.querySelector("p").textContent = enviando ? "Salvando quizz..." : "Finalizar Quizz";
+}
+
+function montarNovoNivel(nivel) {
+    return {
+        title: nivel.querySelector(".titulo-nivel").value.trim(),
+        image: nivel.querySelector(".url-nivel").value.trim(),
+        text: nivel.querySelector(".descricao-nivel").value.trim(),
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,10 +1071,11 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
-        <figure class="fim-criacao-quizz"></figure>
+        <figure class="fim-criacao-quizz">
+            <h3>${escapeHTML(quizz.title)}</h3>
+        </figure>
         <button class="acessar-quizz" onclick="acessarQuizzCriado()">
             <p>Acessar Quizz</p>
         </button>
@@ -725,61 +1084,56 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>    
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    const figure = telaSucessoCriacaoQuizz.querySelector("figure");
+    const imagemSucesso = getImagemSegura(quizz.image);
+    const fallbackSucesso = getImagemFallback(quizz.title);
+    aplicarImagemDeFundo(figure, imagemSucesso);
+    testarImagem(imagemSucesso, () => {
+        aplicarImagemDeFundo(figure, fallbackSucesso);
+        testarImagem(fallbackSucesso, () => aplicarImagemDeFundo(figure, FALLBACK_IMAGE));
+    });
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
 function acessarQuizzCriado() {
+    if (!quizzRecemCriado || !quizzRecemCriado.id) {
+        alert("Aguarde o quizz terminar de ser salvo antes de acessá-lo.");
+        return;
+    }
     getQuizz(quizzRecemCriado.id);
     document.querySelector(".sucesso-quizz").style.display = "none";
 }
 
 function voltarInicio() {
-    if (localStorage.length !== 0) {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
-        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
-        document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        if (localStorage.length === 1) {
-            pegaMeusQuizzes(listaMeusQuizzes);
-        }
-    } else {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "flex";
-    }
-
+    document.querySelector(".sucesso-quizz").style.display = "none";
+    document.querySelector(".paginaum").style.display = "flex";
+    getAllQuizz();
+    window.scrollTo(0, 0);
 }
 
 function validarDadosPergunta(elemento) {
-    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
-    let corPergunta = elemento.querySelector(".cabecalho-pergunta .cor-pergunta").value;
-    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
-    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value;
-    let respostasIncorretas = elemento.querySelectorAll(".resposta .texto-resposta");
-    let contaRespostasIncorretas = 0;
+    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value.trim();
+    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value.trim();
+    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value.trim();
+    let respostasIncorretas = elemento.querySelectorAll(".resposta");
+    let contaRespostasIncorretasValidas = 0;
+    let existeRespostaIncompleta = false;
 
     for (let i = 0; i < respostasIncorretas.length; i++) {
-        if (respostasIncorretas[i].value !== "") {
-            contaRespostasIncorretas++;
-        }
-    }
+        const textoResposta = respostasIncorretas[i].querySelector(".texto-resposta").value.trim();
+        const urlResposta = respostasIncorretas[i].querySelector(".url-resposta").value.trim();
 
-    let urlRespostasIncorretas = elemento.querySelectorAll(".resposta .url-resposta");
-    let contaUrlRespostasIncorretas = 0;
-
-    for (let i = 0; i < urlRespostasIncorretas.length; i++) {
-        if (urlRespostasIncorretas[i].value !== "") {
-            if (validarURL(urlRespostasIncorretas[i].value)) {
-                contaUrlRespostasIncorretas++;
-            }
+        if (textoResposta !== "" && validarURL(urlResposta)) {
+            contaRespostasIncorretasValidas++;
+        } else if (textoResposta !== "" || urlResposta !== "") {
+            existeRespostaIncompleta = true;
         }
     }
 
     if ((textoPergunta.length < 20) || (respostaCorreta === "") || (!validarURL(urlRespostaCorreta)) ||
-        ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
-        (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
+        (contaRespostasIncorretasValidas === 0) || existeRespostaIncompleta) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            ERRO! Dados incompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
             1. O texto da pergunta deve ter no mínimo 20 caracteres.
             2. A inserção da resposta correta é obrigatória.
             3. A inserção de pelo menos 1 resposta errada é obrigatória!
@@ -792,17 +1146,17 @@ function validarDadosPergunta(elemento) {
     }
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elemento) {
+    let tituloNivel = elemento.querySelector(".titulo-nivel").value.trim();
+    let percentualNivel = parseInt(elemento.querySelector(".percentual-nivel").value);
+    let urlNivel = elemento.querySelector(".url-nivel").value.trim();
+    let descricaoNivel = elemento.querySelector(".descricao-nivel").value.trim();
 
 
-    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
+    if ((tituloNivel.length < 10) || Number.isNaN(percentualNivel) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
         (descricaoNivel.length < 30)) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            ERRO! Dados incompletos, verifique se os campos do nível cumprem os seguintes requisitos:
             1. O título do nível deve ter no mínimo 10 caracteres.
             2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
             3. A imagem do nível deve ser uma URL válida.
@@ -814,16 +1168,13 @@ function validarDadosNivel() {
     }
 }
 
-// Código de retirado de:
-// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 function validarURL(texto) {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return !!pattern.test(texto);
+    try {
+        const url = new URL(texto);
+        return url.protocol === "http:" || url.protocol === "https:";
+    } catch (error) {
+        return false;
+    }
 }
 
 getAllQuizz();
