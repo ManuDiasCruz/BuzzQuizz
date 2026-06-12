@@ -33,10 +33,19 @@ function urlParaCSS(url) {
     return String(url ?? "").replace(/["'()\\]/g, "");
 }
 
+// Muitos quizzes do servidor apontam para imagens que saíram do ar (ou nem
+// são imagens); o onerror troca pela imagem local para a tela não quebrar.
+const IMAGEM_FALLBACK = "img/quiz/imagem-indisponivel.jpg";
+
+function trocarImagemQuebrada(img) {
+    img.onerror = null;
+    img.src = IMAGEM_FALLBACK;
+}
+
 function sendQuizz(quizzPronto) {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto);
-    promise.then(mandouQuizz);
-    promise.catch(falhouEnvio);
+    axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto)
+        .then(mandouQuizz)
+        .catch(falhouEnvio);
 }
 
 function mandouQuizz(response) {
@@ -106,16 +115,38 @@ function getAllQuizz() {
         document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
         pegaMeusQuizzes();
     }
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    promise.then(pegouQuizz);
-    promise.catch(erroCarregarQuizzes);
+    renderizarQuizzesExemplo();
+    axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
+        .then(pegouQuizz)
+        .catch(erroCarregarQuizzes);
+}
+
+function renderizarQuizzesExemplo() {
+    const todos_quizzes = document.querySelector(".todososquizzes .quizzes");
+    let html = "";
+    for (let i = 0; i < QUIZZES_EXEMPLO.length; i++) {
+        html += `
+        <article class="quizz-exemplo-${i}" onclick="abrirQuizzExemplo(${i})">
+            <h3>${escapeHTML(QUIZZES_EXEMPLO[i].title)}</h3>
+        </article>`
+    }
+    todos_quizzes.insertAdjacentHTML("beforeend", html);
+    for (let i = 0; i < QUIZZES_EXEMPLO.length; i++) {
+        const umQuizz = todos_quizzes.querySelector(`.quizz-exemplo-${i}`);
+        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${urlParaCSS(QUIZZES_EXEMPLO[i].image)}')`;
+    }
+}
+
+function abrirQuizzExemplo(indice) {
+    identificador = null;
+    abrirQuizz({ data: QUIZZES_EXEMPLO[indice] });
 }
 
 function getQuizz(here) {
     identificador = here;
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
-    promise.then(abrirQuizz);
-    promise.catch(erroPegouQuizz);
+    axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador)
+        .then(abrirQuizz)
+        .catch(erroPegouQuizz);
 }
 
 function pegouQuizz(resposta) {
@@ -188,7 +219,7 @@ function abrirQuizz(respostaquizz) {
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" class="resposta pergunta${x}-${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${escapeHTML(quizzescolhido.questions[x].answers[y].image)}" alt="${escapeHTML(quizzescolhido.questions[x].answers[y].text)}">
+                <img src="${escapeHTML(quizzescolhido.questions[x].answers[y].image)}" alt="${escapeHTML(quizzescolhido.questions[x].answers[y].text)}" onerror="trocarImagemQuebrada(this)">
                 <h4>${escapeHTML(quizzescolhido.questions[x].answers[y].text)}</h4>
             </div> `
         }
@@ -266,7 +297,7 @@ function resultadoQuizz() {
                 <h3>${porcentagemarredondada}% ${escapeHTML(nivelResultado.title)}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${escapeHTML(nivelResultado.image)}" alt="Imagem do resultado">
+                <img src="${escapeHTML(nivelResultado.image)}" alt="Imagem do resultado" onerror="trocarImagemQuebrada(this)">
                 <span>${escapeHTML(nivelResultado.text)}</span>
             </div>
         </article>
