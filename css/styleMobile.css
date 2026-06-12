@@ -144,6 +144,11 @@ h1 {
     box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.16);
 }
 
+.paginaum article:focus-visible {
+    outline: 3px solid rgba(236, 54, 45, 0.45);
+    outline-offset: 3px;
+}
+
 .paginaum h3 {
     max-width: 80%;
     height: auto;
@@ -513,6 +518,11 @@ h1 {
     border: none;
     padding-bottom: 17px;
     padding-top: 17px;
+}
+
+.cria-quizz button:disabled {
+    cursor: wait;
+    opacity: 0.65;
 }
 
 .cria-quizz .vamos-comecar {

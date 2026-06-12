@@ -7,8 +7,25 @@ const PIXABAY_IMAGES = {
     giantPanda: "https://cdn.pixabay.com/photo/2016/09/04/22/44/panda-1645495_640.jpg",
     bambooForest: "https://cdn.pixabay.com/photo/2016/03/27/19/49/bamboo-1283976_1280.jpg",
     bambooClose: "https://cdn.pixabay.com/photo/2017/12/08/21/14/bamboo-3006747_640.jpg",
-    quizCard: "https://cdn.pixabay.com/photo/2016/11/05/11/10/quiz-1799934_640.png"
+    quizCard: "https://cdn.pixabay.com/photo/2016/11/05/11/10/quiz-1799934_640.png",
+    pancakes: "https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_1280.jpg",
+    romanesco: "https://cdn.pixabay.com/photo/2018/06/23/16/22/romanesco-3493007_640.jpg",
+    fries: "https://cdn.pixabay.com/photo/2016/11/20/09/06/bowl-1842294_640.jpg",
+    churros: "https://cdn.pixabay.com/photo/2017/03/30/15/47/churros-2188871_640.jpg",
+    bagan: "https://cdn.pixabay.com/photo/2016/01/13/01/36/bagan-1137015_640.jpg",
+    eiffelTower: "https://cdn.pixabay.com/photo/2018/04/25/09/26/eiffel-tower-3349075_1280.jpg",
+    mountain: "https://cdn.pixabay.com/photo/2017/02/14/03/03/ama-dablam-2064522_1280.jpg"
 };
+
+const FALLBACK_IMAGES = [
+    PIXABAY_IMAGES.redPanda,
+    PIXABAY_IMAGES.bambooForest,
+    PIXABAY_IMAGES.pancakes,
+    PIXABAY_IMAGES.romanesco,
+    PIXABAY_IMAGES.bagan,
+    PIXABAY_IMAGES.eiffelTower,
+    PIXABAY_IMAGES.mountain
+];
 
 const FEATURED_QUIZZES = [{
     id: "local-panda-pixabay",
@@ -119,6 +136,194 @@ const FEATURED_QUIZZES = [{
             minValue: 0
         }
     ]
+}, {
+    id: "local-food-pixabay",
+    title: "Você reconhece estes sabores e ingredientes?",
+    image: PIXABAY_IMAGES.pancakes,
+    questions: [{
+            title: "Qual imagem mostra panquecas servidas com frutas?",
+            color: "#9B5D36",
+            answers: [{
+                    text: "Panquecas com framboesas",
+                    image: PIXABAY_IMAGES.pancakes,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Churros com açúcar",
+                    image: PIXABAY_IMAGES.churros,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual vegetal é conhecido por seu padrão em espiral?",
+            color: "#4D7C45",
+            answers: [{
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Bambu",
+                    image: PIXABAY_IMAGES.bambooClose,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batata",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual opção é preparada com tiras de batata fritas?",
+            color: "#B96C2F",
+            answers: [{
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Panquecas",
+                    image: PIXABAY_IMAGES.pancakes,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual doce tem massa frita alongada e cobertura de açúcar?",
+            color: "#7A4E3A",
+            answers: [{
+                    text: "Churros",
+                    image: PIXABAY_IMAGES.churros,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Romanesco",
+                    image: PIXABAY_IMAGES.romanesco,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Batatas fritas",
+                    image: PIXABAY_IMAGES.fries,
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Chef de olhar afiado",
+            image: PIXABAY_IMAGES.pancakes,
+            text: "Você reconheceu pratos, ingredientes e texturas com muita precisão. Seu repertório visual de comida está bem apurado.",
+            minValue: 75
+        },
+        {
+            title: "Degustador curioso",
+            image: PIXABAY_IMAGES.churros,
+            text: "Você identificou boa parte das opções, mas ainda pode observar melhor as formas, cores e modos de preparo.",
+            minValue: 40
+        },
+        {
+            title: "Aprendiz de cozinha",
+            image: PIXABAY_IMAGES.romanesco,
+            text: "Você está começando a explorar esse cardápio visual. Refaça o quiz e compare os detalhes de cada alimento.",
+            minValue: 0
+        }
+    ]
+}, {
+    id: "local-travel-pixabay",
+    title: "Uma volta ao mundo em três paisagens",
+    image: PIXABAY_IMAGES.bagan,
+    questions: [{
+            title: "Em qual país fica a planície de templos de Bagan?",
+            color: "#9B623C",
+            answers: [{
+                    text: "Myanmar",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "França",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Nepal",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual monumento está localizado na cidade de Paris?",
+            color: "#4E657D",
+            answers: [{
+                    text: "Torre Eiffel",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Templos de Bagan",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Ama Dablam",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Qual paisagem representa uma montanha do Himalaia?",
+            color: "#496A65",
+            answers: [{
+                    text: "Ama Dablam",
+                    image: PIXABAY_IMAGES.mountain,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Torre Eiffel",
+                    image: PIXABAY_IMAGES.eiffelTower,
+                    isCorrectAnswer: false
+                },
+                {
+                    text: "Bagan ao amanhecer",
+                    image: PIXABAY_IMAGES.bagan,
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Viajante experiente",
+            image: PIXABAY_IMAGES.eiffelTower,
+            text: "Você conectou paisagens, monumentos e países com segurança. Seu mapa mental está pronto para novas rotas.",
+            minValue: 67
+        },
+        {
+            title: "Explorador em formação",
+            image: PIXABAY_IMAGES.bagan,
+            text: "Você reconheceu parte do caminho. Observe os detalhes arquitetônicos e naturais antes de tentar novamente.",
+            minValue: 34
+        },
+        {
+            title: "Primeira viagem",
+            image: PIXABAY_IMAGES.mountain,
+            text: "Essas paisagens ainda são novidade para você. Refaça o percurso e associe cada imagem ao seu destino.",
+            minValue: 0
+        }
+    ]
 }];
 
 let quizzTeste = FEATURED_QUIZZES[0];
@@ -143,8 +348,10 @@ let listaMeusQuizzes = [];
 let quizzRecemCriado;
 let identificador = null;
 let quizzescolhido = null;
+let envioEmAndamento = false;
 
 function sendQuizz(quizzPronto) {
+    definirEstadoEnvio(true);
     const promise = axios.post(API_URL, quizzPronto);
     promise.then(mandouQuizz);
     promise.catch(falhouEnvio);
@@ -153,12 +360,14 @@ function sendQuizz(quizzPronto) {
 
 function mandouQuizz(response) {
     let quizz = response.data;
+    definirEstadoEnvio(false);
     guardaMeusQuizzesLocalmente(quizz);
     quizzRecemCriado = quizz;
     chamarTelaSucessoCriacaoQuizz();
 }
 
 function falhouEnvio(error) {
+    definirEstadoEnvio(false);
     const detalheErro = (error.response && error.response.data) ? JSON.stringify(error.response.data) : "Tente novamente em alguns instantes.";
     alert(`
         Infelizmente seu quizz não pôde ser enviado ao servidor.
@@ -189,6 +398,9 @@ function getAllQuizzesLocais() {
     listaMeusQuizzes = [];
     for (var i = 0; i < localStorage.length; i++) {
         const chave = localStorage.key(i);
+        if (!chave.startsWith(STORAGE_PREFIX) && !/^\d+$/.test(chave)) {
+            continue;
+        }
         const quizzSerializado = localStorage.getItem(chave);
 
         try {
@@ -221,6 +433,7 @@ function getAllQuizz() {
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
     }
     document.querySelector(".paginaum .meus-quizzes").style.display = meusQuizzes.length ? "flex" : "none";
+    renderTodosQuizzes([]);
     const promise = axios.get(API_URL);
     promise.then(pegouQuizz);
     promise.catch(erroPegouListaQuizzes);
@@ -264,7 +477,8 @@ function buscarQuizzLocal(id) {
 function renderTodosQuizzes(quizzesApi) {
     const todosQuizzes = document.querySelector(".quizzes");
     todosQuizzes.innerHTML = "";
-    const quizzes = FEATURED_QUIZZES.concat(quizzesApi);
+    const quizzesRemotosValidos = quizzesApi.filter((quizz) => quizz && quizz.id && quizz.title && quizz.image);
+    const quizzes = FEATURED_QUIZZES.concat(quizzesRemotosValidos);
 
     for (let i = 0; i < quizzes.length; i++) {
         adicionarCardQuizz(todosQuizzes, quizzes[i]);
@@ -274,15 +488,54 @@ function renderTodosQuizzes(quizzesApi) {
 function adicionarCardQuizz(container, quizz) {
     const card = document.createElement("article");
     card.classList.add("quizz-card");
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", "Abrir quizz " + quizz.title);
     card.addEventListener("click", () => getQuizz(quizz.id));
+    card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            getQuizz(quizz.id);
+        }
+    });
 
     const titulo = document.createElement("h3");
     titulo.textContent = quizz.title;
     card.appendChild(titulo);
     const imageUrl = getImagemSegura(quizz.image);
+    const fallbackUrl = getImagemFallback(quizz.title);
     aplicarImagemDeFundo(card, imageUrl);
-    testarImagem(imageUrl, () => aplicarImagemDeFundo(card, FALLBACK_IMAGE));
+    testarImagem(imageUrl, () => {
+        aplicarImagemDeFundo(card, fallbackUrl);
+        testarImagem(fallbackUrl, () => aplicarImagemDeFundo(card, FALLBACK_IMAGE));
+    });
     container.appendChild(card);
+}
+
+function getIndiceImagemFallback(semente) {
+    const texto = String(semente || "BuzzQuizz");
+    let total = 0;
+
+    for (let i = 0; i < texto.length; i++) {
+        total += texto.charCodeAt(i);
+    }
+
+    return total % FALLBACK_IMAGES.length;
+}
+
+function getImagemFallback(semente) {
+    return FALLBACK_IMAGES[getIndiceImagemFallback(semente)];
+}
+
+function aplicarFallbackImagem(imagem) {
+    if (imagem.dataset.fallbackApplied === "true") {
+        imagem.onerror = null;
+        imagem.src = FALLBACK_IMAGE;
+        return;
+    }
+
+    imagem.dataset.fallbackApplied = "true";
+    imagem.src = FALLBACK_IMAGES[Number(imagem.dataset.fallbackIndex)] || FALLBACK_IMAGE;
 }
 
 function getImagemSegura(url) {
@@ -290,12 +543,13 @@ function getImagemSegura(url) {
         return FALLBACK_IMAGE;
     }
 
-    const hostname = new URL(url).hostname.toLowerCase();
+    const imagemUrl = new URL(url);
+    const hostname = imagemUrl.hostname.toLowerCase();
     if (hostname === "example.com" || hostname.endsWith(".example.com")) {
         return FALLBACK_IMAGE;
     }
 
-    return url;
+    return imagemUrl.href;
 }
 
 function aplicarImagemDeFundo(elemento, url) {
@@ -326,11 +580,24 @@ function escapeAttribute(valor) {
     return escapeHTML(valor).replace(/"/g, "&quot;");
 }
 
+function getCorSegura(cor) {
+    return /^#[0-9a-f]{6}$/i.test(cor || "") ? cor : "#434CA0";
+}
+
 function embaralha() {
     return Math.random() - 0.5;
 }
 
 function abrirQuizz(respostaquizz) {
+    const quizzSelecionado = respostaquizz && respostaquizz.data;
+    if (!quizzSelecionado || !Array.isArray(quizzSelecionado.questions) || quizzSelecionado.questions.length === 0 ||
+        !quizzSelecionado.questions.every((question) => question && question.title && Array.isArray(question.answers) && question.answers.length > 1) ||
+        !Array.isArray(quizzSelecionado.levels) || quizzSelecionado.levels.length === 0 ||
+        !quizzSelecionado.levels.every((level) => level && level.title && level.text)) {
+        alert("Este quizz está incompleto e não pode ser aberto.");
+        return;
+    }
+
     questoesrespondidas = 0;
     acertos = 0;
     porcentagem = 0;
@@ -342,7 +609,7 @@ function abrirQuizz(respostaquizz) {
     document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
     document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
-    quizzescolhido = respostaquizz.data;
+    quizzescolhido = quizzSelecionado;
     let titulo = document.querySelector(".pagina-quizz")
     titulo.innerHTML = `
         <section class="titulo-quizz">
@@ -352,13 +619,17 @@ function abrirQuizz(respostaquizz) {
     const umquizz = document.querySelector(".titulo-quizz");
     const perguntasContainer = titulo.querySelector(".perguntas");
     const imagemTitulo = getImagemSegura(quizzescolhido.image);
+    const fallbackTitulo = getImagemFallback(quizzescolhido.title);
     aplicarImagemTitulo(umquizz, imagemTitulo);
-    testarImagem(imagemTitulo, () => aplicarImagemTitulo(umquizz, FALLBACK_IMAGE));
+    testarImagem(imagemTitulo, () => {
+        aplicarImagemTitulo(umquizz, fallbackTitulo);
+        testarImagem(fallbackTitulo, () => aplicarImagemTitulo(umquizz, FALLBACK_IMAGE));
+    });
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
         quizzescolhido.questions[x].answers.sort(embaralha)
         perguntasContainer.innerHTML += `
                 <article data-identifier="question" class="pergunta" data-question-index="${x}">
-                    <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
+                    <div class="titulo-pergunta" style="background-color: ${getCorSegura(quizzescolhido.questions[x].color)}">
                         <h3>${escapeHTML(quizzescolhido.questions[x].title)}</h3>
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
@@ -367,7 +638,7 @@ function abrirQuizz(respostaquizz) {
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" data-answer-index="${y}" data-correct="${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" id="pergunta${x}${y}" class="resposta pergunta${x}${y}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${getImagemSegura(quizzescolhido.questions[x].answers[y].image)}" alt="${escapeAttribute(quizzescolhido.questions[x].answers[y].text)}" onerror="this.src='${FALLBACK_IMAGE}'">
+                <img src="${getImagemSegura(quizzescolhido.questions[x].answers[y].image)}" data-fallback-index="${getIndiceImagemFallback(quizzescolhido.questions[x].answers[y].text)}" alt="${escapeAttribute(quizzescolhido.questions[x].answers[y].text)}" onerror="aplicarFallbackImagem(this)">
                 <h4>${escapeHTML(quizzescolhido.questions[x].answers[y].text)}</h4>
             </div> `
         }
@@ -445,7 +716,7 @@ function resultadoQuizz() {
                 <h3>${porcentagemarredondada}% ${escapeHTML(nivelResultado.title)}</h3>
             </div>
             <div class="conteudo-resultado">
-                <img src="${getImagemSegura(nivelResultado.image)}" alt="Imagem do resultado" onerror="this.src='${FALLBACK_IMAGE}'">
+                <img src="${getImagemSegura(nivelResultado.image)}" data-fallback-index="${getIndiceImagemFallback(nivelResultado.title)}" alt="Imagem do resultado" onerror="aplicarFallbackImagem(this)">
                 <span>${escapeHTML(nivelResultado.text)}</span>
             </div>
         </article>
@@ -495,11 +766,11 @@ function chamarTelaCriarQuizz() {
 }
 
 function validarDadosBasicos() {
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
+    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value.trim();
     if (tituloQuizz.length < 20 || tituloQuizz.length > 65) {
         alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
+    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value.trim();
     if (!validarURL(imagemQuizz)) {
         alert("A imagem deve ser uma URL válida.");
     }
@@ -692,7 +963,7 @@ function montarTelaCriarNiveis(telaCriarNiveis) {
         <h1>Agora, decida os níveis!</h1>
         <div class="nivel" data-identifier="level">
             <h2>Nível 1</h2>
-            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
             <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
             <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
             <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -725,7 +996,7 @@ function abrirNovoNivel(elemento) {
     novoNível.classList.remove("novo-nivel");
     novoNível.removeChild(elemento);
     novoNível.innerHTML += `
-        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
         <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
         <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
         <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -737,6 +1008,10 @@ function abrirNovoNivel(elemento) {
 }
 
 function validarTodosNiveis() {
+    if (envioEmAndamento) {
+        return;
+    }
+
     listaNiveis = [];
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
     let contPercentualNivelZero = 0;
@@ -766,6 +1041,18 @@ function validarTodosNiveis() {
         quizz.levels = listaNiveis;
         sendQuizz(quizz);
     }
+}
+
+function definirEstadoEnvio(enviando) {
+    envioEmAndamento = enviando;
+    const botao = document.querySelector(".cria-niveis .finaliza-quizz");
+
+    if (!botao) {
+        return;
+    }
+
+    botao.disabled = enviando;
+    botao.querySelector("p").textContent = enviando ? "Salvando quizz..." : "Finalizar Quizz";
 }
 
 function montarNovoNivel(nivel) {
@@ -799,8 +1086,12 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
 
     const figure = telaSucessoCriacaoQuizz.querySelector("figure");
     const imagemSucesso = getImagemSegura(quizz.image);
+    const fallbackSucesso = getImagemFallback(quizz.title);
     aplicarImagemDeFundo(figure, imagemSucesso);
-    testarImagem(imagemSucesso, () => aplicarImagemDeFundo(figure, FALLBACK_IMAGE));
+    testarImagem(imagemSucesso, () => {
+        aplicarImagemDeFundo(figure, fallbackSucesso);
+        testarImagem(fallbackSucesso, () => aplicarImagemDeFundo(figure, FALLBACK_IMAGE));
+    });
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
