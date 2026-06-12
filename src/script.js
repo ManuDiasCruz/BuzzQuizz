@@ -1,107 +1,32 @@
-let quizzTeste = {
-    title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
-    questions: [{
-            title: "Outro urso fofinho também é um tipo de panda... qual?",
-            color: "#F05C5C",
-            answers: [{
-                    text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Você é um Panda agora! Qual sua comida favorita?",
-            color: "#55DD65",
-            answers: [{
-                    text: "Um gostoso e nutritivo bambu",
-                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Folhinhas fininhas e verdinhas",
-                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
-                    isCorrectAnswer: false
-                },
-                {
-                    text: "Musguinho cheio de bichinhos",
-                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        },
-        {
-            title: "Qual sua cor favorita?",
-            color: "#6ACAE2",
-            answers: [{
-                    text: "Preto ou vermelho, depende do dia",
-                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
-                    isCorrectAnswer: true
-                },
-                {
-                    text: "Branco e preto, um clássico que nunca sai de moda...",
-                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
-                    isCorrectAnswer: false
-                }
-            ]
-        }
-    ],
-    levels: [{
-            title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
-            text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
-            minValue: 60
-        },
-        {
-            title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
-            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
-            minValue: 0
-        }
-    ]
-};
+// =====================================================================
+// BuzzQuizz — lógica do aplicativo.
+// Cria e responde quizzes consumindo a API mock da Driven e guarda os
+// quizzes do usuário no localStorage. (Antes deste ponto havia um grande
+// objeto `quizzTeste` de exemplo que não era mais utilizado — removido.)
+// =====================================================================
 
-let level = {
-    title: "Título do nível 1",
-    image: "https://http.cat/411.jpg",
-    text: "Descrição do nível 1",
-    minValue: 0
-};
+// Endpoint da API mock da Driven usada para listar/criar quizzes.
+const URL_API = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
-let question = {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: []
-};
+// Imagens locais (licença Pixabay) usadas como fallback quando uma URL de imagem quebra.
+const IMAGEM_PADRAO = "img/fallback.jpg"; // contextos pequenos (cards, respostas, resultado)
+const IMAGEM_CAPA = "img/quiz-cover.jpg"; // contextos grandes (capa do quizz, tela de sucesso)
 
-let answer = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: false
-};
+// Tamanho mínimo do título de um nível (mantém o código e a mensagem de erro consistentes).
+const MIN_TITULO_NIVEL = 3;
 
+// Quizz em construção (preenchido ao longo do fluxo de criação).
 let quizz = {
     title: "Título do quizz",
-    image: "https://http.cat/411.jpg",
+    image: IMAGEM_PADRAO,
     questions: [],
     levels: []
 };
+
+// Estado do quizz que está sendo respondido / listagem geral.
+let quizzescolhido;
+let identificador;
+let listaTodosQuizzes = [];
 
 let qtdadePerguntas = 0;
 const MIN_PERGUNTAS = 3;
@@ -116,75 +41,8 @@ let listaMeusQuizzes = [];
 let quizzRecemCriado;
 let existeQuizzUsuario = false;
 
-function createQuizz() {
-    const quizz = {
-        title: "Lessa Squad - Grupo 5",
-        image: "https://http.cat/411.jpg",
-        questions: [{
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [{
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [{
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
-    };
-    return quizzTeste;
-}
-
 function sendQuizz(quizzPronto) {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizzPronto);
+    const promise = axios.post(URL_API, quizzPronto);
     promise.then(mandouQuizz);
     promise.catch(falhouEnvio);
 }
@@ -208,25 +66,15 @@ function guardaMeusQuizzesLocalmente(quizz) {
     localStorage.setItem(quizz.id, quizzSerializado);
 }
 
-function getMeuQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
-    const meuQuizz = JSON.parse(quizzSerializado);
-
-    return meuQuizz;
-}
-
-function getMeuUltimoQuizzLocal(quizz) {
-    const quizzSerializado = localStorage.getItem(quizz.id);
-    const meuQuizz = JSON.parse(quizzSerializado);
-
-    return meuQuizz;
-}
-
-function getAllQuizzesLocais() {
-    let quizzSerializado;
-    for (var i = 0; i < localStorage.length; i++) {
-        quizzSerializado = localStorage.getItem(localStorage.key(i));
-        listaMeusQuizzes.push(JSON.parse(quizzSerializado));
+function carregarMeusQuizzesLocais() {
+    listaMeusQuizzes = []; // recomeça do zero — antes acumulava duplicatas a cada chamada
+    for (let i = 0; i < localStorage.length; i++) {
+        const quizzSerializado = localStorage.getItem(localStorage.key(i));
+        try {
+            listaMeusQuizzes.push(JSON.parse(quizzSerializado));
+        } catch (e) {
+            // ignora entradas do localStorage que não sejam JSON de quizz
+        }
     }
 }
 
@@ -235,47 +83,52 @@ function getAllQuizz() {
     document.querySelector(".paginaum .quizzes-criados").style.display = "none";
     if (localStorage.length !== 0) {
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
+        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
         document.querySelector(".paginaum .novo-quizz").style.display = "flex";
         document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        pegaMeusQuizzes(listaMeusQuizzes);
+        pegaMeusQuizzes();
     }
-    console.log(document.querySelector(".paginaum .meus-quizzes").style.display = "flex");
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    // (antes havia um console.log que, como efeito colateral, exibia "Seus Quizzes"
+    //  mesmo no primeiro acesso — agora isso só acontece quando há quizzes salvos.)
+    const promise = axios.get(URL_API);
     promise.then(pegouQuizz);
     promise.catch(erroPegouQuizz);
 }
 
 function getQuizz(here) {
     identificador = here;
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/" + identificador);
+    const promise = axios.get(URL_API + "/" + identificador);
     promise.then(abrirQuizz);
     promise.catch(erroPegouQuizz);
 }
 
+// Monta o HTML de um card de quizz. A última camada de background é a imagem local de
+// fallback: se a URL do quizz quebrar, aquela camada some e o fallback aparece atrás.
+function montarCardQuizz(quizz) {
+    const fundo = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizz.image}'), url('${IMAGEM_PADRAO}')`;
+    return `
+        <article class="card-quizz" onclick="getQuizz(${quizz.id})"
+                 style="background-image: ${fundo}; background-size: cover; background-position: center;">
+            <h3>${quizz.title}</h3>
+        </article>`;
+}
+
 function pegouQuizz(resposta) {
-    quizzTeste = resposta.data;
-    let todos_quizzes = document.querySelector(".quizzes");
-    for (let i = 0; i < quizzTeste.length; i++) {
-        todos_quizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${quizzTeste[i].id})">
-            <h3>${quizzTeste[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${quizzTeste[i].image}')`;
+    listaTodosQuizzes = resposta.data;
+    const todos_quizzes = document.querySelector(".quizzes");
+    todos_quizzes.innerHTML = ""; // evita duplicar cards se a lista for recarregada
+    for (let i = 0; i < listaTodosQuizzes.length; i++) {
+        todos_quizzes.innerHTML += montarCardQuizz(listaTodosQuizzes[i]);
     }
 }
 
-function pegaMeusQuizzes(listaMeusQuizzes) {
-    getAllQuizzesLocais();
-    let meusQuizzes = document.querySelector(".quizzes-criados");
+function pegaMeusQuizzes() {
+    carregarMeusQuizzesLocais();
+    const meusQuizzes = document.querySelector(".quizzes-criados");
+    meusQuizzes.innerHTML = "";
     for (let i = 0; i < listaMeusQuizzes.length; i++) {
-        meusQuizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
-            <h3>${listaMeusQuizzes[i].title}</h3>
-        </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
+        meusQuizzes.innerHTML += montarCardQuizz(listaMeusQuizzes[i]);
     }
 }
 
@@ -283,107 +136,127 @@ function embaralha() {
     return Math.random() - 0.5;
 }
 
+// Fallback de imagem: muitos quizzes do servidor têm URLs que não são imagens
+// (páginas da Amazon, posts do Instagram, etc.). Quando uma <img> falha ao carregar,
+// trocamos pela imagem local padrão para não exibir um ícone de imagem quebrada.
+function imagemQuebrada(img) {
+    if (img && !img.src.endsWith(IMAGEM_PADRAO)) {
+        img.src = IMAGEM_PADRAO;
+    }
+}
+
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
-    let titulo = document.querySelector(".pagina-quizz")
-    titulo.innerHTML = `      
+    questoesrespondidas = 0; // zera o progresso ao (re)abrir um quizz — corrige o "reiniciar"
+    acertos = 0;
+
+    const titulo = document.querySelector(".pagina-quizz");
+    titulo.innerHTML = `
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
-        </section>`
-    umquizz = document.querySelector(".titulo-quizz");
-    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
+        </section>`;
+    const capa = document.querySelector(".titulo-quizz");
+    capa.style.backgroundImage =
+        `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}'), url('${IMAGEM_CAPA}')`;
+    capa.style.backgroundSize = "cover";
+    capa.style.backgroundPosition = "center";
+
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
-        quizzescolhido.questions[x].answers.sort(embaralha)
+        quizzescolhido.questions[x].answers.sort(embaralha);
         titulo.innerHTML += `
-            <section class="perguntas" id="depoisdesse">
-                <article data-identifier="question" class="pergunta" id="pergunta">
+            <section class="perguntas">
+                <article data-identifier="question" class="pergunta" id="questao${x}">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
                         <h3>${quizzescolhido.questions[x].title}</h3>
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
-        let classpergunta = document.querySelector(`.esse${x}`);
+            </section>`;
+        const blocoRespostas = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
-            classpergunta.innerHTML += `
-            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
-                <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
-            </div> `
+            const resp = quizzescolhido.questions[x].answers[y];
+            blocoRespostas.innerHTML += `
+            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${resp.isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
+                <img src="${resp.image}" alt="${resp.text}" onerror="imagemQuebrada(this)">
+                <h4>${resp.text}</h4>
+            </div> `;
         }
     }
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 }
 
 let questoesrespondidas = 0;
 let acertos = 0;
 
 function quizzSelecionado(numerodaquestao, opcao) {
-    let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
+    const escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
+    if (!escolha || escolha.classList.contains("escolhida")) {
+        return; // ignora cliques repetidos na mesma pergunta
+    }
     escolha.classList.add("escolhida");
-    for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
-        let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
-        umaopcao.removeAttribute('onclick');
-        if (umaopcao != escolha) {
-            umaopcao.classList.add("nop");
-        }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
-            umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
+
+    const respostas = quizzescolhido.questions[numerodaquestao].answers;
+    for (let z = 0; z < respostas.length; z++) {
+        const umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
+        umaopcao.removeAttribute("onclick"); // trava todas as opções desta pergunta
+        umaopcao.style.cursor = "default";
+        // Revela certas/erradas com base no dado (antes usava classList.contains(true/false)).
+        umaopcao.classList.add(respostas[z].isCorrectAnswer ? "acertou" : "errou");
+        if (umaopcao !== escolha) {
+            umaopcao.classList.add("nop"); // esmaece as não escolhidas
         }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (respostas[opcao].isCorrectAnswer) {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+
+    if (questoesrespondidas === quizzescolhido.questions.length) {
+        setTimeout(resultadoQuizz, 2000); // mostra o resultado após responder a última
+    } else {
+        const proxima = document.querySelector(`#questao${numerodaquestao + 1}`);
+        if (proxima) {
+            setTimeout(() => proxima.scrollIntoView({ behavior: "smooth" }), 2000);
+        }
+    }
 }
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
-let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
+let porcentagemFinal = 0;
+let nivelResultado = null;
 
-function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+// Calcula a porcentagem de acertos e o nível correspondente.
+// Regra correta: o nível é aquele com o MAIOR minValue que ainda seja <= à porcentagem.
+// (A versão anterior acumulava `leveltotal` entre chamadas, dividia por ele — podendo dar
+//  NaN/divisão por zero — e usava um índice global `u` que sobrava do loop, mostrando o nível errado.)
+function calcularResultado() {
+    const totalPerguntas = quizzescolhido.questions.length;
+    porcentagemFinal = totalPerguntas > 0 ? Math.round((acertos / totalPerguntas) * 100) : 0;
+
+    const niveisOrdenados = [...quizzescolhido.levels].sort(
+        (a, b) => Number(a.minValue) - Number(b.minValue)
+    );
+    nivelResultado = niveisOrdenados[0];
+    for (const nivel of niveisOrdenados) {
+        if (porcentagemFinal >= Number(nivel.minValue)) {
+            nivelResultado = nivel;
         }
     }
 }
 
 function resultadoQuizz() {
-    let perguntas = document.querySelector(".fim");
+    calcularResultado();
+    const perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemFinal}% ${nivelResultado.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivelResultado.image}" alt="${nivelResultado.title}" onerror="imagemQuebrada(this)">
+                <span>${nivelResultado.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -393,9 +266,8 @@ function resultadoQuizz() {
             <button class="voltar-inicio" onclick="paginaInicial()">
                 <p>Voltar pra home</p>
             </button>
-        </div>`
-    irpara = document.querySelector(".voltar-inicio")
-    irpara.scrollIntoView()
+        </div>`;
+    perguntas.querySelector(".voltar-inicio").scrollIntoView();
 }
 
 function paginaInicial() {
@@ -543,21 +415,13 @@ function abrirNovaPergunta(elemento) {
 }
 
 function montarNovaResposta(elementoResposta) {
-    let textoResposta = "";
-    let urlResposta = "";
-    let ehRespostaCorreta = false;
-
-    textoResposta = elementoResposta.children[0].value;
-    urlResposta = elementoResposta.children[1].value;
-    if (elementoResposta.classList.contains("resposta-correta")) {
-        ehRespostaCorreta = true;
-    }
-
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    // Cria um objeto novo a cada chamada. Antes reutilizava um objeto global único,
+    // então todas as respostas acabavam sendo a mesma referência (a última preenchida).
+    return {
+        text: elementoResposta.children[0].value,
+        image: elementoResposta.children[1].value,
+        isCorrectAnswer: elementoResposta.classList.contains("resposta-correta"),
+    };
 }
 
 function validarTodasPerguntas() {
@@ -603,10 +467,12 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    // Objeto novo a cada chamada (evita compartilhar a mesma referência entre perguntas).
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas,
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -668,42 +534,48 @@ function abrirNovoNivel(elemento) {
 
 function validarTodosNiveis() {
     listaNiveis = [];
-    let nivel;
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
+
+    // Regra: pelo menos um nível precisa ter 0% de acerto mínimo.
     let contPercentualNivelZero = 0;
-    let menorPercentual = 100;
-
     for (let i = 0; i < divsNiveis.length; i++) {
-
-        if (divsNiveis[i].querySelector(".percentual-nivel").value == 0) {
+        if (parseInt(divsNiveis[i].querySelector(".percentual-nivel").value) === 0) {
             contPercentualNivelZero++;
         }
     }
-
     if (contPercentualNivelZero === 0) {
         alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
-        chamarTelaCriarNiveis();
-    } else {
-        for (let i = 0; i < divsNiveis.length; i++) {
-            if (!validarDadosNivel(divsNiveis[i])) {
-                document.location.reload(true);
-            }
-            listaNiveis.push(montarNovoNivel(divsNiveis[i]));
-        }
-
-        quizz.levels = listaNiveis;
-        chamarTelaSucessoCriacaoQuizz();
-        sendQuizz(quizz);
+        return; // mantém a tela e os dados já digitados (antes recriava a tela e apagava tudo)
     }
+
+    // Valida TODOS os níveis. Antes, um nível inválido chamava document.location.reload(true),
+    // que recarregava a página inteira e apagava tudo o que o usuário tinha preenchido.
+    let erros = 0;
+    for (let i = 0; i < divsNiveis.length; i++) {
+        if (!validarDadosNivel(divsNiveis[i])) {
+            erros++;
+        }
+    }
+    if (erros > 0) {
+        return; // mensagens já exibidas; não recarrega a página nem perde os dados
+    }
+
+    for (let i = 0; i < divsNiveis.length; i++) {
+        listaNiveis.push(montarNovoNivel(divsNiveis[i]));
+    }
+    quizz.levels = listaNiveis;
+    chamarTelaSucessoCriacaoQuizz();
+    sendQuizz(quizz);
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    // Objeto novo a cada chamada; minValue como número para ordenação/comparação corretas.
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: Number(nivel.querySelector(".percentual-nivel").value),
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,7 +585,9 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+    // (Antes, esta função sobrescrevia quizz.image com uma URL truncada/inválida
+    //  ("https://cdn.pixabay.com/…-family-5074732_1280.jpg"), salvando o quizz com a
+    //  imagem quebrada. Removido — usamos a imagem que o usuário escolheu.)
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -722,10 +596,14 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>
         <button class="voltar-inicio" onclick="voltarInicio()">
             <p>Voltar pra home</p>
-        </button>    
+        </button>
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    const figura = telaSucessoCriacaoQuizz.querySelector("figure");
+    // Era `.background` (propriedade inexistente, sem efeito); o correto é `.style.background`.
+    figura.style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}"), url("${IMAGEM_CAPA}")`;
+    figura.style.backgroundSize = "cover";
+    figura.style.backgroundPosition = "center";
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
@@ -735,19 +613,21 @@ function acessarQuizzCriado() {
 }
 
 function voltarInicio() {
+    // Antes a página inicial (.paginaum) continuava escondida (display:none vindo do fluxo de
+    // criação), então "Voltar pra home" mostrava uma tela vazia. Agora a reexibimos de fato.
+    document.querySelector(".sucesso-quizz").style.display = "none";
+    document.querySelector(".cria-quizz").style.display = "none";
+    document.querySelector(".paginaum").style.display = "flex";
     if (localStorage.length !== 0) {
-        document.querySelector(".sucesso-quizz").style.display = "none";
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
         document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
+        document.querySelector(".paginaum .novo-quizz").style.display = "flex";
+        document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        if (localStorage.length === 1) {
-            pegaMeusQuizzes(listaMeusQuizzes);
-        }
+        pegaMeusQuizzes(); // sempre atualiza a lista (antes só atualizava quando havia exatamente 1)
     } else {
-        document.querySelector(".sucesso-quizz").style.display = "none";
         document.querySelector(".paginaum .criarprimeiroquizz").style.display = "flex";
     }
-
 }
 
 function validarDadosPergunta(elemento) {
@@ -792,26 +672,28 @@ function validarDadosPergunta(elemento) {
     }
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elemento) {
+    // Antes ignorava o parâmetro e validava SEMPRE o primeiro `.nivel`, então os níveis
+    // 2+ nunca eram de fato verificados. Agora valida o elemento que recebe.
+    const escopo = elemento || document.querySelector(".cria-niveis .nivel");
+    const tituloNivel = escopo.querySelector(".titulo-nivel").value;
+    const percentualNivel = parseInt(escopo.querySelector(".percentual-nivel").value);
+    const urlNivel = escopo.querySelector(".url-nivel").value;
+    const descricaoNivel = escopo.querySelector(".descricao-nivel").value;
 
-
-    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
-        (descricaoNivel.length < 30)) {
+    if ((tituloNivel.length < MIN_TITULO_NIVEL) ||
+        (isNaN(percentualNivel) || percentualNivel < 0 || percentualNivel > 100) ||
+        (!validarURL(urlNivel)) || (descricaoNivel.length < 30)) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
-            1. O título do nível deve ter no mínimo 10 caracteres.
-            2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
+            ERRO! Dados incompletos, verifique se os campos do seu nível cumprem os seguintes requisitos:
+            1. O título do nível deve ter no mínimo ${MIN_TITULO_NIVEL} caracteres.
+            2. O percentual (%) de acerto mínimo deve ser um número entre 0 e 100.
             3. A imagem do nível deve ser uma URL válida.
-            4. A descrição do nível de ter no mínimo 30 caracteres.
+            4. A descrição do nível deve ter no mínimo 30 caracteres.
         `);
         return false;
-    } else {
-        return true;
     }
+    return true;
 }
 
 // Código de retirado de:
