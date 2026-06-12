@@ -77,25 +77,6 @@ let quizzTeste = {
     ]
 };
 
-let level = {
-    title: "Título do nível 1",
-    image: "https://http.cat/411.jpg",
-    text: "Descrição do nível 1",
-    minValue: 0
-};
-
-let question = {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: []
-};
-
-let answer = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: false
-};
-
 let quizz = {
     title: "Título do quizz",
     image: "https://http.cat/411.jpg",
@@ -206,17 +187,24 @@ function sendQuizz(quizzPronto) {
 }
 
 function mandouQuizz(response) {
-    let quizz = response.data;
-    guardaMeusQuizzesLocalmente(quizz);
-    alert("Seu quizz foi adicionado ao servidor, com o id: " + quizz.id);
-    quizzRecemCriado = quizz;
+    const quizzCriado = response.data;
+    guardaMeusQuizzesLocalmente(quizzCriado);
+    quizzRecemCriado = quizzCriado;
+    chamarTelaSucessoCriacaoQuizz();
 }
 
 function falhouEnvio(error) {
-    alert(`
-        Infelizmente seu quizz não pôde ser enviado ao servidor.
-        ${error.data}
-    `);
+    console.error(error);
+    reativarBotaoFinalizar();
+    alert("Infelizmente seu quizz não pôde ser enviado ao servidor. Verifique sua conexão e tente novamente.");
+}
+
+function reativarBotaoFinalizar() {
+    const botao = document.querySelector(".cria-niveis .finaliza-quizz");
+    if (botao !== null) {
+        botao.disabled = false;
+        botao.querySelector("p").textContent = "Finalizar Quizz";
+    }
 }
 
 function guardaMeusQuizzesLocalmente(quizz) {
@@ -447,27 +435,30 @@ function chamarTelaCriarQuizz() {
 }
 
 function validarDadosBasicos() {
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
-    if (tituloQuizz.length < 20) {
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
+    const erros = [];
+    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value.trim();
+    if ((tituloQuizz.length < 20) || (tituloQuizz.length > 65)) {
+        erros.push("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
+    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value.trim();
     if (!validarURL(imagemQuizz)) {
-        alert("A imagem deve ser uma URL válida.");
+        erros.push("A imagem deve ser uma URL válida, começando com http:// ou https://.");
     }
-    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (qtdadePerguntas < 3) {
-        alert("A quantidade de perguntas deve ser no mínimo 3.");
+    qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value, 10);
+    if (!(qtdadePerguntas >= MIN_PERGUNTAS)) {
+        erros.push("A quantidade de perguntas deve ser no mínimo 3.");
     }
-    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (qtdadeNiveis < 2) {
-        alert("A quantidade de níveis deve ser no mínimo 2.");
+    qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value, 10);
+    if (!(qtdadeNiveis >= MIN_NIVEIS)) {
+        erros.push("A quantidade de níveis deve ser no mínimo 2.");
     }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
-        quizz.title = tituloQuizz;
-        quizz.image = imagemQuizz;
-        chamarTelaCriarPerguntas();
+    if (erros.length > 0) {
+        alert("Confira os dados básicos do seu quizz:\n\n- " + erros.join("\n- "));
+        return;
     }
+    quizz.title = tituloQuizz;
+    quizz.image = imagemQuizz;
+    chamarTelaCriarPerguntas();
 }
 
 function chamarTelaCriarPerguntas() {
@@ -569,70 +560,59 @@ function abrirNovaPergunta(elemento) {
 }
 
 function montarNovaResposta(elementoResposta) {
-    let textoResposta = "";
-    let urlResposta = "";
-    let ehRespostaCorreta = false;
-
-    textoResposta = elementoResposta.children[0].value;
-    urlResposta = elementoResposta.children[1].value;
-    if (elementoResposta.classList.contains("resposta-correta")) {
-        ehRespostaCorreta = true;
-    }
-
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    return {
+        text: elementoResposta.children[0].value.trim(),
+        image: elementoResposta.children[1].value.trim(),
+        isCorrectAnswer: elementoResposta.classList.contains("resposta-correta")
+    };
 }
 
 function validarTodasPerguntas() {
     listaPerguntas = [];
     let listaRespostas = [];
-    let answers = [];
-    let erroPreenchimento = 0;
+
+    const perguntasFechadas = document.querySelectorAll(".cria-perguntas .nova-pergunta").length;
+    if (perguntasFechadas > 0) {
+        alert(`Você declarou ${qtdadePerguntas} perguntas, mas ainda há ${perguntasFechadas} sem preencher. Clique no lápis para abrir e preencher cada uma.`);
+        return;
+    }
 
     const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
 
     for (let i = 0; i < divsPerguntas.length; i++) {
+        if (!validarDadosPergunta(divsPerguntas[i], i + 1)) {
+            return;
+        }
+    }
+
+    for (let i = 0; i < divsPerguntas.length; i++) {
         listaRespostas = [];
-        if (!validarDadosPergunta(divsPerguntas[i])) {
-            erroPreenchimento++;
+
+        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
+        listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
+
+        if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
         }
-    }
-
-    if (erroPreenchimento > 0) {
-        chamarTelaCriarPerguntas();
-    } else {
-
-        for (let i = 0; i < divsPerguntas.length; i++) {
-            listaRespostas = [];
-
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelector(".resposta-correta")));
-            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[0]));
-
-            if (divsPerguntas[i].querySelectorAll(".resposta")[1].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[1]));
-            }
-            if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
-                listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
-            }
-
-            listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
-                divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
+        if (divsPerguntas[i].querySelectorAll(".resposta")[2].children[0].value !== "") {
+            listaRespostas.push(montarNovaResposta(divsPerguntas[i].querySelectorAll(".resposta")[2]));
         }
 
-        quizz.questions = listaPerguntas;
-
-        chamarTelaCriarNiveis();
+        listaPerguntas.push(montarNovaPergunta(divsPerguntas[i].querySelector(".texto-pergunta").value,
+            divsPerguntas[i].querySelector(".cor-pergunta").value, listaRespostas));
     }
+
+    quizz.questions = listaPerguntas;
+
+    chamarTelaCriarNiveis();
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    return {
+        title: titulo.trim(),
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -694,42 +674,54 @@ function abrirNovoNivel(elemento) {
 
 function validarTodosNiveis() {
     listaNiveis = [];
-    let nivel;
+
+    const niveisFechados = document.querySelectorAll(".cria-niveis .novo-nivel").length;
+    if (niveisFechados > 0) {
+        alert(`Você declarou ${qtdadeNiveis} níveis, mas ainda há ${niveisFechados} sem preencher. Clique no lápis para abrir e preencher cada um.`);
+        return;
+    }
+
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
-    let contPercentualNivelZero = 0;
-    let menorPercentual = 100;
 
     for (let i = 0; i < divsNiveis.length; i++) {
+        if (!validarDadosNivel(divsNiveis[i], i + 1)) {
+            return;
+        }
+    }
 
-        if (divsNiveis[i].querySelector(".percentual-nivel").value == 0) {
+    let contPercentualNivelZero = 0;
+    for (let i = 0; i < divsNiveis.length; i++) {
+        if (parseInt(divsNiveis[i].querySelector(".percentual-nivel").value, 10) === 0) {
             contPercentualNivelZero++;
         }
     }
 
     if (contPercentualNivelZero === 0) {
         alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
-        chamarTelaCriarNiveis();
-    } else {
-        for (let i = 0; i < divsNiveis.length; i++) {
-            if (!validarDadosNivel(divsNiveis[i])) {
-                document.location.reload(true);
-            }
-            listaNiveis.push(montarNovoNivel(divsNiveis[i]));
-        }
-
-        quizz.levels = listaNiveis;
-        chamarTelaSucessoCriacaoQuizz();
-        sendQuizz(quizz);
+        return;
     }
+
+    for (let i = 0; i < divsNiveis.length; i++) {
+        listaNiveis.push(montarNovoNivel(divsNiveis[i]));
+    }
+
+    quizz.levels = listaNiveis;
+
+    const botao = document.querySelector(".cria-niveis .finaliza-quizz");
+    if (botao !== null) {
+        botao.disabled = true;
+        botao.querySelector("p").textContent = "Enviando...";
+    }
+    sendQuizz(quizz);
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    return {
+        title: nivel.querySelector(".titulo-nivel").value.trim(),
+        image: nivel.querySelector(".url-nivel").value.trim(),
+        text: nivel.querySelector(".descricao-nivel").value.trim(),
+        minValue: parseInt(nivel.querySelector(".percentual-nivel").value, 10)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -739,7 +731,6 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -748,44 +739,35 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>
         <button class="voltar-inicio" onclick="voltarInicio()">
             <p>Voltar pra home</p>
-        </button>    
+        </button>
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${urlParaCSS(quizz.image)}") center / cover no-repeat`;
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
 function acessarQuizzCriado() {
-    getQuizz(quizzRecemCriado.id);
+    if (!quizzRecemCriado) {
+        alert("Aguarde um instante: seu quizz ainda está sendo enviado ao servidor.");
+        return;
+    }
     document.querySelector(".sucesso-quizz").style.display = "none";
+    getQuizz(quizzRecemCriado.id);
 }
 
 function voltarInicio() {
-    if (localStorage.length !== 0) {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "none";
-        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
-        document.querySelector(".paginaum .todososquizzes").style.display = "flex";
-        if (localStorage.length === 1) {
-            pegaMeusQuizzes(listaMeusQuizzes);
-        }
-    } else {
-        document.querySelector(".sucesso-quizz").style.display = "none";
-        document.querySelector(".paginaum .criarprimeiroquizz").style.display = "flex";
-    }
-
+    window.location.reload();
 }
 
-function validarDadosPergunta(elemento) {
-    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value;
-    let corPergunta = elemento.querySelector(".cabecalho-pergunta .cor-pergunta").value;
-    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value;
-    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value;
+function validarDadosPergunta(elemento, numeroPergunta) {
+    let textoPergunta = elemento.querySelector(".cabecalho-pergunta .texto-pergunta").value.trim();
+    let respostaCorreta = elemento.querySelector(".resposta-correta .texto-resposta").value.trim();
+    let urlRespostaCorreta = elemento.querySelector(".resposta-correta .url-resposta").value.trim();
     let respostasIncorretas = elemento.querySelectorAll(".resposta .texto-resposta");
     let contaRespostasIncorretas = 0;
 
     for (let i = 0; i < respostasIncorretas.length; i++) {
-        if (respostasIncorretas[i].value !== "") {
+        if (respostasIncorretas[i].value.trim() !== "") {
             contaRespostasIncorretas++;
         }
     }
@@ -794,8 +776,8 @@ function validarDadosPergunta(elemento) {
     let contaUrlRespostasIncorretas = 0;
 
     for (let i = 0; i < urlRespostasIncorretas.length; i++) {
-        if (urlRespostasIncorretas[i].value !== "") {
-            if (validarURL(urlRespostasIncorretas[i].value)) {
+        if (urlRespostasIncorretas[i].value.trim() !== "") {
+            if (validarURL(urlRespostasIncorretas[i].value.trim())) {
                 contaUrlRespostasIncorretas++;
             }
         }
@@ -804,12 +786,11 @@ function validarDadosPergunta(elemento) {
     if ((textoPergunta.length < 20) || (respostaCorreta === "") || (!validarURL(urlRespostaCorreta)) ||
         ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
         (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
-        alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+        alert(`Confira os dados da Pergunta ${numeroPergunta} (seu preenchimento foi mantido):
             1. O texto da pergunta deve ter no mínimo 20 caracteres.
             2. A inserção da resposta correta é obrigatória.
             3. A inserção de pelo menos 1 resposta errada é obrigatória!
-            4. A imagem deve ser uma URL válida.
+            4. A imagem deve ser uma URL válida, começando com http:// ou https://.
             5. Cada resposta deve ter um texto e uma imagem com uma url válida a ela associada.
         `);
         return false;
@@ -818,21 +799,19 @@ function validarDadosPergunta(elemento) {
     }
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elemento, numeroNivel) {
+    let tituloNivel = elemento.querySelector(".titulo-nivel").value.trim();
+    let percentualNivel = parseInt(elemento.querySelector(".percentual-nivel").value, 10);
+    let urlNivel = elemento.querySelector(".url-nivel").value.trim();
+    let descricaoNivel = elemento.querySelector(".descricao-nivel").value.trim();
 
-
-    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
-        (descricaoNivel.length < 30)) {
-        alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+    if ((tituloNivel.length < 10) || (isNaN(percentualNivel)) || ((percentualNivel < 0) || (percentualNivel > 100)) ||
+        (!validarURL(urlNivel)) || (descricaoNivel.length < 30)) {
+        alert(`Confira os dados do Nível ${numeroNivel} (seu preenchimento foi mantido):
             1. O título do nível deve ter no mínimo 10 caracteres.
-            2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
-            3. A imagem do nível deve ser uma URL válida.
-            4. A descrição do nível de ter no mínimo 30 caracteres.
+            2. O percentual(%) de acerto mínimo deve ser um número entre 0 e 100.
+            3. A imagem do nível deve ser uma URL válida, começando com http:// ou https://.
+            4. A descrição do nível deve ter no mínimo 30 caracteres.
         `);
         return false;
     } else {
@@ -840,10 +819,12 @@ function validarDadosNivel() {
     }
 }
 
-// Código de retirado de:
+// Adaptado de:
 // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+// O protocolo é obrigatório: URLs sem http(s):// viram caminhos relativos e
+// quebram as imagens quando o site é servido de um subdiretório (GitHub Pages).
 function validarURL(texto) {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    var pattern = new RegExp('^(https?:\\/\\/)' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
