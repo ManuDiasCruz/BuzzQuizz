@@ -17,6 +17,7 @@
     }
     .paginaum .quizzes {
         justify-content: space-between;
+        gap: 12px;
     }
     /*--------------SEGUNDO ACESSO-------------------*/
     .paginaum .quizzes-criados {
@@ -41,7 +42,7 @@
         line-height: 46px;
     }
     .pagina-quizz .perguntas .pergunta {
-        width: 40%;
+        width: min(760px, 40%);
         height: auto;
         margin: 42px auto 0px;
     }
@@ -93,26 +94,24 @@
         font-size: 23px;
         line-height: 27px;
     }
-    .fim .resultado .conteudo-reultado {
+    .fim .resultado .conteudo-resultado {
         display: flex;
         width: 95%;
         flex-direction: row;
         justify-content: flex-start;
     }
-    .fim .resultado .conteudo-reultado img {
-        width: 50%;
-        height: auto;
-        padding-right: 20px;
-    }
-    .fim.resultado .conteudo-reultado span {
+    .fim .resultado .conteudo-resultado img {
         width: 50%;
         height: 250px;
+        object-fit: cover;
+        padding-right: 20px;
+    }
+    .fim .resultado .conteudo-resultado span {
+        width: 50%;
         font-size: 19px;
         line-height: 25px;
-        width: 340px;
-        height: 96px;
         margin-left: 40px;
-        overflow: hidden;
+        overflow: visible;
     }
     .fim button {
         width: 260.38px;
