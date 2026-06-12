@@ -64,21 +64,21 @@ As imagens adicionadas nesta versão usam URLs remotas do Pixabay, sem salvar ar
 
 ## 🚀 Deploy no GitHub Pages
 
-O GitHub Pages atual do repositório é:
+O GitHub Pages da versão original continua no repositório `BuzzQuizz`:
 
 - [https://manudiascruz.github.io/BuzzQuizz/](https://manudiascruz.github.io/BuzzQuizz/)
 
-A URL solicitada para a versão v3 foi:
+A versão enriquecida v3 deve ser publicada no repositório separado `BuzzQuizzv3`:
 
 - [https://manudiascruz.github.io/BuzzQuizzv3/](https://manudiascruz.github.io/BuzzQuizzv3/)
 
-Observação: em GitHub Pages, sites de projeto usam o nome do repositório como caminho público. Como este repositório se chama `BuzzQuizz`, a URL padrão publicada por ele é `/BuzzQuizz/`. Para publicar exatamente em `/BuzzQuizzv3/`, é necessário usar um repositório chamado `BuzzQuizzv3` ou servir essa rota por um repositório de usuário (`ManuDiasCruz.github.io`).
+Observação: em GitHub Pages, sites de projeto usam o nome do repositório como caminho público. Por isso, a versão v3 é publicada a partir de um repositório separado chamado `BuzzQuizzv3`, preservando o deploy original em `/BuzzQuizz/`.
 
-Para publicar esta branch no GitHub Pages do repositório atual:
+Para publicar no GitHub Pages do repositório `BuzzQuizzv3`:
 
 1. Acesse `Settings > Pages` no GitHub.
 2. Em `Build and deployment`, escolha `Deploy from a branch`.
-3. Selecione a branch `codex-enrichment` e a pasta `/`.
+3. Selecione a branch `main` e a pasta `/`.
 4. Salve e aguarde o status `built`.
 
 ## Limitações conhecidas e melhorias futuras
@@ -86,5 +86,5 @@ Para publicar esta branch no GitHub Pages do repositório atual:
 - A lista remota depende da API pública `mock-api.driven.com.br`; se a API estiver fora do ar, apenas o quiz local em destaque será exibido.
 - Quizzes criados por outros usuários podem conter imagens quebradas, duplicadas ou de baixa qualidade. A interface tenta aplicar fallback visual, mas os dados remotos continuam externos ao projeto.
 - A criação de quizzes ainda depende do servidor remoto para salvar e recuperar o quiz criado.
-- O caminho `/BuzzQuizzv3/` exige ajuste de infraestrutura/repositório, conforme descrito na seção de deploy.
+- A versão original e a versão v3 vivem em repositórios/deploys separados para evitar sobrescrever o site existente.
 - Futuras melhorias úteis: testes automatizados com Playwright/Puppeteer, edição/exclusão de quizzes locais, paginação/filtro para a lista remota e migração para `fetch` para remover a dependência externa do Axios CDN.
