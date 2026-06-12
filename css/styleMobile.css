@@ -700,3 +700,48 @@ h1 {
 .acertou {
     color: green;
 }
+
+
+/* ============================================================
+   Melhorias de UX/consistência visual (v2) — apenas aditivas
+   ============================================================ */
+
+/* Affordância de clique nos cards e nas respostas */
+.paginaum article,
+.pagina-quizz .perguntas .bloco-respostas .resposta {
+    cursor: pointer;
+}
+
+/* Transições suaves ao revelar respostas */
+.pagina-quizz .perguntas .bloco-respostas .resposta {
+    transition: opacity 0.3s ease, transform 0.15s ease;
+    border-radius: 6px;
+}
+
+/* Destaque da resposta escolhida pelo usuário */
+.pagina-quizz .perguntas .bloco-respostas .resposta.escolhida {
+    outline: 3px solid #434CA0;
+    outline-offset: 2px;
+}
+
+/* Realça certas/erradas também no texto da resposta (h4) */
+.resposta.acertou h4 {
+    color: green;
+}
+
+.resposta.errou h4 {
+    color: red;
+}
+
+/* Botões com aparência clicável */
+.cria-quizz button,
+.fim button,
+.criarprimeiroquizz .criarquizz {
+    cursor: pointer;
+}
+
+/* Imagens de resposta sem distorção quando a proporção é diferente */
+.pagina-quizz .perguntas .bloco-respostas .resposta img {
+    object-fit: cover;
+    border-radius: 4px;
+}
