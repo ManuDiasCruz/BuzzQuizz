@@ -6,7 +6,7 @@
 
 🔗 **Versão original:** [Buzz Quizz](https://manudiascruz.github.io/BuzzQuizz/)
 
-🔗 **Versão 2 (melhorada) no ar:** [Buzz Quizz v2](https://manudiascruz.github.io/BuzzQuizzv5/)
+🔗 **Versão 2 (destino do deploy):** [Buzz Quizz v2](https://manudiascruz.github.io/BuzzQuizzV6/)
 
 ## 📝 Sobre
 
@@ -83,14 +83,15 @@ Depois é só abrir `http://localhost:8080` no navegador.
 
 ## 🚀 Deploy (GitHub Pages)
 
-A versão 2 fica hospedada no repositório [`BuzzQuizzv5`](https://github.com/ManuDiasCruz/BuzzQuizzv5) e publicada em **<https://manudiascruz.github.io/BuzzQuizzv5/>**.
+A branch de desenvolvimento da versão 2 é `buzzquizz-flan` neste repositório. O destino planejado para a publicação é o repositório `BuzzQuizzV6`, em **<https://manudiascruz.github.io/BuzzQuizzV6/>**.
 
 Para publicar uma nova versão:
 
-1. Faça as alterações nesta base de código (branch `fable-enrichment` ou `main` após o merge);
-2. Envie os arquivos para a branch `main` do repositório `BuzzQuizzv5`;
-3. Em **Settings → Pages** do `BuzzQuizzv5`, mantenha a publicação configurada para a branch `main` (pasta `/`);
-4. Aguarde o build do Pages (1–2 min) e confira o site no link acima.
+1. Integre as alterações da branch `buzzquizz-flan` após a revisão do pull request;
+2. Crie o repositório público `BuzzQuizzV6` caso ele ainda não exista;
+3. Publique estes arquivos na branch `main` do repositório `BuzzQuizzV6`;
+4. Em **Settings → Pages** do `BuzzQuizzV6`, configure a publicação por branch usando `main` e a pasta `/`;
+5. Aguarde o build do Pages e confira o site no link acima.
 
 Como o site é 100% estático (HTML/CSS/JS), não há etapa de build — os arquivos são publicados como estão.
 
@@ -99,7 +100,7 @@ Como o site é 100% estático (HTML/CSS/JS), não há etapa de build — os arqu
 - A API pública (`mock-api.driven.com.br`) contém muitos quizzes de teste com textos/imagens inválidos enviados por outros usuários; o app se protege (fallback de imagem, escape de texto), mas não há como corrigir os dados no servidor;
 - Não há como **editar ou excluir** um quizz já criado (os ícones existem em `img/`, a feature não foi implementada);
 - O "Seus Quizzes" depende do `localStorage` do navegador: limpar os dados do site faz os quizzes criados sumirem da lista (eles continuam no servidor);
-- Sem testes automatizados — as verificações desta versão foram feitas com scripts Playwright fora do repositório;
+- Há um teste de fumaça da lógica, sem dependências de terceiros, em `tests/logic-smoke.js`; ampliar a cobertura completa no navegador e de erros de rede continua sendo uma melhoria futura;
 - Melhorias futuras estão registradas nas [issues do repositório](https://github.com/ManuDiasCruz/BuzzQuizz/issues).
 
 ## 🖼️ Créditos das imagens
