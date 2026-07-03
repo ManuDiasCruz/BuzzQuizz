@@ -1,27 +1,31 @@
+// Quizz de demonstração exibido quando o servidor não retorna nenhum quizz.
+// As imagens agora são arquivos locais (pasta img/) com licença livre
+// (Unsplash), substituindo os antigos hotlinks de terceiros que quebravam com
+// frequência. Créditos e licenças em IMAGE_CREDITS.md.
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: "img/giant-panda.jpg",
     questions: [{
             title: "Outro urso fofinho também é um tipo de panda... qual?",
             color: "#F05C5C",
             answers: [{
                     text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    image: "img/red-panda-1.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
+                    text: "O grande panda gigante",
+                    image: "img/giant-panda.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
+                    text: "O panda das montanhas",
+                    image: "img/red-panda-2.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
+                    text: "O panda que vive nas árvores",
+                    image: "img/red-panda-tree.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -31,17 +35,17 @@ let quizzTeste = {
             color: "#55DD65",
             answers: [{
                     text: "Um gostoso e nutritivo bambu",
-                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
+                    image: "img/bamboo-grove.jpg",
                     isCorrectAnswer: true
                 },
                 {
                     text: "Folhinhas fininhas e verdinhas",
-                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
+                    image: "img/bamboo-tall.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Musguinho cheio de bichinhos",
-                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
+                    text: "Um passeio pela floresta",
+                    image: "img/red-panda-forest.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -50,13 +54,13 @@ let quizzTeste = {
             title: "Qual sua cor favorita?",
             color: "#6ACAE2",
             answers: [{
-                    text: "Preto ou vermelho, depende do dia",
-                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
+                    text: "Vermelho vibrante, cheio de energia",
+                    image: "img/paint-splash.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Branco e preto, um clássico que nunca sai de moda...",
-                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
+                    text: "Tons calmos da natureza",
+                    image: "img/red-panda-2.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -64,14 +68,14 @@ let quizzTeste = {
     ],
     levels: [{
             title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
+            image: "img/red-panda-1.jpg",
             text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
             minValue: 60
         },
         {
             title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
-            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
+            image: "img/red-panda-tree.jpg",
+            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: além do famoso Panda Gigante preto e branco, existe um pequeno fofinho chamado Panda Vermelho que sempre rouba a cena.",
             minValue: 0
         }
     ]
@@ -223,9 +227,12 @@ function getAllQuizz() {
         document.querySelector(".paginaum .novo-quizz").style.display = "flex";
         document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
+        // Só exibe a seção "Meus quizzes" quando o usuário realmente tem quizzes
+        // salvos (antes ela era forçada a "flex" sempre, via um console.log com
+        // efeito colateral, deixando um bloco vazio no primeiro acesso).
+        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
         pegaMeusQuizzes(listaMeusQuizzes);
     }
-    console.log(document.querySelector(".paginaum .meus-quizzes").style.display = "flex");
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(pegouQuizz);
     promise.catch(erroPegouQuizz);
