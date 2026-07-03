@@ -307,7 +307,7 @@ function abrirQuizz(respostaquizz) {
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="${quizzescolhido.questions[x].answers[y].text}">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
