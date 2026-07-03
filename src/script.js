@@ -1,27 +1,31 @@
+// Quizz de demonstração exibido quando o servidor não retorna nenhum quizz.
+// As imagens agora são arquivos locais (pasta img/) com licença livre
+// (Unsplash), substituindo os antigos hotlinks de terceiros que quebravam com
+// frequência. Créditos e licenças em IMAGE_CREDITS.md.
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: "img/giant-panda.jpg",
     questions: [{
             title: "Outro urso fofinho também é um tipo de panda... qual?",
             color: "#F05C5C",
             answers: [{
                     text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    image: "img/red-panda-1.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Panda indiano da floresta",
-                    image: "https://www.portaldosanimais.com.br/wp-content/uploads/2017/02/Urso-Pardo-Foto-e1486489128243.jpg",
+                    text: "O grande panda gigante",
+                    image: "img/giant-panda.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda puma das montanhas",
-                    image: "https://s2.glbimg.com/k5mU1Hc5HBv8dxzS9jV2Jh9zeec=/0x0:2000x1333/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/M/k/ieluGOT1irpcymwJqyVA/urso-negro.jpg",
+                    text: "O panda das montanhas",
+                    image: "img/red-panda-2.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Panda albino chinês",
-                    image: "https://oicanada.com.br/wp-content/uploads/2012/02/pbpic-Day63lg_OK.jpg",
+                    text: "O panda que vive nas árvores",
+                    image: "img/red-panda-tree.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -31,17 +35,17 @@ let quizzTeste = {
             color: "#55DD65",
             answers: [{
                     text: "Um gostoso e nutritivo bambu",
-                    image: "https://upload.wikimedia.org/wikipedia/commons/0/04/Bambusa_oldhamii_joint.jpg",
+                    image: "img/bamboo-grove.jpg",
                     isCorrectAnswer: true
                 },
                 {
                     text: "Folhinhas fininhas e verdinhas",
-                    image: "https://static.mundoeducacao.uol.com.br/mundoeducacao/conteudo_legenda/987f9d1bbec46326832e6ef3162e9674.jpg",
+                    image: "img/bamboo-tall.jpg",
                     isCorrectAnswer: false
                 },
                 {
-                    text: "Musguinho cheio de bichinhos",
-                    image: "https://registrodemarca.arenamarcas.com.br/wp-content/uploads/2020/06/brio%CC%81fitas-musgos.jpg",
+                    text: "Um passeio pela floresta",
+                    image: "img/red-panda-forest.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -50,13 +54,13 @@ let quizzTeste = {
             title: "Qual sua cor favorita?",
             color: "#6ACAE2",
             answers: [{
-                    text: "Preto ou vermelho, depende do dia",
-                    image: "https://www.cabanamagazine.com.br/image/catalog/cores/Preto%20+%20Vermelho.png",
+                    text: "Vermelho vibrante, cheio de energia",
+                    image: "img/paint-splash.jpg",
                     isCorrectAnswer: true
                 },
                 {
-                    text: "Branco e preto, um clássico que nunca sai de moda...",
-                    image: "https://cdn.leroymerlin.com.br/products/_piso_vinilico_em_manta_komeco_preto_e_branco_54m2_bobina_89002564_b39a_600x600.jpg",
+                    text: "Tons calmos da natureza",
+                    image: "img/red-panda-2.jpg",
                     isCorrectAnswer: false
                 }
             ]
@@ -64,38 +68,23 @@ let quizzTeste = {
     ],
     levels: [{
             title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
+            image: "img/red-panda-1.jpg",
             text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
             minValue: 60
         },
         {
             title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
-            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
+            image: "img/red-panda-tree.jpg",
+            text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: além do famoso Panda Gigante preto e branco, existe um pequeno fofinho chamado Panda Vermelho que sempre rouba a cena.",
             minValue: 0
         }
     ]
 };
 
-let level = {
-    title: "Título do nível 1",
-    image: "https://http.cat/411.jpg",
-    text: "Descrição do nível 1",
-    minValue: 0
-};
-
-let question = {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: []
-};
-
-let answer = {
-    text: "Texto da resposta 1",
-    image: "https://http.cat/411.jpg",
-    isCorrectAnswer: false
-};
-
+// Objeto que acumula os dados do quizz durante o fluxo de criação.
+// (Os antigos objetos-modelo globais `level`, `question` e `answer` foram
+// removidos: cada item agora é criado como um objeto novo nas funções
+// montarNovo*/montarNova*, evitando o bug de referência compartilhada.)
 let quizz = {
     title: "Título do quizz",
     image: "https://http.cat/411.jpg",
@@ -180,7 +169,7 @@ function createQuizz() {
             }
         ]
     };
-    return quizzTeste;
+    return quizz;
 }
 
 function sendQuizz(quizzPronto) {
@@ -238,9 +227,12 @@ function getAllQuizz() {
         document.querySelector(".paginaum .novo-quizz").style.display = "flex";
         document.querySelector(".paginaum .quizzes-criados").style.display = "inline-flex";
         document.querySelector(".paginaum .todososquizzes").style.display = "flex";
+        // Só exibe a seção "Meus quizzes" quando o usuário realmente tem quizzes
+        // salvos (antes ela era forçada a "flex" sempre, via um console.log com
+        // efeito colateral, deixando um bloco vazio no primeiro acesso).
+        document.querySelector(".paginaum .meus-quizzes").style.display = "flex";
         pegaMeusQuizzes(listaMeusQuizzes);
     }
-    console.log(document.querySelector(".paginaum .meus-quizzes").style.display = "flex");
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(pegouQuizz);
     promise.catch(erroPegouQuizz);
@@ -284,6 +276,12 @@ function embaralha() {
 }
 
 function abrirQuizz(respostaquizz) {
+    // Zera a pontuação a cada abertura para que reiniciar/rejogar funcione.
+    acertos = 0;
+    questoesrespondidas = 0;
+    porcentagemarredondada = 0;
+    nivelAlcancado = null;
+    document.querySelector(".fim").innerHTML = "";
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
@@ -304,12 +302,12 @@ function abrirQuizz(respostaquizz) {
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
+            </section>`
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="${quizzescolhido.questions[x].answers[y].text}">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
@@ -322,6 +320,10 @@ let acertos = 0;
 
 function quizzSelecionado(numerodaquestao, opcao) {
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
+    // Ignora cliques repetidos numa pergunta já respondida.
+    if (escolha.classList.contains("escolhida")) {
+        return;
+    }
     escolha.classList.add("escolhida");
     for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
         let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
@@ -329,47 +331,52 @@ function quizzSelecionado(numerodaquestao, opcao) {
         if (umaopcao != escolha) {
             umaopcao.classList.add("nop");
         }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
+        // A classe de correção é a string "true"/"false" adicionada ao montar
+        // a resposta. Comparamos explicitamente com essas strings.
+        if (umaopcao.classList.contains("true")) {
             umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
+        } else {
+            umaopcao.classList.add("errou");
         }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.classList.contains("true")) {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+
+    // Depois de um curto intervalo, ou mostramos o resultado (última pergunta)
+    // ou rolamos até a próxima pergunta. Antes essa lógica ficava aninhada no
+    // laço de respostas e o resultado quase nunca era exibido na hora certa.
+    setTimeout(() => {
+        if (questoesrespondidas === quizzescolhido.questions.length) {
+            quantidadeAcertos();
+            resultadoQuizz();
+        } else {
+            let proxima = document.querySelector(`.pergunta${numerodaquestao + 1}0`);
+            if (proxima) {
+                proxima.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        }
+    }, 2000);
 }
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
 let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
+let nivelAlcancado = null;
 
 function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+    // Percentual simples de acerto sobre o total de perguntas.
+    porcentagemarredondada = Math.round((acertos / quizzescolhido.questions.length) * 100);
+
+    // Escolhe o maior nível cujo percentual mínimo foi atingido, sem depender
+    // da ordem dos níveis vindos da API.
+    nivelAlcancado = quizzescolhido.levels[0];
+    for (let i = 0; i < quizzescolhido.levels.length; i++) {
+        const nivel = quizzescolhido.levels[i];
+        if (porcentagemarredondada >= Number(nivel.minValue)) {
+            if (!nivelAlcancado || Number(nivel.minValue) >= Number(nivelAlcancado.minValue)) {
+                nivelAlcancado = nivel;
+            }
         }
     }
 }
@@ -379,11 +386,11 @@ function resultadoQuizz() {
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivelAlcancado.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivelAlcancado.image}" alt="Imagem do resultado">
+                <span>${nivelAlcancado.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -553,11 +560,14 @@ function montarNovaResposta(elementoResposta) {
         ehRespostaCorreta = true;
     }
 
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    // Retorna um novo objeto a cada chamada. Antes reutilizávamos o objeto
+    // global `answer`, então todas as respostas apontavam para a mesma
+    // referência e acabavam idênticas (a última sobrescrevia as anteriores).
+    return {
+        text: textoResposta,
+        image: urlResposta,
+        isCorrectAnswer: ehRespostaCorreta
+    };
 }
 
 function validarTodasPerguntas() {
@@ -603,10 +613,12 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    // Novo objeto por pergunta (evita compartilhar a referência global `question`).
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -698,12 +710,14 @@ function validarTodosNiveis() {
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    // Novo objeto por nível. `minValue` convertido para número para os
+    // cálculos de pontuação funcionarem corretamente.
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,7 +727,9 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+    // Antes esta linha sobrescrevia a imagem escolhida pelo usuário com uma
+    // URL inválida (continha o caractere "…"), quebrando a capa do quizz.
+    // Mantemos a imagem informada no primeiro formulário.
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -725,7 +741,10 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>    
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    // Correção: `.background` não existe no elemento; a propriedade correta é
+    // `.style.background`. Sem isso a prévia da capa nunca aparecia.
+    telaSucessoCriacaoQuizz.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}")`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.backgroundSize = "cover";
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
