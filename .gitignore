@@ -1,0 +1,10 @@
+# Editor / harness
+.claude/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Node (not used, but keep the repo clean)
+node_modules/
