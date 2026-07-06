@@ -1,0 +1,10 @@
+{
+  "name": "buzzquizz-v2",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Quiz application built with HTML, CSS and JavaScript.",
+  "scripts": {
+    "start": "python -m http.server 4173",
+    "test": "node --test"
+  }
+}
