@@ -3,6 +3,7 @@ name: Deploy BuzzQuizz to GitHub Pages
 on:
   push:
     branches:
+      - main
       - buzzquizz-H2H-blue
   workflow_dispatch:
 
@@ -31,6 +32,7 @@ jobs:
         run: node tests/quiz-logic.test.js
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

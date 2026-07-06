@@ -59,11 +59,12 @@ A aplicação foi criada para treinar programação em dupla por meio da constru
 
 ## 📦 Publicação no GitHub Pages
 
-A automação em `.github/workflows/deploy-pages.yml` publica o conteúdo estático quando há um push para `buzzquizz-H2H-blue` ou quando o fluxo é iniciado manualmente.
+A automação em `.github/workflows/deploy-pages.yml` valida pushes na branch `buzzquizz-H2H-blue`. O ambiente protegido `github-pages` deste repositório aceita deployments a partir de `main`; por isso, depois do merge do PR, o mesmo fluxo testa novamente, monta somente os arquivos estáticos e publica o site automaticamente.
 
-1. Em **Settings → Pages**, configure **Source** como **GitHub Actions**.
-2. Confirme a execução **Deploy BuzzQuizz to GitHub Pages** na aba Actions.
-3. Acesse [https://manudiascruz.github.io/BuzzQuizz/](https://manudiascruz.github.io/BuzzQuizz/).
+1. Em **Settings → Pages**, confirme **Source: GitHub Actions** e a regra do ambiente `github-pages` permitindo a branch `main`.
+2. Faça o merge do PR da branch `buzzquizz-H2H-blue` em `main`.
+3. Confirme a execução **Deploy BuzzQuizz to GitHub Pages** na aba Actions.
+4. Acesse [https://manudiascruz.github.io/BuzzQuizz/](https://manudiascruz.github.io/BuzzQuizz/).
 
 Para hospedar exatamente em [https://manudiascruz.github.io/BuzzQuizzH2HBlue/](https://manudiascruz.github.io/BuzzQuizzH2HBlue/), crie/autorize um repositório chamado `BuzzQuizzH2HBlue` e publique a mesma build nele.
 
