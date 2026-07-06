@@ -64,13 +64,13 @@ As novas imagens foram selecionadas na [busca do Pixabay](https://pixabay.com/im
 
 ## Deploy no GitHub Pages
 
-O workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) executa os testes e publica o site estático no GitHub Pages a cada push para `main` ou `buzzquizz-H2H-red`.
+O workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) executa os testes em pushes para `main` e `buzzquizz-H2H-red`. O deploy é executado somente em `main`, respeitando as regras de proteção do ambiente `github-pages` do repositório.
 
 Para reproduzir a configuração em um repositório:
 
 1. Em **Settings → Pages**, selecione **GitHub Actions** como fonte.
 2. Envie a branch configurada no workflow ou execute o job manualmente em **Actions**.
-3. Aguarde a conclusão do job `test-and-deploy`.
+3. Aguarde a conclusão dos jobs `test` e `deploy`.
 4. Abra a URL informada no ambiente `github-pages` e valide a listagem, uma partida completa e o formulário de criação.
 
 O caminho final do GitHub Pages é derivado do nome do repositório. Para publicar exatamente em `/BuzzQuizzH2HRed/`, o artefato deve ser implantado pelo repositório `ManuDiasCruz/BuzzQuizzH2HRed` (ou por um site de usuário que exponha esse diretório).
