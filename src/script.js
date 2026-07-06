@@ -223,6 +223,9 @@ function getMeuUltimoQuizzLocal(quizz) {
 }
 
 function getAllQuizzesLocais() {
+    // Bug fix (v2): limpa a lista antes de preencher para não duplicar os
+    // "meus quizzes" a cada chamada.
+    listaMeusQuizzes = [];
     let quizzSerializado;
     for (var i = 0; i < localStorage.length; i++) {
         quizzSerializado = localStorage.getItem(localStorage.key(i));
@@ -286,6 +289,10 @@ function embaralha() {
 function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
+    document.querySelector(".fim").innerHTML = "";
+    // Bug fix (v2): zera o estado a cada abertura/reinício do quizz. Antes os
+    // contadores acumulavam entre jogadas, gerando resultados incorretos.
+    reiniciarEstado();
     quizzescolhido = respostaquizz.data;
     let titulo = document.querySelector(".pagina-quizz")
     titulo.innerHTML = `      
@@ -304,13 +311,14 @@ function abrirQuizz(respostaquizz) {
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
+            </section>`
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
+            const resposta = quizzescolhido.questions[x].answers[y];
             classpergunta.innerHTML += `
-            <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
-                <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
+            <div data-identifier="answer" data-correct="${resposta.isCorrectAnswer}" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${resposta.isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
+                <img src="${resposta.image}" alt="${resposta.text}" loading="lazy">
+                <h4>${resposta.text}</h4>
             </div> `
         }
     }
@@ -319,6 +327,16 @@ function abrirQuizz(respostaquizz) {
 
 let questoesrespondidas = 0;
 let acertos = 0;
+let porcentagemarredondada = 0;
+let nivelResultado = 0;
+
+// Bug fix (v2): centraliza o reset de todo o estado de uma jogada.
+function reiniciarEstado() {
+    questoesrespondidas = 0;
+    acertos = 0;
+    porcentagemarredondada = 0;
+    nivelResultado = 0;
+}
 
 function quizzSelecionado(numerodaquestao, opcao) {
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
@@ -326,64 +344,63 @@ function quizzSelecionado(numerodaquestao, opcao) {
     for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
         let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
         umaopcao.removeAttribute('onclick');
-        if (umaopcao != escolha) {
+        // Bug fix (v2): usa data-correct em vez de classList.contains(true/false)
+        // (que coagia booleanos para string de forma frágil). Revela a resposta
+        // certa/errada em todas as opções.
+        if (umaopcao.dataset.correct === "true") {
+            umaopcao.classList.add("acertou");
+        } else {
+            umaopcao.classList.add("errou");
+        }
+        if (umaopcao !== escolha) {
             umaopcao.classList.add("nop");
         }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
-            umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
-        }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.dataset.correct === "true") {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
-}
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
-let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
-
-function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+    // Bug fix (v2): o resultado agora dispara de forma confiável quando todas as
+    // perguntas foram respondidas (antes ficava preso num laço mal condicionado).
+    if (questoesrespondidas === quizzescolhido.questions.length) {
+        calcularResultado();
+        setTimeout(resultadoQuizz, 2000);
+    } else {
+        const proxima = document.querySelector(`.esse${numerodaquestao + 1}`);
+        if (proxima) {
+            setTimeout(() => proxima.scrollIntoView({ behavior: "smooth" }), 2000);
         }
     }
+}
+
+// Bug fix (v2): cálculo de resultado reescrito. Percentual = acertos/total de
+// perguntas; o nível é o de maior minValue que o percentual alcança.
+function calcularResultado() {
+    porcentagemarredondada = Math.round((acertos / quizzescolhido.questions.length) * 100);
+
+    const niveisOrdenados = [...quizzescolhido.levels].sort((a, b) => a.minValue - b.minValue);
+    let nivelEscolhido = niveisOrdenados[0];
+    for (const nivel of niveisOrdenados) {
+        if (porcentagemarredondada >= Number(nivel.minValue)) {
+            nivelEscolhido = nivel;
+        }
+    }
+    nivelResultado = quizzescolhido.levels.indexOf(nivelEscolhido);
 }
 
 function resultadoQuizz() {
+    const nivel = quizzescolhido.levels[nivelResultado];
     let perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivel.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivel.image}" alt="${nivel.title}">
+                <span>${nivel.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -553,11 +570,14 @@ function montarNovaResposta(elementoResposta) {
         ehRespostaCorreta = true;
     }
 
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    // Bug fix (v2): retornamos um objeto novo a cada resposta. Antes um único
+    // objeto global era reutilizado, fazendo todas as respostas apontarem para
+    // o mesmo dado (a última sobrescrevia as anteriores).
+    return {
+        text: textoResposta,
+        image: urlResposta,
+        isCorrectAnswer: ehRespostaCorreta
+    };
 }
 
 function validarTodasPerguntas() {
@@ -603,10 +623,12 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    // Bug fix (v2): objeto novo por pergunta (ver montarNovaResposta).
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -698,12 +720,13 @@ function validarTodosNiveis() {
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    // Bug fix (v2): objeto novo por nível (ver montarNovaResposta).
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,7 +736,8 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
+    // Bug fix (v2): a linha antiga sobrescrevia a imagem escolhida pelo
+    // usuário com uma URL quebrada. Mantemos a imagem informada no quizz.
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -725,7 +749,8 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>    
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}")`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.backgroundSize = "cover";
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
