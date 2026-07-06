@@ -524,8 +524,8 @@ h1 {
 }
 
 .cria-quizz .cria-perguntas .cabecalho-pergunta,
-.resposta-correta,
-.resposta {
+.cria-quizz .cria-perguntas .resposta-correta,
+.cria-quizz .cria-perguntas .resposta {
     width: 100%;
     margin-bottom: 24px;
     display: flex;
@@ -699,4 +699,168 @@ h1 {
 
 .acertou {
     color: green;
+}
+
+/* v2: consistência visual, acessibilidade e estados interativos */
+:root {
+    --brand: #EC362D;
+    --brand-dark: #C62828;
+    --surface: #FFFFFF;
+    --page: #F7F7F8;
+    --text: #252525;
+    --muted: #707070;
+    --focus: #1D4ED8;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--page);
+    color: var(--text);
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.cartao-quizz:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+header {
+    background: var(--brand);
+}
+
+.paginaum .status-quizzes {
+    width: 100%;
+    height: auto;
+    min-height: 24px;
+    padding: 0 0 12px;
+    justify-content: flex-start;
+    text-align: left;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.paginaum .quizzes,
+.paginaum .quizzes-criados {
+    gap: 12px;
+    width: 100%;
+}
+
+.paginaum article {
+    margin: 0;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.paginaum article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.paginaum .adicionar-quizz {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 8px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--brand);
+    color: white;
+    font-size: 28px;
+    line-height: 30px;
+}
+
+.pagina-quizz .titulo-quizz {
+    background-position: center;
+    background-size: cover;
+}
+
+.pagina-quizz .perguntas {
+    gap: 20px;
+    padding: 4px 0 28px;
+}
+
+.pagina-quizz .perguntas .pergunta {
+    margin: 0 auto;
+    padding-bottom: 12px;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta {
+    width: 48%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    align-items: flex-start;
+    text-align: left;
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:not(:disabled):hover {
+    transform: translateY(-2px);
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:disabled {
+    cursor: default;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta img {
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta span {
+    min-height: 32px;
+    text-align: left;
+}
+
+.pagina-quizz .resposta.acertou span {
+    color: #16813B;
+}
+
+.pagina-quizz .resposta.errou span {
+    color: #B42318;
+}
+
+.fim .resultado {
+    margin: 0 auto;
+}
+
+.fim .resultado .conteudo-reultado img {
+    max-height: 380px;
+    object-fit: cover;
+}
+
+.fim .reiniciar-quizz {
+    background: var(--brand);
+}
+
+.cria-quizz input:focus-visible,
+.cria-quizz textarea:focus-visible {
+    border-color: var(--focus);
+}
+
+.cria-quizz button:disabled {
+    cursor: wait;
+    opacity: 0.65;
 }

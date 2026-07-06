@@ -104,7 +104,7 @@
         height: auto;
         padding-right: 20px;
     }
-    .fim.resultado .conteudo-reultado span {
+    .fim .resultado .conteudo-reultado span {
         width: 50%;
         height: 250px;
         font-size: 19px;
@@ -157,5 +157,53 @@
     }
     .sucesso-quizz .voltar-inicio {
         width: 13%;
+    }
+}
+
+@media (min-width: 600px) {
+    .paginaum .todososquizzes,
+    .paginaum .novo-quizz,
+    .paginaum .quizzes-criados {
+        width: min(1100px, 90%);
+        max-width: 1100px;
+    }
+
+    .paginaum .todososquizzes {
+        padding-top: 56px;
+        padding-bottom: 64px;
+    }
+
+    .paginaum .quizzes,
+    .paginaum .quizzes-criados {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .paginaum article {
+        width: 100%;
+    }
+
+    .pagina-quizz .perguntas .pergunta,
+    .fim .resultado {
+        width: min(760px, 90%);
+    }
+
+    .vamos-comecar .primeiro-forms,
+    .cria-quizz .cria-perguntas,
+    .cria-quizz .cria-niveis {
+        width: min(600px, 90%);
+    }
+
+    .vamos-comecar .prosseguir,
+    .cria-quizz .cria-perguntas button,
+    .cria-quizz .cria-niveis button {
+        width: min(420px, 90%);
+    }
+}
+
+@media (min-width: 1000px) {
+    .paginaum .quizzes,
+    .paginaum .quizzes-criados {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
