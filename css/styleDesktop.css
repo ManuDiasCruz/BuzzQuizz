@@ -18,6 +18,17 @@
     .paginaum .quizzes {
         justify-content: space-between;
     }
+    .paginaum .quizzes,
+    .paginaum .quizzes-criados {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: none;
+        width: 100%;
+    }
+    .paginaum .quiz-card {
+        min-width: 0;
+        width: 100%;
+    }
     /*--------------SEGUNDO ACESSO-------------------*/
     .paginaum .quizzes-criados {
         max-width: 55%;

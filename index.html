@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="css/styleMobile.css" />
     <link rel="stylesheet" href="css/styleDesktop.css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Crie e responda quizzes personalizados no BuzzQuizz." />
     <title>BuzzQuizz</title>
 </head>
 
 <body>
-    <header class>
-        <h1>BuzzQuizz</h1>
+    <header>
+        <button class="logo-button" type="button" aria-label="Voltar para o início" onclick="paginaInicial()">
+            BuzzQuizz
+        </button>
     </header>
 
     <!--------------------lista-quizz-PRIMEIRA VEZ NA PÁGINA ------------------------>
@@ -39,7 +41,8 @@
         </section>
         <section class="todososquizzes">
             <h2>Todos os Quizzes</h2>
-            <div class="quizzes"></div>
+            <div class="quizzes" aria-live="polite"></div>
+            <p class="quiz-status" role="status">Carregando quizzes...</p>
         </section>
     </main>
 
@@ -181,14 +184,10 @@
                 </button>
         </main>
     </div>
-</body>
-
-</html>
-</div>
 
 <!-- Arquivos de JavaScript usados no código -->
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="src/script.js"></script>
+    <script src="https://unpkg.com/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="src/script.js"></script>
 </body>
 
 </html>

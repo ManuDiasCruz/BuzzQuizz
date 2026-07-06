@@ -2,6 +2,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background: #F5F7FB;
+    color: #1E2533;
 }
 
 header {
@@ -699,4 +701,136 @@ h1 {
 
 .acertou {
     color: green;
+}
+
+.logo-button {
+    border: 0;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: inherit;
+    font-size: 37px;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+}
+
+button,
+[onclick] {
+    cursor: pointer;
+}
+
+button:focus-visible,
+[onclick]:focus-visible {
+    outline: 3px solid #1D4ED8;
+    outline-offset: 3px;
+}
+
+.paginaum .quiz-status {
+    color: #64748B;
+    font-size: 14px;
+    height: auto;
+    line-height: 20px;
+    margin-top: 12px;
+    text-align: left;
+    width: 100%;
+}
+
+.paginaum .quizzes,
+.paginaum .quizzes-criados {
+    gap: 12px;
+    overflow: visible;
+    width: 100%;
+}
+
+.paginaum .quiz-card {
+    align-items: flex-end;
+    background-color: #CBD5E1;
+    background-position: center;
+    background-size: cover;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+    color: #FFFFFF;
+    display: flex;
+    flex: 1 1 100%;
+    height: 181px;
+    justify-content: flex-start;
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    padding: 18px;
+    text-align: left;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.paginaum .quiz-card:hover {
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+    transform: translateY(-2px);
+}
+
+.paginaum .quiz-card span {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 24px;
+    max-width: 92%;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.pagina-quizz .titulo-quizz {
+    background-position: center;
+    background-size: cover;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta {
+    background: transparent;
+    border: 0;
+    color: #111827;
+    padding: 0;
+    text-align: left;
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:not(:disabled):hover {
+    transform: translateY(-2px);
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta img {
+    background: #E2E8F0;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:disabled {
+    cursor: default;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta span {
+    display: block;
+}
+
+.pagina-quizz .resposta.acertou span {
+    color: #14803D;
+}
+
+.pagina-quizz .resposta.errou span {
+    color: #C62828;
+}
+
+.sucesso-quizz .save-status {
+    color: #64748B;
+    font-size: 15px;
+    line-height: 21px;
+    margin: 14px auto 0;
+    max-width: 520px;
+    text-align: center;
+    width: 88%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }
