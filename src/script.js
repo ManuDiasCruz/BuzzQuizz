@@ -1,12 +1,12 @@
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: "img/panda-gigante.jpg",
     questions: [{
             title: "Outro urso fofinho também é um tipo de panda... qual?",
             color: "#F05C5C",
             answers: [{
                     text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    image: "img/panda-vermelho.jpg",
                     isCorrectAnswer: true
                 },
                 {
@@ -64,13 +64,13 @@ let quizzTeste = {
     ],
     levels: [{
             title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
+            image: "img/panda-vermelho2.jpg",
             text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
             minValue: 60
         },
         {
             title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
+            image: "img/panda-arvore.jpg",
             text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
             minValue: 0
         }
