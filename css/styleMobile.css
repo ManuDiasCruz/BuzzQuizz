@@ -122,7 +122,7 @@ h1 {
     display: flex;
     flex-direction: row;
     margin-right: 10px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/panda-vermelho.jpg);
     background-size: 100%;
     object-fit: cover;
     position: relative;
@@ -172,7 +172,7 @@ h1 {
     height: 181px;
     border-radius: 5px;
     /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%); */
-    background-image: url("../img/pandavermelho.jpg");
+    background-image: url("../img/panda-vermelho.jpg");
     background-size: 100%;
     object-fit: cover;
     position: relative;
@@ -230,7 +230,7 @@ h1 {
     align-items: center;
     justify-content: center;
     /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)); */
-    background-image: url("../img/pandavermelho.jpg");
+    background-image: url("../img/panda-vermelho.jpg");
     background-size: 100%;
     object-fit: cover;
 }
@@ -699,4 +699,49 @@ h1 {
 
 .acertou {
     color: green;
+}
+/* ----------------------------------------------------------------- */
+/* Melhorias de UX e consistência visual (v2)                        */
+/* ----------------------------------------------------------------- */
+
+/* Deixa claro o que é clicável */
+.paginaum article,
+.paginaum ion-icon,
+.criarquizz,
+.pagina-quizz .resposta,
+.cria-quizz button,
+.fim button,
+.botaoEditar {
+    cursor: pointer;
+}
+
+/* Elementos travados após responder não devem parecer clicáveis */
+.pagina-quizz .resposta.nop,
+.pagina-quizz .resposta.acertou,
+.pagina-quizz .resposta.errou {
+    cursor: default;
+}
+
+/* Evita distorção das imagens das respostas e do resultado */
+.pagina-quizz .perguntas .bloco-respostas .resposta img,
+.fim .resultado .conteudo-reultado img {
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Realce sutil ao passar o mouse nos cartões de quizz */
+.paginaum article:hover {
+    filter: brightness(1.05);
+    transition: filter 0.15s ease-in-out;
+}
+
+/* Cor do botão "+" consistente com o cabeçalho (antes era 'red' puro) */
+.paginaum ion-icon {
+    background-color: #EC362D;
+}
+
+/* Backgrounds dos cartões cobrindo a área toda, sem esticar */
+.paginaum article {
+    background-size: cover !important;
+    background-position: center;
 }

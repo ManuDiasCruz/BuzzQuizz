@@ -1,12 +1,12 @@
 let quizzTeste = {
     title: "Qual panda fofinho você é?",
-    image: "https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg",
+    image: "img/panda-gigante.jpg",
     questions: [{
             title: "Outro urso fofinho também é um tipo de panda... qual?",
             color: "#F05C5C",
             answers: [{
                     text: "O pandinha vermelho",
-                    image: "https://www.gpabrasil.com.br/wp-content/uploads/2018/04/Panda-Vermelho-e1516040786209.jpg",
+                    image: "img/panda-vermelho.jpg",
                     isCorrectAnswer: true
                 },
                 {
@@ -64,13 +64,13 @@ let quizzTeste = {
     ],
     levels: [{
             title: "Panda Master",
-            image: "https://conexaoplaneta.com.br/wp-content/uploads/2016/12/curiosidade-animal-conexao-planeta-panda-vermelho-mathias-appel.jpg",
+            image: "img/panda-vermelho2.jpg",
             text: "PARABÉNS! Você é um mestre em pandas! Sabe até que existem duas fofuras nesse mundo de diferentes pesos... O famoso Panda Gigante pesa de 65 a 110 Kg, e o pequenino Panda Vermelho apenas de 3,7 a 6,2 Kg.",
             minValue: 60
         },
         {
             title: "Iniciante no mundo panda",
-            image: "https://i.pinimg.com/236x/ac/b4/f9/acb4f92520f9dab8b92a5375f3da10f5--nature-animals.jpg",
+            image: "img/panda-arvore.jpg",
             text: "Meu caro amigo, você ainda é um jovem padawan que tem muito a aprender sobre os pandas. Então, vai lá pesquisar: Além do famoso Panda Gigante preto e Branco, existe um pequeno fofinho chamado Panda Vermelho que sempre ourba a cena.",
             minValue: 0
         }
@@ -270,11 +270,12 @@ function pegaMeusQuizzes(listaMeusQuizzes) {
     getAllQuizzesLocais();
     let meusQuizzes = document.querySelector(".quizzes-criados");
     for (let i = 0; i < listaMeusQuizzes.length; i++) {
-        meusQuizzes.innerHTML += `               
-        <article class="quizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
+        // Classe própria (meuquizz) para não colidir com os cartões de "Todos os Quizzes".
+        meusQuizzes.innerHTML += `
+        <article class="meuquizz${i}" onclick="getQuizz(${listaMeusQuizzes[i].id})">
             <h3>${listaMeusQuizzes[i].title}</h3>
         </article>`
-        let umQuizz = document.querySelector(`.quizz${i}`);
+        let umQuizz = document.querySelector(`.meuquizz${i}`);
         umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaMeusQuizzes[i].image}')`;
     }
 }
@@ -304,12 +305,12 @@ function abrirQuizz(respostaquizz) {
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
+            </section>`
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="${quizzescolhido.questions[x].answers[y].text}" onerror="this.onerror=null;this.src='img/placeholder.png'">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
@@ -323,67 +324,72 @@ let acertos = 0;
 function quizzSelecionado(numerodaquestao, opcao) {
     let escolha = document.querySelector(`.pergunta${numerodaquestao}${opcao}`);
     escolha.classList.add("escolhida");
+
+    // Revela e trava todas as respostas desta pergunta.
     for (let z = 0; z < quizzescolhido.questions[numerodaquestao].answers.length; z++) {
         let umaopcao = document.querySelector(`.pergunta${numerodaquestao}${z}`);
         umaopcao.removeAttribute('onclick');
-        if (umaopcao != escolha) {
+        if (umaopcao !== escolha) {
             umaopcao.classList.add("nop");
         }
-        if (umaopcao.classList.contains(false)) {
+        // A classe "true"/"false" vem do valor de isCorrectAnswer no HTML.
+        if (umaopcao.classList.contains("false")) {
             umaopcao.classList.add("errou");
         } else {
             umaopcao.classList.add("acertou");
         }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
-        }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.classList.contains("true")) {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+
+    // Após um instante, avança para a próxima pergunta ou mostra o resultado.
+    setTimeout(() => {
+        if (questoesrespondidas === quizzescolhido.questions.length) {
+            resultadoQuizz();
+        } else {
+            let proxima = document.querySelector(`.esse${numerodaquestao + 1}`);
+            if (proxima) {
+                proxima.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, 2000);
 }
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
 let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
 
-function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+// Calcula a porcentagem de acertos e devolve o nível alcançado (o de maior
+// minValue que o usuário atingiu). Substitui a lógica anterior, que dependia
+// de variáveis globais acumuladas e podia escolher o nível errado.
+function calcularResultado() {
+    const total = quizzescolhido.questions.length;
+    porcentagemarredondada = total > 0 ? Math.round((acertos / total) * 100) : 0;
+
+    const niveisOrdenados = [...quizzescolhido.levels].sort(
+        (a, b) => Number(a.minValue) - Number(b.minValue)
+    );
+    let nivelAlcancado = niveisOrdenados[0];
+    for (const nivel of niveisOrdenados) {
+        if (porcentagemarredondada >= Number(nivel.minValue)) {
+            nivelAlcancado = nivel;
         }
     }
+    return nivelAlcancado;
 }
 
 function resultadoQuizz() {
+    const nivel = calcularResultado();
     let perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivel.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivel.image}" alt="${nivel.title}" onerror="this.onerror=null;this.src='img/placeholder.png'">
+                <span>${nivel.text}</span>
             </div>
         </article>
         <div class="botoes">
@@ -403,6 +409,9 @@ function paginaInicial() {
 }
 
 function reiniciarQuizz() {
+    // Zera a pontuação para não acumular entre tentativas.
+    acertos = 0;
+    questoesrespondidas = 0;
     getQuizz(identificador);
     apagarresultado = document.querySelector(".fim");
     apagarresultado.innerHTML = ""
@@ -553,11 +562,13 @@ function montarNovaResposta(elementoResposta) {
         ehRespostaCorreta = true;
     }
 
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    // Retorna um objeto novo a cada chamada. Reutilizar um objeto global fazia
+    // com que todas as respostas apontassem para a mesma referência e ficassem iguais.
+    return {
+        text: textoResposta,
+        image: urlResposta,
+        isCorrectAnswer: ehRespostaCorreta
+    };
 }
 
 function validarTodasPerguntas() {
@@ -603,10 +614,12 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    // Objeto novo a cada pergunta (ver comentário em montarNovaResposta).
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -698,12 +711,13 @@ function validarTodosNiveis() {
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    // Objeto novo a cada nível (ver comentário em montarNovaResposta).
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: Number(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -713,7 +727,6 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -725,7 +738,8 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>    
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}")`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.backgroundSize = "cover";
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
