@@ -190,16 +190,15 @@ function sendQuizz(quizzPronto) {
 }
 
 function mandouQuizz(response) {
-    let quizz = response.data;
-    guardaMeusQuizzesLocalmente(quizz);
-    alert("Seu quizz foi adicionado ao servidor, com o id: " + quizz.id);
-    quizzRecemCriado = quizz;
+    quizzRecemCriado = response.data;
+    guardaMeusQuizzesLocalmente(quizzRecemCriado);
+    chamarTelaSucessoCriacaoQuizz();
 }
 
 function falhouEnvio(error) {
     alert(`
-        Infelizmente seu quizz não pôde ser enviado ao servidor.
-        ${error.data}
+        Infelizmente seu quizz não pôde ser enviado ao servidor. Tente novamente.
+        ${error.message}
     `);
 }
 
@@ -427,27 +426,33 @@ function chamarTelaCriarQuizz() {
 }
 
 function validarDadosBasicos() {
-    let tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
-    if (tituloQuizz.length < 20) {
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
-    }
-    let imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
-    if (!validarURL(imagemQuizz)) {
-        alert("A imagem deve ser uma URL válida.");
-    }
+    const tituloQuizz = document.querySelector(".vamos-comecar .titulo-quizz").value;
+    const imagemQuizz = document.querySelector(".vamos-comecar .url-quizz").value;
     qtdadePerguntas = parseInt(document.querySelector(".vamos-comecar .numero-perguntas").value);
-    if (qtdadePerguntas < 3) {
-        alert("A quantidade de perguntas deve ser no mínimo 3.");
-    }
     qtdadeNiveis = parseInt(document.querySelector(".vamos-comecar .quantidade-niveis").value);
-    if (qtdadeNiveis < 2) {
-        alert("A quantidade de níveis deve ser no mínimo 2.");
+
+    const erros = [];
+    if (tituloQuizz.length < 20 || tituloQuizz.length > 65) {
+        erros.push("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres.");
     }
-    if ((tituloQuizz.length >= 20) && (validarURL(imagemQuizz)) && (qtdadePerguntas >= 3) && (qtdadeNiveis >= 2)) {
-        quizz.title = tituloQuizz;
-        quizz.image = imagemQuizz;
-        chamarTelaCriarPerguntas();
+    if (!validarURL(imagemQuizz)) {
+        erros.push("A imagem deve ser uma URL válida.");
     }
+    if (isNaN(qtdadePerguntas) || qtdadePerguntas < MIN_PERGUNTAS) {
+        erros.push(`A quantidade de perguntas deve ser no mínimo ${MIN_PERGUNTAS}.`);
+    }
+    if (isNaN(qtdadeNiveis) || qtdadeNiveis < MIN_NIVEIS) {
+        erros.push(`A quantidade de níveis deve ser no mínimo ${MIN_NIVEIS}.`);
+    }
+
+    if (erros.length > 0) {
+        alert("Confira os dados do seu quizz:\n\n- " + erros.join("\n- "));
+        return;
+    }
+
+    quizz.title = tituloQuizz;
+    quizz.image = imagemQuizz;
+    chamarTelaCriarPerguntas();
 }
 
 function chamarTelaCriarPerguntas() {
@@ -549,30 +554,24 @@ function abrirNovaPergunta(elemento) {
 }
 
 function montarNovaResposta(elementoResposta) {
-    let textoResposta = "";
-    let urlResposta = "";
-    let ehRespostaCorreta = false;
-
-    textoResposta = elementoResposta.children[0].value;
-    urlResposta = elementoResposta.children[1].value;
-    if (elementoResposta.classList.contains("resposta-correta")) {
-        ehRespostaCorreta = true;
-    }
-
-    answer.text = textoResposta;
-    answer.image = urlResposta;
-    answer.isCorrectAnswer = ehRespostaCorreta;
-
-    return answer;
+    return {
+        text: elementoResposta.children[0].value,
+        image: elementoResposta.children[1].value,
+        isCorrectAnswer: elementoResposta.classList.contains("resposta-correta")
+    };
 }
 
 function validarTodasPerguntas() {
     listaPerguntas = [];
     let listaRespostas = [];
-    let answers = [];
     let erroPreenchimento = 0;
 
     const divsPerguntas = document.querySelectorAll(".cria-quizz .pergunta");
+
+    if (divsPerguntas.length < qtdadePerguntas) {
+        alert(`Você declarou ${qtdadePerguntas} perguntas, mas preencheu apenas ${divsPerguntas.length}. Clique no ícone de editar de cada pergunta e preencha todas antes de prosseguir.`);
+        return;
+    }
 
     for (let i = 0; i < divsPerguntas.length; i++) {
         listaRespostas = [];
@@ -582,7 +581,7 @@ function validarTodasPerguntas() {
     }
 
     if (erroPreenchimento > 0) {
-        chamarTelaCriarPerguntas();
+        return;
     } else {
 
         for (let i = 0; i < divsPerguntas.length; i++) {
@@ -609,10 +608,11 @@ function validarTodasPerguntas() {
 }
 
 function montarNovaPergunta(titulo, cor, listaRespostas) {
-    question.title = titulo;
-    question.color = cor;
-    question.answers = listaRespostas;
-    return question;
+    return {
+        title: titulo,
+        color: cor,
+        answers: listaRespostas
+    };
 }
 
 function chamarTelaCriarNiveis() {
@@ -628,7 +628,7 @@ function montarTelaCriarNiveis(telaCriarNiveis) {
         <h1>Agora, decida os níveis!</h1>
         <div class="nivel" data-identifier="level">
             <h2>Nível 1</h2>
-            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+            <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
             <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
             <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
             <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -661,7 +661,7 @@ function abrirNovoNivel(elemento) {
     novoNível.classList.remove("novo-nivel");
     novoNível.removeChild(elemento);
     novoNível.innerHTML += `
-        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="5" />
+        <input class="titulo-nivel" type="text" placeholder="Título do nível" minlength="10" />
         <input class="percentual-nivel" type="number" placeholder="% de acerto mínima" min="0" max="100" />
         <input class="url-nivel" type="url" placeholder="URL da imagem do nível" />
         <textarea class="descricao-nivel" type="text" placeholder="Descrição do nível" minlength="30"></textarea>
@@ -674,42 +674,43 @@ function abrirNovoNivel(elemento) {
 
 function validarTodosNiveis() {
     listaNiveis = [];
-    let nivel;
     const divsNiveis = document.querySelectorAll(".cria-quizz .nivel");
     let contPercentualNivelZero = 0;
-    let menorPercentual = 100;
+
+    if (divsNiveis.length < qtdadeNiveis) {
+        alert(`Você declarou ${qtdadeNiveis} níveis, mas preencheu apenas ${divsNiveis.length}. Clique no ícone de editar de cada nível e preencha todos antes de finalizar.`);
+        return;
+    }
 
     for (let i = 0; i < divsNiveis.length; i++) {
-
-        if (divsNiveis[i].querySelector(".percentual-nivel").value == 0) {
+        if (!validarDadosNivel(divsNiveis[i])) {
+            return;
+        }
+        if (parseInt(divsNiveis[i].querySelector(".percentual-nivel").value) === 0) {
             contPercentualNivelZero++;
         }
     }
 
     if (contPercentualNivelZero === 0) {
         alert("É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%.");
-        chamarTelaCriarNiveis();
-    } else {
-        for (let i = 0; i < divsNiveis.length; i++) {
-            if (!validarDadosNivel(divsNiveis[i])) {
-                document.location.reload(true);
-            }
-            listaNiveis.push(montarNovoNivel(divsNiveis[i]));
-        }
-
-        quizz.levels = listaNiveis;
-        chamarTelaSucessoCriacaoQuizz();
-        sendQuizz(quizz);
+        return;
     }
+
+    for (let i = 0; i < divsNiveis.length; i++) {
+        listaNiveis.push(montarNovoNivel(divsNiveis[i]));
+    }
+
+    quizz.levels = listaNiveis;
+    sendQuizz(quizz);
 }
 
 function montarNovoNivel(nivel) {
-    level.title = nivel.querySelector(".titulo-nivel").value;
-    level.image = nivel.querySelector(".url-nivel").value;
-    level.text = nivel.querySelector(".descricao-nivel").value;
-    level.minValue = nivel.querySelector(".percentual-nivel").value;
-
-    return level;
+    return {
+        title: nivel.querySelector(".titulo-nivel").value,
+        image: nivel.querySelector(".url-nivel").value,
+        text: nivel.querySelector(".descricao-nivel").value,
+        minValue: parseInt(nivel.querySelector(".percentual-nivel").value)
+    };
 }
 
 function chamarTelaSucessoCriacaoQuizz() {
@@ -719,7 +720,6 @@ function chamarTelaSucessoCriacaoQuizz() {
 }
 
 function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
-    quizz.image = "https://cdn.pixabay.com/…-family-5074732_1280.jpg";
     telaSucessoCriacaoQuizz.innerHTML = `
         <h1>Seu quizz está pronto!</h1>
         <figure class="fim-criacao-quizz"></figure>
@@ -728,10 +728,10 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>
         <button class="voltar-inicio" onclick="voltarInicio()">
             <p>Voltar pra home</p>
-        </button>    
+        </button>
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}");`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}") center / cover no-repeat`;
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
@@ -785,7 +785,7 @@ function validarDadosPergunta(elemento) {
         ((contaRespostasIncorretas == 0)) || (contaUrlRespostasIncorretas == 0) ||
         (contaRespostasIncorretas !== contaUrlRespostasIncorretas)) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            ERRO! Dados incompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
             1. O texto da pergunta deve ter no mínimo 20 caracteres.
             2. A inserção da resposta correta é obrigatória.
             3. A inserção de pelo menos 1 resposta errada é obrigatória!
@@ -798,21 +798,20 @@ function validarDadosPergunta(elemento) {
     }
 }
 
-function validarDadosNivel() {
-    let tituloNivel = document.querySelector(".nivel .titulo-nivel").value;
-    let percentualNivel = parseInt(document.querySelector(".nivel .percentual-nivel").value);
-    let urlNivel = document.querySelector(".nivel .url-nivel").value;
-    let descricaoNivel = document.querySelector(".nivel .descricao-nivel").value;
+function validarDadosNivel(elemento) {
+    let tituloNivel = elemento.querySelector(".titulo-nivel").value;
+    let percentualNivel = parseInt(elemento.querySelector(".percentual-nivel").value);
+    let urlNivel = elemento.querySelector(".url-nivel").value;
+    let descricaoNivel = elemento.querySelector(".descricao-nivel").value;
 
-
-    if ((tituloNivel.length < 10) || ((percentualNivel < 0) || (percentualNivel > 100)) || (!validarURL(urlNivel)) ||
-        (descricaoNivel.length < 30)) {
+    if ((tituloNivel.length < 10) || isNaN(percentualNivel) || (percentualNivel < 0) || (percentualNivel > 100) ||
+        (!validarURL(urlNivel)) || (descricaoNivel.length < 30)) {
         alert(`
-            ERRO! Dados imcompletos, verifique se os campos da sua pergunta cumprem os seguintes requisitos:
+            ERRO! Dados incompletos, verifique se os campos do seu nível cumprem os seguintes requisitos:
             1. O título do nível deve ter no mínimo 10 caracteres.
-            2. O percentual(%) de acerto mínimo de ser um número entre 0 e 100.
+            2. O percentual(%) de acerto mínimo deve ser um número entre 0 e 100.
             3. A imagem do nível deve ser uma URL válida.
-            4. A descrição do nível de ter no mínimo 30 caracteres.
+            4. A descrição do nível deve ter no mínimo 30 caracteres.
         `);
         return false;
     } else {
