@@ -132,10 +132,16 @@ function esconderTodasAsTelas() {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "none";
     document.querySelector(".cria-quizz .vamos-comecar").style.display = "none";
-    document.querySelector(".cria-quizz .cria-perguntas").style.display = "none";
-    document.querySelector(".cria-quizz .cria-niveis").style.display = "none";
-    document.querySelector(".cria-quizz .sucesso-quizz").style.display = "none";
     document.querySelector(".fim").innerHTML = "";
+
+    // As etapas 2, 3 e 4 da criacao sao remontadas do zero a cada uso,
+    // entao sao limpas aqui para nao deixar formularios preenchidos
+    // escondidos no DOM depois que o usuario sai do fluxo.
+    [".cria-perguntas", ".cria-niveis", ".sucesso-quizz"].forEach((seletor) => {
+        const tela = document.querySelector(`.cria-quizz ${seletor}`);
+        tela.style.display = "none";
+        tela.innerHTML = "";
+    });
 }
 
 /** Ordena um array aleatoriamente (Fisher-Yates), sem alterar o original. */
