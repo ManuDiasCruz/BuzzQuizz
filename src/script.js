@@ -287,29 +287,32 @@ function abrirQuizz(respostaquizz) {
     document.querySelector(".paginaum").style.display = "none";
     document.querySelector(".pagina-quizz").style.display = "block";
     quizzescolhido = respostaquizz.data;
+    acertos = 0;
+    questoesrespondidas = 0;
+    document.querySelector(".fim").innerHTML = "";
     let titulo = document.querySelector(".pagina-quizz")
-    titulo.innerHTML = `      
+    titulo.innerHTML = `
         <section class="titulo-quizz">
             <h2> <span>${quizzescolhido.title}</span></h2>
         </section>`
     umquizz = document.querySelector(".titulo-quizz");
-    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}')`;
+    umquizz.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${quizzescolhido.image}'), url('img/quizz-placeholder.jpg')`;
     for (let x = 0; x < quizzescolhido.questions.length; x++) {
         quizzescolhido.questions[x].answers.sort(embaralha)
         titulo.innerHTML += `
-            <section class="perguntas" id="depoisdesse">
-                <article data-identifier="question" class="pergunta" id="pergunta">
+            <section class="perguntas questao${x}">
+                <article data-identifier="question" class="pergunta">
                     <div class="titulo-pergunta" style="background-color: ${quizzescolhido.questions[x].color}">
                         <h3>${quizzescolhido.questions[x].title}</h3>
                     </div>
                     <div class="bloco-respostas esse${x}"></div>
                 </article>
-            </section`
+            </section>`
         let classpergunta = document.querySelector(`.esse${x}`);
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="${quizzescolhido.questions[x].answers[y].text}" onerror="this.onerror=null; this.src='img/resposta-placeholder.jpg'">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
@@ -329,61 +332,56 @@ function quizzSelecionado(numerodaquestao, opcao) {
         if (umaopcao != escolha) {
             umaopcao.classList.add("nop");
         }
-        if (umaopcao.classList.contains(false)) {
-            umaopcao.classList.add("errou");
-        } else {
+        if (umaopcao.classList.contains("true")) {
             umaopcao.classList.add("acertou");
-        }
-        let w = z + 1;
-        if (w < quizzescolhido.questions.length) {
-            setTimeout(() => {
-                let irpara = document.querySelector(`.pergunta${numerodaquestao}${z+1}`)
-                irpara.scrollIntoView()
-                if (questoesrespondidas == quizzescolhido.questions.length) {
-                    resultadoQuizz()
-                }
-            }, 2000);
+        } else {
+            umaopcao.classList.add("errou");
         }
     }
 
-    if (escolha.classList.contains(true)) {
+    if (escolha.classList.contains("true")) {
         acertos += 1;
-        quantidadeAcertos()
     }
     questoesrespondidas += 1;
+
+    setTimeout(() => {
+        if (questoesrespondidas === quizzescolhido.questions.length) {
+            resultadoQuizz();
+        } else {
+            const proximaQuestao = document.querySelector(`.questao${numerodaquestao + 1}`);
+            if (proximaQuestao) {
+                proximaQuestao.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, 2000);
 }
 
-let porcentagem = 0;
-let leveltotal = 0;
-let umacerto = 0;
 let porcentagemarredondada = 0;
-let numeronoarray = 0;
-let u = 0
 
-function quantidadeAcertos() {
-    for (u = 0; u < quizzescolhido.levels.length; u++) {
-        leveltotal += quizzescolhido.levels[u].minValue;
-        umacerto = leveltotal / quizzescolhido.questions.length
-    }
-    porcentagem = (acertos * umacerto * 100) / leveltotal;
-    porcentagemarredondada = Math.round(porcentagem);
-    for (u = 0; u < (quizzescolhido.levels.length - 1); u++) {
-        if (porcentagemarredondada <= quizzescolhido.levels[u].minValue) {
-            return u
+function calcularNivel() {
+    porcentagemarredondada = Math.round((acertos / quizzescolhido.questions.length) * 100);
+    let melhorNivel = 0;
+    for (let i = 0; i < quizzescolhido.levels.length; i++) {
+        const minValue = Number(quizzescolhido.levels[i].minValue);
+        const melhorMinValue = Number(quizzescolhido.levels[melhorNivel].minValue);
+        if (minValue <= porcentagemarredondada && (melhorMinValue > porcentagemarredondada || minValue > melhorMinValue)) {
+            melhorNivel = i;
         }
     }
+    return melhorNivel;
 }
 
 function resultadoQuizz() {
+    const nivel = quizzescolhido.levels[calcularNivel()];
     let perguntas = document.querySelector(".fim");
     perguntas.innerHTML = `
         <article class="resultado" data-identifier="quizz-result">
             <div class="titulo-resultado">
-                <h3>${porcentagemarredondada}% ${quizzescolhido.levels[u].title}</h3>
+                <h3>${porcentagemarredondada}% ${nivel.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${quizzescolhido.levels[u].image}" alt="Imagem do resultado">
-                <span>${quizzescolhido.levels[u].text}</span>
+                <img src="${nivel.image}" alt="Imagem do resultado" onerror="this.onerror=null; this.src='img/quizz-placeholder.jpg'">
+                <span>${nivel.text}</span>
             </div>
         </article>
         <div class="botoes">
