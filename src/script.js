@@ -139,7 +139,7 @@ function abrirQuizz(respostaquizz) {
         for (let y = 0; y < quizzescolhido.questions[x].answers.length; y++) {
             classpergunta.innerHTML += `
             <div data-identifier="answer" id="pergunta${x}${y}" class="resposta pergunta${x}${y} ${quizzescolhido.questions[x].answers[y].isCorrectAnswer}" onclick="quizzSelecionado(${x},${y})">
-                <img src="${quizzescolhido.questions[x].answers[y].image}" alt="Imagem da opção de resposta">
+                <img src="${quizzescolhido.questions[x].answers[y].image}" onerror="this.onerror=null;this.src='img/resposta-indisponivel.png'" alt="Imagem da opção de resposta">
                 <h4>${quizzescolhido.questions[x].answers[y].text}</h4>
             </div> `
         }
@@ -218,7 +218,7 @@ function resultadoQuizz() {
                 <h3>${porcentagemarredondada}% ${nivel.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${nivel.image}" alt="Imagem do resultado">
+                <img src="${nivel.image}" onerror="this.onerror=null;this.src='img/resposta-indisponivel.png'" alt="Imagem do resultado">
                 <span>${nivel.text}</span>
             </div>
         </article>
