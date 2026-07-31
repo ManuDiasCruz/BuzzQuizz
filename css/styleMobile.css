@@ -1,5 +1,15 @@
 /* Estilo CSS para telas pequenas */
 
+:root {
+    --vermelho: #EC362D;
+    --vermelho-escuro: #C42A22;
+    --cinza-fundo: #FAFAFA;
+    --cinza-borda: #D1D1D1;
+    --cinza-texto: #818181;
+    --verde-acerto: #128F46;
+    --vermelho-erro: #FF4B4B;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
 }
@@ -122,11 +132,23 @@ h1 {
     display: flex;
     flex-direction: row;
     margin-right: 10px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/pandavermelho.jpg);
-    background-size: 100%;
-    object-fit: cover;
+    /* background-size: cover + position center: com "100%" as capas dos
+       quizzes esticavam e se repetiam em vez de preencher o cartão. */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(../img/placeholders/quizz.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     margin-bottom: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.paginaum article:hover,
+.paginaum article:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
+    outline: none;
 }
 
 .paginaum h3 {
@@ -162,25 +184,21 @@ h1 {
 .paginaum .quizzes-criados {
     max-width: 340px;
     height: auto;
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
-    overflow-x: scroll;
-    /* display: inline-flex; */
+    /* "auto" em vez de "scroll": sem isso a barra horizontal aparecia mesmo
+       com um único quizz criado. */
+    overflow-x: auto;
+    padding-bottom: 4px;
 }
 
-.paginaum .um-quizz-criado {
-    min-width: 340px;
-    height: 181px;
-    border-radius: 5px;
-    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%); */
-    background-image: url("../img/pandavermelho.jpg");
-    background-size: 100%;
-    object-fit: cover;
-    position: relative;
-    margin-right: 12px;
+.paginaum .quizzes-criados article {
+    flex: 0 0 auto;
 }
 
 .paginaum .novo-quizz {
-    /* display: flex; */
+    display: flex;
     width: 340px;
     flex-direction: row;
     justify-content: space-between;
@@ -201,10 +219,12 @@ h1 {
 
 .paginaum ion-icon {
     color: white;
-    background-color: red;
+    /* Usa o vermelho da marca: o "red" puro brigava com o vermelho do header. */
+    background-color: var(--vermelho);
     border-radius: 50%;
     font-size: 31px;
     margin-bottom: 8px;
+    cursor: pointer;
 }
 
 
@@ -229,10 +249,10 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)); */
-    background-image: url("../img/pandavermelho.jpg");
-    background-size: 100%;
-    object-fit: cover;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url("../img/placeholders/quizz.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .pagina-quizz .titulo-quizz h2 {
@@ -298,11 +318,42 @@ h1 {
     height: auto;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.15s ease, opacity 0.3s ease;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:not(.respondida):hover,
+.pagina-quizz .perguntas .bloco-respostas .resposta:focus-visible {
+    transform: translateY(-2px);
+    outline: 2px solid var(--vermelho);
+    outline-offset: 3px;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta.respondida {
+    cursor: default;
+}
+
+/* A escolha da pessoa ganha destaque: antes a classe .escolhida era aplicada
+   pelo JS mas não tinha nenhuma regra de estilo. */
+.pagina-quizz .perguntas .bloco-respostas .resposta.escolhida {
+    outline: 3px solid #434CA0;
+    outline-offset: 3px;
 }
 
 .pagina-quizz .perguntas .bloco-respostas .resposta img {
     width: 100%;
     height: 113px;
+    /* object-fit no <img> (e não no contêiner) para as fotos das respostas não
+       ficarem esticadas. */
+    object-fit: cover;
+    border-radius: 4px;
+    background-color: #EFEFEF;
+}
+
+.imagem-placeholder {
+    object-fit: contain !important;
+    padding: 6px;
 }
 
 .pagina-quizz .perguntas .bloco-respostas .resposta span {
@@ -325,7 +376,14 @@ h1 {
     line-height: 15px;
     margin-top: 5px;
     margin-bottom: 12px;
+    color: #000000;
     overflow: hidden;
+}
+
+/* Resultado do quizz */
+
+.fim {
+    background: var(--cinza-fundo);
 }
 
 .fim .resultado {
@@ -374,6 +432,10 @@ h1 {
     margin-bottom: 9px;
     width: 90%;
     height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 5px;
+    background-color: #EFEFEF;
 }
 
 .fim .resultado .conteudo-reultado span {
@@ -395,15 +457,19 @@ h1 {
     height: 44px;
     border-radius: 15px;
     border-color: transparent;
+    cursor: pointer;
 }
 
-.fim .button p {
+/* Era ".fim .button p" (classe inexistente), então o texto dos botões do
+   resultado nunca recebia estilo. */
+.fim button p {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
@@ -432,6 +498,14 @@ h1 {
 
 
 /* Início referência HTML: cria-quizz */
+
+.cria-quizz {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--cinza-fundo);
+}
 
 .cria-quizz main {
     width: 100%;
@@ -473,7 +547,7 @@ h1 {
 .cria-quizz button {
     height: auto;
     width: 87%;
-    background: #EC362D;
+    background: var(--vermelho);
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -488,6 +562,77 @@ h1 {
     border: none;
     padding-bottom: 17px;
     padding-top: 17px;
+    cursor: pointer;
+}
+
+.cria-quizz button:disabled {
+    background: #F19A96;
+    cursor: progress;
+}
+
+/* Campo de URL com o botão de sugestão do Pixabay ao lado */
+
+.cria-quizz .campo-url {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 6px;
+    margin-bottom: 9px;
+}
+
+/* O segundo seletor vence a regra ".cria-perguntas .pergunta input" (14px de
+   margem embaixo), que desalinhava o botão em relação ao campo. */
+.cria-quizz .campo-url input,
+.cria-quizz .cria-perguntas .pergunta .campo-url input {
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.cria-quizz button.sugerir-imagem {
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin: 0px;
+    padding: 0px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    border: 1px solid var(--vermelho);
+    color: var(--vermelho);
+}
+
+.cria-quizz button.sugerir-imagem:hover {
+    background: #FFF1F0;
+}
+
+.cria-quizz .rotulo-cor {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    color: #6B6B6B;
+}
+
+.cria-quizz .rotulo-cor input {
+    width: 64px;
+    height: 38px;
+    padding: 2px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.cria-quizz .dica-niveis {
+    width: 90%;
+    margin: -18px auto 20px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #6B6B6B;
+    text-align: center;
 }
 
 .cria-quizz .vamos-comecar {
@@ -496,7 +641,8 @@ h1 {
 
 .vamos-comecar .primeiro-forms {
     width: 100%;
-    height: 256px;
+    height: auto;
+    padding: 20px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -534,9 +680,12 @@ h1 {
     align-items: center;
 }
 
+/* height: auto — a altura fixa de 825px cortava o conteúdo da pergunta assim
+   que qualquer campo crescia (mensagem de erro, botão de sugestão etc.). */
 .cria-quizz .cria-perguntas .pergunta {
     width: 100%;
-    height: 825px;
+    height: auto;
+    padding-bottom: 24px;
     margin: 0px auto 24px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -583,7 +732,9 @@ h1 {
     margin: 26px 17px 25px auto;
 }
 
-.cria-quizz .cria-perguntas button {
+/* Escopado no botão de ação: como regra genérica, a margem de 61px embaixo
+   também era aplicada aos botões dentro dos campos de imagem. */
+.cria-quizz .cria-perguntas button.prosseguir {
     margin: 24px auto 61px;
 }
 
@@ -594,7 +745,8 @@ h1 {
 
 .cria-quizz .cria-niveis .nivel {
     width: 100%;
-    height: 439px;
+    height: auto;
+    padding-bottom: 27px;
     margin: 0px auto 27px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -645,7 +797,7 @@ h1 {
     margin: 26px 17px 25px auto;
 }
 
-.cria-quizz .cria-niveis button {
+.cria-quizz .cria-niveis button.finaliza-quizz {
     margin: 28px auto 136px;
 }
 
@@ -662,9 +814,19 @@ h1 {
     margin: 0px auto 0px;
     width: 90%;
     height: 181px;
-    background-size: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
     border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.cria-quizz .sucesso-quizz figcaption {
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
 }
 
 .cria-quizz .sucesso-quizz .acessar-quizz {
@@ -693,10 +855,85 @@ h1 {
     opacity: 0.3;
 }
 
-.errou {
-    color: red;
+.errou h4 {
+    color: var(--vermelho-erro);
 }
 
-.acertou {
-    color: green;
+.acertou h4 {
+    color: var(--verde-acerto);
+}
+
+
+/* Faixa de avisos */
+
+.aviso {
+    position: fixed;
+    top: 79px;
+    left: 50%;
+    transform: translate(-50%, -12px);
+    z-index: 2;
+    max-width: 90%;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.18);
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.aviso-visivel {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.aviso-sucesso {
+    background: #E7F7EE;
+    border: 1px solid var(--verde-acerto);
+    color: #0C6B34;
+}
+
+.aviso-erro {
+    background: #FDECEA;
+    border: 1px solid var(--vermelho);
+    color: #A32118;
+}
+
+.aviso-info {
+    background: #EEF1FB;
+    border: 1px solid #434CA0;
+    color: #2B317A;
+}
+
+
+/* Erros de validação exibidos na própria tela de criação */
+
+.erros-validacao {
+    width: 90%;
+    margin: 8px auto 16px;
+    padding: 14px 16px;
+    background: #FDECEA;
+    border: 1px solid var(--vermelho);
+    border-radius: 8px;
+    color: #A32118;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.erros-validacao strong {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.erros-validacao ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.erros-validacao li {
+    margin-bottom: 3px;
 }
