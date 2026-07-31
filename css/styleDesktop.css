@@ -1,7 +1,7 @@
 @media (min-width: 600px) {
     /* Início referência HTML: lista-quizz  PRIMEIRO ACESSO*/
     .paginaum {
-        padding-top: calc(69px + 77px);
+        padding-top: calc(var(--altura-header) + 77px);
     }
     .paginaum .criarprimeiroquizz {
         width: 55%;
@@ -10,13 +10,10 @@
     .paginaum .todososquizzes {
         width: 55%;
         padding-top: 77px;
-        padding-bottom: 211px;
-    }
-    .paginaum h2 {
-        width: 158px;
+        padding-bottom: 120px;
     }
     .paginaum .quizzes {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
     /*--------------SEGUNDO ACESSO-------------------*/
     .paginaum .quizzes-criados {
@@ -25,10 +22,7 @@
     .paginaum .novo-quizz {
         width: 55%;
         justify-content: flex-start;
-    }
-    .paginaum h2 {
-        padding-right: 17px;
-        padding-left: 0px;
+        gap: 17px;
     }
     /* Fim referência HTML: lista-quizz */
     /* Início referência HTML: pagina-quizz */
@@ -39,6 +33,10 @@
     .pagina-quizz .titulo-quizz h2 {
         font-size: 39px;
         line-height: 46px;
+    }
+    .pagina-quizz .progresso-quizz {
+        font-size: 16px;
+        line-height: 19px;
     }
     .pagina-quizz .perguntas .pergunta {
         width: 40%;
@@ -70,7 +68,7 @@
         font-size: 20px;
         line-height: 23px;
         margin-top: 7.75px;
-        margin-bottom: 18.61px;
+        margin-bottom: 12px;
         display: flex;
     }
     .fim .resultado {
@@ -93,32 +91,32 @@
         font-size: 23px;
         line-height: 27px;
     }
-    .fim .resultado .conteudo-reultado {
+    /* Antes esta regra era `.fim.resultado ...` (sem espaço), então nunca
+       casava com nenhum elemento e o resultado ficava sempre em coluna. */
+    .fim .resultado .conteudo-resultado {
         display: flex;
         width: 95%;
         flex-direction: row;
         justify-content: flex-start;
+        align-items: flex-start;
+        gap: 20px;
     }
-    .fim .resultado .conteudo-reultado img {
+    .fim .resultado .conteudo-resultado img {
         width: 50%;
         height: auto;
-        padding-right: 20px;
+        margin-bottom: 0;
     }
-    .fim.resultado .conteudo-reultado span {
+    .fim .resultado .conteudo-resultado span {
         width: 50%;
-        height: 250px;
+        height: auto;
         font-size: 19px;
         line-height: 25px;
-        width: 340px;
-        height: 96px;
-        margin-left: 40px;
-        overflow: hidden;
     }
     .fim button {
         width: 260.38px;
         height: 52px;
     }
-    .fim .button p {
+    .fim button p {
         font-size: 21px;
         line-height: 25px;
     }
@@ -138,7 +136,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #FAFAFA;
+        background-color: var(--cor-fundo);
     }
     .cria-quizz .cria-perguntas {
         width: 35%;
@@ -153,9 +151,11 @@
         width: 30%;
     }
     .sucesso-quizz .acessar-quizz {
-        width: 13%;
+        width: 20%;
+        min-width: 220px;
     }
     .sucesso-quizz .voltar-inicio {
-        width: 13%;
+        width: 20%;
+        min-width: 220px;
     }
 }
