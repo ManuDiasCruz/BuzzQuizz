@@ -1,0 +1,26 @@
+# Dependências e build
+node_modules/
+dist/
+build/
+
+# Configuração local de editor / ferramentas
+.vscode/
+.idea/
+.claude/
+
+# Segredos e variáveis de ambiente — nunca versionar
+.env
+.env.*
+*.pem
+*.key
+*.p12
+secrets.json
+
+# Arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
