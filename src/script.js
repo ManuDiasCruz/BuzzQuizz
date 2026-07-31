@@ -89,7 +89,8 @@ function pegouQuizz(resposta) {
             <h3>${listaQuizzes[i].title}</h3>
         </article>`
         let umQuizz = todos_quizzes.querySelector(`.quizz${i}`);
-        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaQuizzes[i].image}'), url('img/quizz-placeholder.jpg')`;
+        const reserva = (i % 2 === 0) ? "img/quizz-placeholder.jpg" : "img/quiz-pop.jpg";
+        umQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listaQuizzes[i].image}'), url('${reserva}')`;
     }
 }
 
@@ -208,7 +209,7 @@ function resultadoQuizz() {
                 <h3>${porcentagemarredondada}% ${nivel.title}</h3>
             </div>
             <div class="conteudo-reultado">
-                <img src="${nivel.image}" alt="Imagem do resultado" onerror="this.onerror=null; this.src='img/quizz-placeholder.jpg'">
+                <img src="${nivel.image}" alt="Imagem do resultado" onerror="this.onerror=null; this.src='img/trofeu.jpg'">
                 <span>${nivel.text}</span>
             </div>
         </article>
@@ -544,7 +545,7 @@ function montarTelaSucessoCriacaoQuizz(telaSucessoCriacaoQuizz) {
         </button>
     `;
 
-    telaSucessoCriacaoQuizz.querySelector("figure").style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}"), url("img/quizz-placeholder.jpg")`;
+    telaSucessoCriacaoQuizz.querySelector("figure").style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${quizz.image}"), url("img/trofeu.jpg")`;
     telaSucessoCriacaoQuizz.style.display = "flex";
 }
 
