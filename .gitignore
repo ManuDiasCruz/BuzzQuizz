@@ -1,0 +1,11 @@
+# Arquivos locais que nao devem ir para o repositorio
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+node_modules/
+.env
+.env.*
+*.log
+.claude/
