@@ -84,3 +84,44 @@ test('API HTTP failures and invalid JSON reject cleanly', async () => {
     app.fetch = async () => ({ ok: true, json: async () => { throw new SyntaxError('Invalid JSON'); } });
     await assert.rejects(app.apiRequest('https://example.com'), /Invalid JSON/);
 });
+
+test('optional publication sends only quiz data with Pages-relative photos resolved', async () => {
+    const app = runtime();
+    app.URL = URL;
+    const status = { textContent: '' };
+    const button = { disabled: false, hidden: false };
+    app.document = { baseURI: 'https://manudiascruz.github.io/BuzzQuizzBeeh/', querySelector: selector => selector === '.publish-status' ? status : button };
+    const saved = new Map();
+    app.localStorage = { get length() { return saved.size; }, key: i => [...saved.keys()][i], getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value) };
+    vm.runInContext("quizzRecemCriado = { ...structuredClone(QUIZ_SAMPLES[0]), id: 'local-test' }", app);
+    app.guardaMeusQuizzesLocalmente(vm.runInContext('quizzRecemCriado', app));
+    let payload;
+    app.apiRequest = async (_, options) => {
+        payload = JSON.parse(options.body);
+        assert.equal(options.method, 'POST');
+        return { ...payload, id: 99, token: 'not-for-storage' };
+    };
+    await app.publicarQuizz();
+    assert.equal(payload.id, undefined);
+    assert.equal(payload.image, 'https://manudiascruz.github.io/BuzzQuizzBeeh/img/pixabay/red-panda.jpg');
+    assert.equal(button.hidden, true);
+    assert.equal(button.disabled, false);
+    assert.match(status.textContent, /Publicado/);
+    assert.equal(core.readStoredQuizzes(app.localStorage).quizzes.length, 1);
+    assert.equal(core.readStoredQuizzes(app.localStorage).quizzes[0].id, '99');
+    assert.equal(saved.get(core.STORAGE_KEY).includes('not-for-storage'), false);
+});
+
+test('publication failure retains local quiz and re-enables retry', async () => {
+    const app = runtime();
+    app.URL = URL;
+    const status = { textContent: '' };
+    const button = { disabled: false };
+    app.document = { baseURI: 'https://example.com/BuzzQuizzBeeh/', querySelector: selector => selector === '.publish-status' ? status : button };
+    vm.runInContext("quizzRecemCriado = { ...structuredClone(QUIZ_SAMPLES[0]), id: 'local-test' }", app);
+    app.apiRequest = async () => { throw new Error('Network unavailable'); };
+    await app.publicarQuizz();
+    assert.equal(vm.runInContext('quizzRecemCriado.id', app), 'local-test');
+    assert.equal(button.disabled, false);
+    assert.match(status.textContent, /cópia local está salva/);
+});

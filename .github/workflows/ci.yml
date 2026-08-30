@@ -1,0 +1,25 @@
+name: Validate BuzzQuizz
+on:
+  push:
+    branches: [buzzquizz-beeh]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: buzzquizz-pages
+          path: dist/
+          include-hidden-files: true
+          retention-days: 7
