@@ -28,7 +28,7 @@ Data: 30/08/2026. Branch: `buzzquizz-beeh`.
 - Respostas ficam desabilitadas; retorno ao início não conserva resultado/timer.
 - Criação: quantidade fracionária rejeitada, perguntas fechadas bloqueadas, campo digitado preservado.
 - Três perguntas distintas e dois níveis; segundo nível inválido bloqueia a gravação sem apagar o primeiro.
-- Foto escolhida preservada no sucesso; quizz local jogável imediatamente; uma resposta via Enter.
+- Foto escolhida preservada no sucesso; quizz local jogável imediatamente; controles implementados como botões nativos. A simulação de Tab/Enter do navegador de teste não moveu o foco, portanto a navegação exclusivamente por teclado precisa de verificação manual adicional (issue #93).
 - Resultado de dois acertos em três perguntas: 67%, nível correto.
 - Tela de 390 px verificada com largura real de layout e ausência de rolagem horizontal; imagens da coleção carregadas.
 - Publicação real não é acionada com conteúdo de teste: sua recuperação é coberta por testes isolados.
@@ -36,3 +36,12 @@ Data: 30/08/2026. Branch: `buzzquizz-beeh`.
 ## Checklist de produção
 
 Após cada publicação: verificar o manifesto `deployment.json`, respostas HTTP dos assets, fluxo coleção → respostas → resultado → reinício → início, criação local, persistência após reload, créditos e layout estreito. A indisponibilidade da comunidade deve aparecer como aviso, sem impedir a coleção local.
+
+### Verificação realizada no GitHub Pages
+
+- Build Pages concluído com sucesso e site servido por `BuzzQuizzBeeh/gh-pages`, sem alterar o Pages original.
+- Manifesto de origem conferido; HTML, JS, CSS v2, créditos, fallback e as seis fotos responderam HTTP 200.
+- Quizz de paisagens completo: 100%, reinício em 0 de 3 respondidas e retorno ao início.
+- Comunidade carregou 38 quizzes válidos durante a verificação; registros inválidos foram ignorados.
+- Criação de três perguntas e dois níveis em 390 px, com capa preservada e nenhum overflow horizontal/imagem quebrada na tela de sucesso. O quizz foi salvo somente no navegador, sem publicar dados de teste na API.
+- Uma descrição de resposta foi ajustada para corresponder à foto do Monte Fuji ao pôr do sol, sem presumir neve visível.

@@ -29,7 +29,7 @@ const QUIZ_SAMPLES = (() => {
             id: 'colecao-paisagens', title: 'Você reconhece estas paisagens?', image: image('ocean'),
             questions: [
                 question('Qual destas paisagens mostra uma ilha tropical?', '#276b78', [answer('As águas da Polinésia', 'ocean', true), answer('O Monte Fuji', 'mountain'), answer('Uma trilha entre árvores', 'forest')]),
-                question('Em qual imagem aparece o Monte Fuji, no Japão?', '#6c5097', [answer('A montanha com neve no topo', 'mountain', true), answer('O rio com uma cascata', 'river'), answer('A praia tropical', 'ocean')]),
+                question('Em qual imagem aparece o Monte Fuji, no Japão?', '#6c5097', [answer('O Monte Fuji ao pôr do sol', 'mountain', true), answer('O rio com uma cascata', 'river'), answer('A praia tropical', 'ocean')]),
                 question('Qual imagem mostra água correndo em uma cascata?', '#326456', [answer('O rio entre as rochas', 'river', true), answer('A trilha na floresta', 'forest'), answer('A montanha ao longe', 'mountain')])
             ], levels: levels('river', 'Seu olhar vai longe!')
         },
