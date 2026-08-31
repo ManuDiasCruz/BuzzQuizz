@@ -1,0 +1,23 @@
+name: Quiz checks
+on:
+  push:
+    branches: [buzzquizz-been]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/*.test.cjs
+      - run: node scripts/build.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: buzzquizz-pages
+          path: dist/
+          include-hidden-files: true
