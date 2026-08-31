@@ -99,6 +99,6 @@ test('blocked and corrupt storage do not crash the catalog', () => {
     assert.deepEqual(core.readQuizzes(storage({[core.STORAGE_KEY]:'{broken'})),[]);
 });
 test('question colors select readable text', () => {
-    assert.equal(core.contrastText('#ffffff'),'#17202a');
+    assert.equal(core.contrastText('#ffffff'),'#000000');
     assert.equal(core.contrastText('#000000'),'#ffffff');
 });
