@@ -7,6 +7,7 @@ button,summary { cursor:pointer; }
 button:disabled { cursor:default; }
 button:hover:not(:disabled) { filter:brightness(.95); }
 :focus-visible { outline:3px solid #235bb5; outline-offset:4px; }
+h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus,h3[tabindex="-1"]:focus { outline:none; }
 a { color:var(--red); text-underline-offset:4px; }
 [hidden] { display:none !important; }
 h1,h2,h3,p { overflow-wrap:anywhere; }
