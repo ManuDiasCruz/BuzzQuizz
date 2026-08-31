@@ -1,0 +1,12 @@
+{
+  "name": "buzzquizz-been",
+  "version": "2.0.0",
+  "private": true,
+  "description": "The original vanilla JavaScript BuzzQuizz, with reliable quiz flows and a curated image collection.",
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "build": "node scripts/build.cjs"
+  },
+  "engines": { "node": ">=22" }
+}
