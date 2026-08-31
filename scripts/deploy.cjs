@@ -12,6 +12,7 @@ if (git(['status', '--porcelain']).trim()) throw new Error('Commit or review pen
 execFileSync(process.execPath, ['--test', ...fs.readdirSync(path.join(root, 'tests')).filter(f => f.endsWith('.test.cjs')).map(f => `tests/${f}`)], { cwd: root, stdio: 'inherit' });
 execFileSync(process.execPath, ['scripts/build.cjs'], { cwd: root, stdio: 'inherit' });
 const revision = git(['rev-parse', 'HEAD']).trim();
+if (JSON.parse(fs.readFileSync(path.join(root, 'dist/release.json'), 'utf8')).revision !== revision) throw new Error('Build manifest does not match the source revision.');
 // A fresh isolated checkout avoids resetting any user working tree.
 const checkout = path.join(root, '.local', `deploy-${Date.now()}`);
 fs.mkdirSync(checkout, { recursive: true });

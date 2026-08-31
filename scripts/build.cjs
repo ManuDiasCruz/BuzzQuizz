@@ -16,7 +16,9 @@ for (const file of files) {
     fs.copyFileSync(path.join(root, file), path.join(dist, file));
 }
 let revision = process.env.GITHUB_SHA || 'local';
-try { revision = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { /* Archive builds have no git metadata. */ }
+try {
+    revision = execFileSync('git', ['-c', `safe.directory=${root.split(path.sep).join('/')}`, 'rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+} catch { /* Archive builds have no git metadata. */ }
 fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 fs.writeFileSync(path.join(dist, 'release.json'), JSON.stringify({ project: 'BuzzQuizz Been', version: '2.0.0', branch: 'buzzquizz-been', revision }, null, 2) + '\n');
 console.log(`Built ${files.length + 2} public files in dist.`);
