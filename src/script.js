@@ -966,4 +966,11 @@ function validarURL(texto) {
     return !!pattern.test(texto);
 }
 
+// "Voltar pra home" recarrega a pagina, e o navegador restaurava a rolagem
+// anterior: o usuario caia no meio da lista em vez do topo da home.
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+
 getAllQuizz();
