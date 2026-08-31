@@ -104,15 +104,11 @@
         height: auto;
         padding-right: 20px;
     }
-    .fim.resultado .conteudo-reultado span {
+    .fim .resultado .conteudo-reultado span {
         width: 50%;
-        height: 250px;
+        height: auto;
         font-size: 19px;
         line-height: 25px;
-        width: 340px;
-        height: 96px;
-        margin-left: 40px;
-        overflow: hidden;
     }
     .fim button {
         width: 260.38px;
