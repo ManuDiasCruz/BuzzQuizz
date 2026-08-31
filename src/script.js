@@ -494,7 +494,11 @@ function resultadoQuizz() {
 }
 
 function paginaInicial() {
-    window.location.reload();
+    // Antes era window.location.reload(): recarregava tudo (nova chamada a API) e
+    // o navegador restaurava a rolagem, jogando o usuario no meio da lista.
+    // A home ja sabe se remontar sozinha, sem recarregar a pagina.
+    document.querySelector(".fim").innerHTML = "";
+    voltarInicio();
 }
 
 function reiniciarQuizz() {
