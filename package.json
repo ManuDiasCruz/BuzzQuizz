@@ -1,0 +1,12 @@
+{
+  "name": "buzzquizz-yakh",
+  "version": "2.0.0",
+  "private": true,
+  "description": "The original vanilla JavaScript BuzzQuizz, with reliable quiz flows and curated imagery",
+  "scripts": {
+    "test": "node --test",
+    "start": "node scripts/serve.cjs",
+    "build": "node scripts/build.cjs"
+  },
+  "engines": {"node": ">=22"}
+}
