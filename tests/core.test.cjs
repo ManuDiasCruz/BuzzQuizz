@@ -89,6 +89,11 @@ test('saved quizzes ignore unrelated storage, corrupt numeric entries and duplic
 test('blocked storage does not crash startup', () => {
     assert.deepEqual(core.readSaved({ getItem() { throw new Error('denied'); } }), []);
 });
+test('a corrupt collection still loads valid legacy entries without retaining API secrets', () => {
+    const q = { ...quiz(), id: 9, key: 'old-edit-secret' };
+    const loaded = core.readSaved(storage({ 'buzzquizz:been:v2': '{broken', 9: JSON.stringify(q) }));
+    assert.equal(loaded.length, 1); assert.equal(loaded[0].id, 9); assert.equal(loaded[0].key, undefined);
+});
 test('creation factories produce independent objects (original shared-reference regression)', () => {
     // Evaluate real handlers without running startup or replacing browser behavior.
     const source = fs.readFileSync(path.join(__dirname, '../src/script.js'), 'utf8').split('\ngetAllQuizzesLocais();')[0];

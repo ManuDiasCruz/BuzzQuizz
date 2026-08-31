@@ -67,8 +67,10 @@
         const quizzes = [];
         try {
             // Only the namespaced collection and numeric keys from the original app.
-            const collection = JSON.parse(storage.getItem("buzzquizz:been:v2") || "[]");
-            if (Array.isArray(collection)) quizzes.push(...collection.filter(playable));
+            try {
+                const collection = JSON.parse(storage.getItem("buzzquizz:been:v2") || "[]");
+                if (Array.isArray(collection)) quizzes.push(...collection.filter(playable));
+            } catch { /* A corrupt collection must not prevent reading valid legacy quizzes. */ }
             for (let i = 0; i < storage.length; i++) {
                 const key = storage.key(i);
                 if (!/^\d+$/.test(key)) continue;
@@ -78,7 +80,11 @@
                 } catch { /* Ignore malformed legacy entries; never delete unrelated data. */ }
             }
         } catch { /* Storage may be unavailable, malformed or blocked. */ }
-        return [...new Map(quizzes.filter(q => q.id != null).map(q => [String(q.id), q])).values()];
+        return [...new Map(quizzes.filter(q => q.id != null).map(q => [String(q.id), q])).values()].map(q => {
+            const clean = { id: q.id, title: q.title, image: q.image, questions: q.questions, levels: q.levels };
+            if (q.localOnly) clean.localOnly = true;
+            return clean;
+        });
     }
     const api = { imageURL, integer, basicError, questionError, levelError, levelsError, result, shuffle, playable, readSaved };
     if (typeof module !== "undefined" && module.exports) module.exports = api;

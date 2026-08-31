@@ -31,6 +31,8 @@ function button(text, handler, className = "") {
     return node;
 }
 function safeImage(value) {
+    const bundled = typeof value === "string" ? value.replace("https://manudiascruz.github.io/BuzzQuizzBeen/", "") : "";
+    if (IMAGE_LIBRARY.some(photo => photo.path === bundled)) return bundled;
     // Only bundled assets or HTTPS. Never interpret user input as markup.
     return /^img\/collection\/[a-z-]+\.webp$/.test(value) || QuizCore.imageURL(value) ? value : "img/fallback.svg";
 }
@@ -155,7 +157,9 @@ function abrirQuizz(response) {
         const color = /^#[a-f\d]{6}$/i.test(question.color) ? question.color : "#9e342d";
         title.style.backgroundColor = color;
         const rgb = color.slice(1).match(/../g).map(c => parseInt(c, 16));
-        title.style.color = rgb[0] * .299 + rgb[1] * .587 + rgb[2] * .114 > 150 ? "#171717" : "#ffffff";
+        const linear = rgb.map(c => c / 255 <= .04045 ? c / 255 / 12.92 : ((c / 255 + .055) / 1.055) ** 2.4);
+        const luminance = linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
+        title.style.color = luminance > .179 ? "#000000" : "#ffffff";
         title.append(element("span", "eyebrow", `PERGUNTA ${String(i + 1).padStart(2, "0")}`), element("h2", "", question.title));
         const answers = element("div", "bloco-respostas");
         question.answers.forEach((answer, j) => {
@@ -315,7 +319,8 @@ async function sendQuizz(ready) {
 function chamarTelaSucessoCriacaoQuizz() {
     const screen = $(".sucesso-quizz"); screen.replaceChildren();
     screen.append(element("p", "eyebrow", "FEITO POR VOCÊ"), element("h1", "", "Seu quizz está pronto!"));
-    screen.append(element("p", "save-message", quizzRecemCriado.localOnly ? "A publicação não foi confirmada. Seu quizz foi mantido neste navegador e não é compartilhável por link." : "Quizz publicado na comunidade e disponível neste navegador."));
+    const saveMessage = quizzRecemCriado.localOnly ? (storageWarning ? "A publicação não foi confirmada. Você pode jogar nesta sessão, mas não há uma cópia persistente salva." : "A publicação não foi confirmada. Seu quizz foi mantido neste navegador e não é compartilhável por link.") : "Quizz publicado na comunidade e disponível neste navegador.";
+    screen.append(element("p", "save-message", saveMessage));
     screen.append(quizCard(quizzRecemCriado, "Seu novo quizz"), button("Acessar Quizz", acessarQuizzCriado, "primary"), button("Voltar aos quizzes", voltarInicio, "secondary"));
     showScreen(".sucesso-quizz");
     if (storageWarning) notice(storageWarning, true);
