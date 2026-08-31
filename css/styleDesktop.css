@@ -159,3 +159,14 @@
         width: 13%;
     }
 }
+/* v2 - imagens de resposta e resultado sem distorcao no desktop */
+@media (min-width: 800px) {
+    .pagina-quizz .perguntas .bloco-respostas .resposta img,
+    .fim .resultado .conteudo-reultado img {
+        object-fit: cover;
+    }
+
+    .placar-resultado {
+        font-size: 16px;
+    }
+}
