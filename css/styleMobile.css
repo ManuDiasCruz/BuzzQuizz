@@ -700,3 +700,98 @@ h1 {
 .acertou {
     color: green;
 }
+/* ==========================================================================
+   v2 - Ajustes de consistencia visual e acessibilidade
+   ========================================================================== */
+
+/* As imagens de resposta/resultado tinham altura fixa com width:100%, o que
+   esticava e distorcia qualquer foto fora da proporcao esperada. */
+.pagina-quizz .perguntas .bloco-respostas .resposta img,
+.fim .resultado .conteudo-reultado img {
+    object-fit: cover;
+    border-radius: 4px;
+    background-color: #efefef;
+}
+
+/* Feedback da opcao escolhida: a classe .escolhida era adicionada pelo JS mas
+   nao existia no CSS, entao o usuario nao via qual resposta havia marcado. */
+.resposta.escolhida {
+    outline: 3px solid #ff4b4b;
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.resposta.escolhida h4 {
+    text-decoration: underline;
+}
+
+/* Estados de acerto/erro com mais contraste do que o vermelho/verde puros. */
+.errou {
+    color: #c81616;
+}
+
+.acertou {
+    color: #128f35;
+}
+
+/* Cartoes de quizz: deixam claro que sao clicaveis. */
+.paginaum article {
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.paginaum article:hover,
+.paginaum article:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.resposta {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.pagina-quizz .perguntas .bloco-respostas .resposta:not(.nop):hover {
+    cursor: pointer;
+    opacity: 0.85;
+}
+
+/* Estado de carregamento / mensagem de erro da lista de quizzes. */
+.carregando {
+    width: 100%;
+    padding: 16px 0;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 20px;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Placar textual no resultado, junto do nivel alcancado. */
+.placar-resultado {
+    width: 90%;
+    margin: 10px 0 16px;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4a4a4a;
+    text-align: center;
+}
+
+/* Imagem que caiu no fallback local: sinaliza discretamente. */
+.imagem-fallback {
+    opacity: 0.9;
+    filter: saturate(0.85);
+}
+
+/* Foco visivel em todos os controles (nao havia estilo de foco). */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+ion-icon:focus-visible {
+    outline: 3px solid #ff4b4b;
+    outline-offset: 2px;
+}
+
+ion-icon {
+    cursor: pointer;
+}
