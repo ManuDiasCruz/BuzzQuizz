@@ -31,4 +31,13 @@ Tested through the app UI on the local HTTP server, at desktop width and a 390-p
 
 `npm run build` packages an explicit 18-file allowlist plus `.nojekyll`. Seven JPEGs were verified as real images with a maximum side of 1280 pixels. No credentials or unrelated local files are included.
 
-The existing Pages configuration was read, not changed. The requested `/BuzzQuizzYakh/` destination requires a separate repository, which did not exist at inspection. Deployment and production smoke tests remain pending authorization to create that repository. Local validation is not a substitute for production verification.
+The existing `/BuzzQuizz/` Pages configuration was read and left unchanged. After explicit authorization, the public deployment-only repository `ManuDiasCruz/BuzzQuizzYakh` was created and the verified `dist/` package was committed to its `main` branch as `1cd2057`. GitHub Pages publishes from `main` and `/(root)` at <https://manudiascruz.github.io/BuzzQuizzYakh/>.
+
+Production verification on 2026-09-02 confirmed:
+
+- GitHub reported Pages build `1190070555` as `built` with no error for commit `1cd2057d7db3929509519d714ecbe908384fb303`.
+- The live HTML, `src/core.js` and a representative JPEG returned HTTP 200 with byte sizes matching the tested build.
+- The animal quiz completed through the public UI at 100% and selected “Conhecimento de sobra!”.
+- Replay cleared the completed state and returned to `0 de 3 respondidas`.
+- All 24 rendered images loaded and the three expected JavaScript bundles used the `/BuzzQuizzYakh/` path.
+- The browser console contained no warnings or errors during the smoke test.

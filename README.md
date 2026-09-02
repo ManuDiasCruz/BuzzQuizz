@@ -78,18 +78,18 @@ A opção **Publicar também na comunidade** é desmarcada por padrão. Sem ela,
 
 - Site original: [BuzzQuizz](https://manudiascruz.github.io/BuzzQuizz/), preservado.
 - Endereço solicitado para a v2: [BuzzQuizzYakh](https://manudiascruz.github.io/BuzzQuizzYakh/).
-- **Status em 2026-08-31: implantação da v2 pendente.** O repositório `ManuDiasCruz/BuzzQuizzYakh` não existe. É necessária autorização para criá-lo como destino público de publicação. Um branch em `BuzzQuizz` não cria automaticamente o caminho `/BuzzQuizzYakh/`.
+- **Status em 2026-09-02: v2 implantada e verificada.** O build estático é publicado pelo repositório público [ManuDiasCruz/BuzzQuizzYakh](https://github.com/ManuDiasCruz/BuzzQuizzYakh), a partir de `main` e `/(root)`. O build do Pages terminou sem erros e o fluxo de jogo foi validado no endereço público.
 
 O workflow [Quiz checks](.github/workflows/ci.yml) executa os testes e o build em pushes desta branch e pull requests para `main`. Ele disponibiliza o artefato `buzzquizz-yakh-pages`, mas não altera a configuração do site original.
 
-Após a autorização do destino:
+Para publicar uma nova versão:
 
 1. Execute `npm test` e `npm run build`, ou baixe o artefato da execução correspondente ao commit aprovado.
-2. Crie o repositório público `ManuDiasCruz/BuzzQuizzYakh`, mantendo o código-fonte e o PR em `BuzzQuizz`.
-3. Copie somente o conteúdo de `dist/` (inclusive `.nojekyll`) para uma branch `gh-pages` no repositório de publicação. Não inicialize Git dentro de `dist/` e não copie o checkout inteiro.
-4. No repositório de publicação, vá a **Settings → Pages → Deploy from a branch**, selecione `gh-pages` e `/(root)` e salve. O site original não precisa ser renomeado nem reconfigurado.
+2. Em uma cópia separada do repositório de publicação `ManuDiasCruz/BuzzQuizzYakh`, substitua apenas o conteúdo publicado pelo conteúdo de `dist/`, inclusive `.nojekyll`. Não copie o checkout de desenvolvimento inteiro.
+3. Compare os arquivos ou hashes, revise o diff e faça um commit sem force-push em `main`.
+4. Confirme em **Settings → Pages** que a origem permanece **Deploy from a branch**, `main` e `/(root)`. O site original não precisa ser renomeado nem reconfigurado.
 5. Aguarde o build do Pages e verifique `https://manudiascruz.github.io/BuzzQuizzYakh/`: capas, perguntas, resultado, reinício, criação local, recarga e visualização móvel. Todos os caminhos de assets são relativos e funcionam sob esse subdiretório.
-6. Para futuras versões, repita a cópia dos arquivos do build em uma cópia separada do repositório de publicação, revise o diff e faça um commit sem force-push. Não sobrescreva alterações desconhecidas no destino.
+6. Não sobrescreva alterações desconhecidas no destino; investigue qualquer divergência antes de atualizar a publicação.
 
 Referências: [configurar a origem de publicação](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) e [endereços do GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
@@ -103,4 +103,4 @@ Veja [o relatório de testes](docs/TESTING.md). A suíte cobre regras e funçõe
 - Validação de URL não garante que o destino seja uma imagem ou que seu autor tenha direitos de uso; falhas exibem o placeholder local.
 - O placar é calculado no cliente, adequado a entretenimento, não a provas ou avaliações seguras.
 - Após um timeout de publicação, o servidor pode ter recebido o quizz: confira a comunidade antes de repetir.
-- A v2 no endereço solicitado ainda não foi implantada nem verificada em produção; isso depende da escolha do repositório acima.
+- O repositório de publicação contém apenas o build estático e precisa ser sincronizado manualmente após cada versão aprovada no repositório-fonte.
